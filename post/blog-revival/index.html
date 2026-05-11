@@ -64,10 +64,10 @@
     <h2>前言</h2>
     <p>
       这个故事始于一个域名过期后"死掉"的个人博客。它曾经是用 Hugo 搭建、托管在 GitHub Pages 上的小站，
-      域名 <code>imssj.com</code> 过期一年多没人管，博客变成了 521 和 404 的混合体。
+      旧域名过期一年多没人管，博客变成了 521 和 404 的混合体。
     </p>
     <p>
-      直到某个晚上，我决定把它救回来。新域名 <code>090000.xyz</code> 已经买好，
+      直到某个晚上，我决定把它救回来。新域名已经买好，
       但真正动手之后才发现——坑比想象的多。
     </p>
 
@@ -76,7 +76,8 @@
       最初用浏览器打开旧域名，显示的是 Cloudflare 的 521 错误。这个错误其实很直白：
       Cloudflare 连不上源服务器（GitHub Pages）了。
     </p>
-     去 GitHub 一看，仓库还在，代码也在，但 <code>https://eijz.github.io</code> 返回的是 "Site not found"。
+    <p>
+      去 GitHub 一看，仓库还在，代码也在，但 GitHub Pages 默认地址返回的是 "Site not found"。
       这意味着 GitHub Pages 根本没有在服务。
     </p>
 
@@ -91,7 +92,7 @@
       为什么会自动禁用？推测是这样的链路：
     </p>
     <ol>
-      <li>仓库之前配置了自定义域名 <code>imssj.com</code></li>
+      <li>仓库之前配置了自定义域名（旧域名）</li>
       <li>GitHub 自动为这个域名签发了 Let's Encrypt SSL 证书</li>
       <li>域名过期后，GitHub 反复验证时发现域名无法访问</li>
       <li>触发安全机制 → 自动停用 Pages 服务</li>
@@ -102,7 +103,7 @@
 
     <h2>第二章：域名与 Cloudflare 的博弈</h2>
     <p>
-      域名解析好了，但访问 <code>https://090000.xyz</code> 还是报 SSL 错误。一看证书，
+      域名解析好了，但访问新域名还是报 SSL 错误。一看证书，
       签发的是 <code>*.github.io</code>，根本不是我的域名。
     </p>
     <p>
@@ -116,7 +117,7 @@
     </ul>
     <p>
       把 Cloudflare 的代理关掉后，GitHub 的 DNS 验证通过了，大约 5 分钟后 Let's Encrypt 证书签发完毕，
-      <code>https://090000.xyz</code> 终于可以正常访问了。
+      新域名终于可以正常访问了。
     </p>
 
     <h2>第三章：CSS 去哪儿了？</h2>
@@ -126,14 +127,14 @@
     <p>
       检查 HTML 发现罪魁祸首：
     </p>
-    <pre><code class="html">&lt;link rel="stylesheet" href="https://imssj.com/css/main.css"&gt;</code></pre>
+    <pre><code class="html">&lt;link rel="stylesheet" href="旧域名/css/main.css"&gt;</code></pre>
     <p>
-      所有页面的 CSS 引用都指向了过期域名 <code>imssj.com</code>！这个域名早就没了，
+      所有页面的 CSS 引用都指向了过期域名（旧域名）！这个域名早就没了，
       自然什么样式都加载不到。
     </p>
     <p>
       全站一共有 8 个 HTML 文件引用了这个链接（首页、404、文章列表、两篇文章、分类页、标签页、重定向页）。
-      把它们全部改成相对路径 <code>/css/main.css</code>，另外还有标签链接 <code>https://imssj.com/tags/</code>
+      把它们全部改成相对路径 <code>/css/main.css</code>，另外还有标签链接 <code>旧域名/tags/</code>
       也需要一并修正。
     </p>
     <p>
