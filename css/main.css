@@ -128,6 +128,15 @@ main > h2 {
   color: #ccc;
 }
 
+/* ── Home Copyright ── */
+.home-copyright {
+  max-width: 520px;
+  margin: 28px auto 0;
+  text-align: center;
+  color: #bbb;
+  font-size: 13px;
+}
+
 /* ── Home Pagination ── */
 .home-pagination {
   max-width: 520px;
@@ -453,6 +462,7 @@ main > h2 {
   .intro > h2 { font-size: 1rem; }
   .intro { padding-top: 4vh; }
   .home-post-list { max-width: 100%; }
+  .home-copyright { max-width: 100%; }
   .home-pagination { max-width: 100%; }
   .item { padding: 14px 16px; }
 }
