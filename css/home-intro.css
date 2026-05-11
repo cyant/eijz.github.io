@@ -1,0 +1,30 @@
+/* ── Home page: Intro ── */
+.intro {
+  text-align: center;
+  padding-top: max(6vh, 40px);
+}
+
+.intro > h1 {
+  color: var(--text-heading);
+  font-size: clamp(2.5rem, 7vh, 4rem);
+  font-weight: 800;
+  margin: 0 0 10px;
+  letter-spacing: -0.5px;
+}
+
+.intro > h2 {
+  color: var(--text-light);
+  font-size: clamp(1rem, 2.5vmin, 1.3rem);
+  font-weight: 400;
+  font-style: italic;
+  margin: 0 0 6px;
+}
+
+.intro > .profile {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  padding: 3px;
+  margin-bottom: 24px;
+}
