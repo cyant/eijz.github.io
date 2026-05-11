@@ -93,23 +93,24 @@ footer {
   color: var(--accent);
 }
 
-/* ── Home page ── */
+/* ── Home page: Intro ── */
 .intro {
-  transform: translateY(20vh);
-  animation: fadeInUp 0.8s ease-out;
+  transform: translateY(8vh);
+  animation: fadeInUp 0.6s ease-out;
   text-align: center;
+  margin-bottom: 6vh;
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(28vh); }
-  to   { opacity: 1; transform: translateY(20vh); }
+  from { opacity: 0; transform: translateY(14vh); }
+  to   { opacity: 1; transform: translateY(8vh); }
 }
 
 .intro > h1 {
   color: var(--text-heading);
   font-size: clamp(2.5rem, 7vh, 4rem);
   font-weight: 800;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   letter-spacing: -0.5px;
 }
 
@@ -127,6 +128,51 @@ footer {
   border: 3px solid var(--accent);
   padding: 3px;
   margin-bottom: 24px;
+}
+
+/* ── Home page: ikirby-style Post List ── */
+.home-post-list {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.home-post-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.home-post-item {
+  padding: 6px 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.home-post-item a {
+  color: #555;
+  font-size: 16px;
+  text-decoration: none;
+  transition: color 0.2s;
+  line-height: 1.6;
+}
+
+.home-post-item a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.home-post-meta {
+  color: #aaa;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.slash {
+  padding: 0 8px;
+  color: #ccc;
 }
 
 /* ── Links ── */
@@ -383,7 +429,7 @@ main > h2 {
   text-decoration: none;
 }
 
-/* ── Post list ── */
+/* ── Post list page ── */
 .item {
   padding: 18px 24px;
   margin: 12px 0;
@@ -459,5 +505,9 @@ main > h2 {
   
   .intro > h1 { font-size: 2rem; }
   .intro > h2 { font-size: 1rem; }
+  .intro { transform: translateY(5vh); }
+  
+  .home-post-list { max-width: 100%; }
+  
   .item { padding: 14px 16px; }
 }
