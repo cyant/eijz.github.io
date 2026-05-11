@@ -1,3 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>博客复活记：从 404 到焕然一新</title>
+  <style>
+    html body { font-family: 'Raleway', sans-serif; background-color: white; }
+    :root { --accent: lightseagreen; --border-width: 5px; }
+  </style>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+  <meta name="generator" content="SSJ Blog" />
+</head>
+<body>
+
+<main>
+
+  <div class="article-header">
+    <h1>博客复活记：从 404 到焕然一新</h1>
+    <div class="article-meta">
+      <span class="date">📅 2026年5月11日</span>
+      <span class="reading-time">📖 约 8 分钟阅读</span>
+    </div>
+    <div class="article-tags">
+      <a href="/tags/blog" class="tag">博客</a>
+      <a href="/tags/devops" class="tag">运维</a>
+      <a href="/tags/github" class="tag">GitHub</a>
+    </div>
+  </div>
+
+  <div class="article-content">
+
+    <h2>前言</h2>
+    <p>
+      这个故事始于一个域名过期后"死掉"的个人博客。它曾经是用 Hugo 搭建、托管在 GitHub Pages 上的小站，
+      旧域名过期一年多没人管，博客变成了 521 和 404 的混合体。
+    </p>
+    <p>
+      直到某个晚上，我决定把它救回来。新域名已经买好，
+      但真正动手之后才发现——坑比想象的多。
+    </p>
+
+    <h2>第一章：连上都不去</h2>
+    <p>
+      最初用浏览器打开旧域名，显示的是 Cloudflare 的 521 错误。这个错误其实很直白：
+      Cloudflare 连不上源服务器（GitHub Pages）了。
+    </p>
+    <p>
+      去 GitHub 一看，仓库还在，代码也在，但 GitHub Pages 默认地址返回的是 "Site not found"。
+      这意味着 GitHub Pages 根本没有在服务。
+    </p>
+
+    <h3>GitHub Pages 已禁用？</h3>
+    <p>
+      调查后发现，Settings → Pages 页面显示了一行字：
+    </p>
+    <blockquote>
+      <p>GitHub Pages is currently disabled. Select a source below to enable GitHub Pages for this repository.</p>
+    </blockquote>
+    <p>
+      为什么会自动禁用？推测是这样的链路：
+    </p>
+    <ol>
+      <li>仓库之前配置了自定义域名（旧域名）</li>
+      <li>GitHub 自动为这个域名签发了 Let's Encrypt SSL 证书</li>
+      <li>域名过期后，GitHub 反复验证时发现域名无法访问</li>
+      <li>触发安全机制 → 自动停用 Pages 服务</li>
+    </ol>
+    <p>
+      解决方案很简单——在 Pages 设置中选择 <code>master / (root)</code> 作为源，保存即可。
+    </p>
+
+    <h2>第二章：域名与 Cloudflare 的博弈</h2>
+    <p>
+      域名解析好了，但访问新域名还是报 SSL 错误。一看证书，
+      签发的是 <code>*.github.io</code>，根本不是我的域名。
+    </p>
+    <p>
+      这时踩了一个典型的坑：Cloudflare 默认开启橙色云（代理模式）。
+      但对于 GitHub Pages，<strong>必须关闭橙色云</strong>（设为灰色 DNS only），否则：
+    </p>
+    <ul>
+      <li>Cloudflare 会代理流量，GitHub 看到的是 Cloudflare 的 IP</li>
+      <li>Let's Encrypt 无法验证域名所有权</li>
+      <li>SSL 证书永远签不下来</li>
+    </ul>
+    <p>
+      把 Cloudflare 的代理关掉后，GitHub 的 DNS 验证通过了，大约 5 分钟后 Let's Encrypt 证书签发完毕，
+      新域名终于可以正常访问了。
+    </p>
+
+    <h2>第三章：CSS 去哪儿了？</h2>
+    <p>
+      页面终于能打开了，但……布局全乱了。文字堆在一起，导航栏浮在半空，整个页面像没穿衣服。
+    </p>
+    <p>
+      检查 HTML 发现罪魁祸首：
+    </p>
+    <pre><code class="html">&lt;link rel="stylesheet" href="旧域名/css/main.css"&gt;</code></pre>
+    <p>
+      所有页面的 CSS 引用都指向了过期域名（旧域名）！这个域名早就没了，
+      自然什么样式都加载不到。
+    </p>
+    <p>
+      全站一共有 8 个 HTML 文件引用了这个链接（首页、404、文章列表、两篇文章、分类页、标签页、重定向页）。
+      把它们全部改成相对路径 <code>/css/main.css</code>，另外还有标签链接 <code>旧域名/tags/</code>
+      也需要一并修正。
+    </p>
+    <p>
+      修复完后，页面总算恢复了基本布局。但另一个问题随之而来——这个 2019 年的 Bootstrap 3 主题，
+      看起来实在太老了。
+    </p>
+
+    <h2>第四章：重新设计 CSS</h2>
+    <p>
+      既然要改，不如彻底翻新。我保留了原本的 <code>lightseagreen</code> 主题色，
+      但把整个样式系统从 1282 行扩展到了近 9000 行（好吧，是重写了）。
+    </p>
+    <p>主要改动：</p>
+    <ul>
+      <li><strong>设计系统</strong>——定义 CSS 变量管理颜色、间距、阴影</li>
+      <li><strong>卡片式布局</strong>——文章列表和内容区采用圆角卡片 + 柔和阴影</li>
+      <li><strong>深色代码块</strong>——Catppuccin 风格的代码高亮</li>
+      <li><strong>引用样式</strong>——左侧绿色竖线 + 浅绿背景</li>
+      <li><strong>表格美化</strong>——绿色表头、斑马纹、悬停效果</li>
+      <li><strong>响应式优化</strong>——从桌面到手机完整适配</li>
+      <li><strong>动画增强</strong>——导航栏毛玻璃效果、卡片悬浮动效</li>
+    </ul>
+    <p>
+      改造完成后，整个博客焕然一新，从 2019 年的老古董变成了 2026 年的现代风格。
+    </p>
+
+    <h2>第五章：断舍离</h2>
+    <p>
+      旧博客里有两篇 2019 年的技术文章（一篇 Hello World，一篇关于 CSS Float 的笔记），
+      内容已经过时了。我选择了把它们隐藏（重定向到首页），清空了文章列表和标签页。
+    </p>
+    <p>
+      导航栏右上角的邮箱和 GitHub 图标也一并移除了——干净才是最美。
+    </p>
+
+    <h2>第六章：新文章模板</h2>
+    <p>
+      为了以后写文章方便，我做了一个全新的文章模板。这个模板支持：
+    </p>
+    <ul>
+      <li>文章头部标题 + 日期 + 阅读时间 + 标签</li>
+      <li>丰富的正文样式（标题层级、引用、列表、表格、图片）</li>
+      <li>深色代码块 + 语法高亮</li>
+      <li>底部的导航链接</li>
+    </ul>
+    <p>
+      以后想写文章，直接把内容发给 Her（我的 AI 助手），就能自动生成这样的页面并部署上去，
+      完全不需要手动编辑 HTML。
+    </p>
+
+    <h2>总结</h2>
+    <p>
+      从决定复活博客到最终上线，整个过程大概花了不到一小时（虽然踩了不少坑）。
+      最值得记住的三件事：
+    </p>
+    <ol>
+      <li><strong>GitHub Pages 会自动禁用</strong>——如果自定义域名长期无法验证</li>
+      <li><strong>Cloudflare 和 GitHub Pages 不兼容代理模式</strong>——必须关掉橙色云</li>
+      <li><strong>Hugo 生成的是纯静态文件</strong>——不重新配置构建工具也能直接修改 HTML</li>
+    </ol>
+    <p>
+      博客活了。域名解析正常。SSL 证书没问题。CSS 焕然一新。老文章走了，新模板来了。
+    </p>
+    <p>
+      这是一次愉快的"考古"体验，从 2019 到 2026，七年的代码还能跑起来的感觉真好 🍀
+    </p>
+
+  </div>
+
   <div class="article-footer">
     <a href="/" class="back-link">🏠 回到首页</a>
   </div>
+
+  <p class="article-copyright">© 2026 SSJ</p>
+
+</main>
+
+</body>
+</html>
