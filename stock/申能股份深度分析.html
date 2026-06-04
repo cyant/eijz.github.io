@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>申能股份（600642）深度分析</title>
+<style>
+:root {
+  --paper:#fffdf8; --ink:#1f2937; --muted:#64748b; --line:#e5e0d6;
+  --soft:#fff7ed; --accent:#b45309; --accent2:#7c2d12;
+  --red:#b91c1c; --green:#047857; --blue:#1d4ed8;
+}
+* { box-sizing:border-box; }
+html { margin:0; background:#ece7dd; }
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;
+  color:var(--ink); font-size:15px; line-height:1.68;
+}
+.page { width:min(100%, 470px); margin:0 auto; padding:12px 10px 28px; background:var(--paper); min-height:100vh; }
+.cover { padding:20px 18px 18px; border-radius:16px; background:linear-gradient(135deg,#1a2a3a 0%,#2d4a5c 52%,#0d7377 100%); color:#fff; box-shadow:0 10px 24px rgba(36,52,71,.16); }
+.cover .eyebrow { font-size:11px; opacity:.82; letter-spacing:.06em; }
+h1 { margin:7px 0 8px; font-size:26px; line-height:1.2; }
+.cover p { margin:0; color:rgba(255,255,255,.9); font-size:14px; }
+.summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 6px; }
+.summary-card { min-height:108px; border:1px solid var(--line); border-radius:12px; padding:10px 11px; background:#fff; }
+.summary-card span { display:block; color:var(--accent); font-weight:800; font-size:12px; margin-bottom:5px; }
+.summary-card b { display:block; color:#111827; font-size:15px; line-height:1.3; margin-bottom:5px; }
+.summary-card em { display:block; color:var(--muted); font-style:normal; font-size:12px; line-height:1.42; }
+h2 { margin:22px 0 10px; padding:9px 11px; border-left:5px solid var(--accent); border-radius:9px; background:#f8efe3; color:#111827; font-size:18px; line-height:1.34; }
+h3 { margin:18px 0 9px; padding:0 0 6px; border-bottom:1px solid var(--line); color:#253041; font-size:16px; }
+p { margin:8px 2px 10px; }
+ul { margin:8px 0 13px; padding:0; list-style:none; display:grid; gap:7px; }
+li { position:relative; padding:9px 10px 9px 17px; border:1px solid #eee6d8; border-radius:10px; background:#fffaf1; }
+li::before { content:""; position:absolute; left:8px; top:18px; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+strong { color:#111827; }
+.table-wrap { margin:10px 0 14px; }
+table { width:100%; border-collapse:separate; border-spacing:0 8px; font-size:13px; line-height:1.45; }
+thead { display:none; }
+tr { display:block; border:1px solid var(--line); border-radius:12px; background:#fff; overflow:hidden; }
+td { display:grid; grid-template-columns:86px minmax(0,1fr); gap:8px; padding:7px 9px; border-bottom:1px solid #f0e7d8; }
+td:last-child { border-bottom:0; }
+td::before { content:attr(data-label); color:var(--accent2); font-weight:800; font-size:12px; }
+.pct-up, .money-in { color:var(--red); font-weight:800; }
+.pct-down, .money-out { color:var(--green); font-weight:800; }
+.tag-bull { display:inline-block; background:#dcfce7; color:#166534; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-bear { display:inline-block; background:#fee2e2; color:#991b1b; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-neutral { display:inline-block; background:#fef3c7; color:#92400e; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.footer { margin-top:22px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; text-align:center; }
+@media (min-width:760px) {
+  body { font-size:15px; }
+  .page { width:min(960px, calc(100vw - 32px)); padding:30px 38px 42px; box-shadow:0 18px 55px rgba(36,52,71,.10); }
+  .cover { padding:26px 30px 24px; }
+  h1 { font-size:34px; }
+  .cover p { font-size:15px; }
+  .summary-grid { grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0 8px; }
+  .summary-card { min-height:118px; padding:12px 13px; }
+  h2 { font-size:20px; margin-top:30px; }
+  h3 { font-size:17px; }
+  table { border-collapse:collapse; border-spacing:0; font-size:12.5px; min-width:760px; }
+  .table-wrap { border:1px solid var(--line); border-radius:12px; overflow:auto; background:#fff; }
+  thead { display:table-header-group; }
+  tr { display:table-row; border:0; border-radius:0; background:transparent; }
+  th, td { display:table-cell; padding:8px 9px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+  th { background:#f3eadc; color:#111827; text-align:left; white-space:nowrap; font-weight:800; }
+  td::before { content:none; }
+  th:last-child, td:last-child { border-right:none; }
+  tr:last-child td { border-bottom:none; }
+  tbody tr:nth-child(even) td { background:#fffaf2; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+<section class="cover">
+  <div class="eyebrow">MIO RESEARCH · DEEP DIVE · 2026-06-04</div>
+  <h1>申能股份（600642）深度分析</h1>
+  <p>上海国资旗下综合能源供应商，火电+油气+新能源三足鼎立。ROE 8%偏低但稳定，PE仅13x是A股最便宜的电力股之一。高股息+央企改革是核心看点。</p>
+</section>
+
+<section class="summary-grid">
+  <div class="summary-card"><span>公司</span><b>申能股份有限公司</b><em>上海市国资委控股的综合能源企业（持股约48%），1993年上市。主营火电/气电/油气/新能源发电。</em></div>
+  <div class="summary-card"><span>核心数据</span><b>2025年报</b><em>营收280亿(-5.4%)，归母净利40亿(+1.7%)，ROE 8.0%，EPS 0.805元，PE 13.2x</em></div>
+  <div class="summary-card"><span>股价</span><b>10.65元</b><em>1年涨幅+33.6%，52周区间7.58~10.98，当前位置90.3%接近年内高点</em></div>
+  <div class="summary-card"><span>风险</span><b>风险边界</b><em>- RSI 71.2已超买 - 营收连续下滑（282→280亿） - ROE长期低于10% - 火电受煤价和电价政策双重挤压</em></div>
+</section>
+
+<h2>1. 一句话总收口</h2>
+<p>申能股份是一只典型的"低估值+高股息+央企信用"的防御型电力股。2025年净利40亿创历史新高，净利率从2022年3.7%的低谷修复至18%，盈利质量大幅改善。但营收连续三年原地踏步（280~296亿），火电在能源转型中的长期前景存疑。PE 13x在A股电力板块属于最低一档，股息率预计可达4~5%，对于追求稳健收益的资金有吸引力。但ROE仅8%、RSI超买（71.2）提示短期追高风险。</p>
+
+<h2>2. 公司画像 / 商业模式</h2>
+<ul>
+  <li><strong>公司全称</strong>：申能股份有限公司，控股股东为申能（集团）有限公司（上海市国资委100%持股），国有独资企业。</li>
+  <li><strong>主营业务</strong>：火力发电（燃煤/燃气，占营收~55%）、石油天然气勘探开发（~20%）、新能源发电（风电/光伏，~15%）、电力销售及其他（~10%）。</li>
+  <li><strong>商业模式</strong>：上海市主要电力供应商，拥有本地电力市场基本盘。油气业务通过持股上海石油天然气有限公司参与东海平湖油气田开发。新能源业务以海上风电为主，近年逐步扩大。</li>
+  <li><strong>核心竞争壁垒</strong>：（1）上海区域电力市场龙头地位，受益于东部用电需求稳定增长；（2）上海市国资委背景，项目获取和融资成本有优势；（3）多元化能源布局（火+气+油+风+光）分散单一能源周期风险。</li>
+</ul>
+
+<h2>3. 基本面分析</h2>
+
+<h3>§3.1 营收与利润趋势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>营收(亿)</th><th>增速</th><th>归母净利(亿)</th><th>增速</th><th>EPS</th><th>净利率</th></tr></thead>
+<tbody>
+<tr><td data-label="2020">2020</td><td data-label="营收">197.1</td><td data-label="增速">基准</td><td data-label="归母净利">23.93</td><td data-label="增速">基准</td><td data-label="EPS">0.487</td><td data-label="净利率">15.4%</td></tr>
+<tr><td data-label="2021">2021</td><td data-label="营收">253.1</td><td data-label="增速"><span class="pct-up">+28.4%</span></td><td data-label="归母净利">16.42</td><td data-label="增速"><span class="pct-down">-31.4%</span></td><td data-label="EPS">0.334</td><td data-label="净利率">7.0%</td></tr>
+<tr><td data-label="2022">2022</td><td data-label="营收">281.9</td><td data-label="增速"><span class="pct-up">+11.4%</span></td><td data-label="归母净利">10.82</td><td data-label="增速"><span class="pct-down"><strong>-34.1%</strong></span></td><td data-label="EPS">0.221</td><td data-label="净利率">3.7%</td></tr>
+<tr><td data-label="2023">2023</td><td data-label="营收">291.4</td><td data-label="增速">+3.4%</td><td data-label="归母净利">34.59</td><td data-label="增速"><span class="pct-up"><strong>+219.7%</strong></span></td><td data-label="EPS">0.710</td><td data-label="净利率">14.3%</td></tr>
+<tr><td data-label="2024">2024</td><td data-label="营收">296.2</td><td data-label="增速">+1.6%</td><td data-label="归母净利">39.44</td><td data-label="增速"><span class="pct-up">+14.0%</span></td><td data-label="EPS">0.803</td><td data-label="净利率">16.2%</td></tr>
+<tr><td data-label="2025">2025</td><td data-label="营收"><strong>280.3</strong></td><td data-label="增速"><span class="pct-down">-5.4%</span></td><td data-label="归母净利"><strong>40.13</strong></td><td data-label="增速">+1.7%</td><td data-label="EPS"><strong>0.805</strong></td><td data-label="净利率">18.0%</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>关键发现：</strong>2022年是公司利润低谷（10.8亿），主要受煤价上涨和电价管制双重挤压。2023年起煤价回落、电价市场化改革推进，利润大幅修复至34.6亿并持续改善。净利率从3.7%修复至18%是近年最大亮点。但营收自2023年起几乎零增长，2025年甚至下滑5.4%，"增收不增利"的反面——不增收但增利，主要靠成本端改善而非业务扩张。</p>
+
+<h3>§3.2 ROE与资本结构</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>ROE</th><th>资产负债率</th><th>货币资金(亿)</th><th>总资产(亿)</th></tr></thead>
+<tbody>
+<tr><td data-label="2020">2020</td><td data-label="ROE">6.1%</td><td data-label="负债率">49.0%</td><td data-label="货币资金">87.7</td><td data-label="总资产">763.0</td></tr>
+<tr><td data-label="2021">2021</td><td data-label="ROE"><span class="pct-down">4.3%</span></td><td data-label="负债率">57.0%</td><td data-label="货币资金">93.2</td><td data-label="总资产">896.4</td></tr>
+<tr><td data-label="2022">2022</td><td data-label="ROE"><span class="pct-down"><strong>2.8%</strong></span></td><td data-label="负债率">57.6%</td><td data-label="货币资金">108.5</td><td data-label="总资产">899.0</td></tr>
+<tr><td data-label="2023">2023</td><td data-label="ROE"><span class="pct-up"><strong>8.4%</strong></span></td><td data-label="负债率">56.2%</td><td data-label="货币资金">118.3</td><td data-label="总资产">942.1</td></tr>
+<tr><td data-label="2024">2024</td><td data-label="ROE"><span class="pct-up">8.6%</span></td><td data-label="负债率">54.8%</td><td data-label="货币资金">139.6</td><td data-label="总资产">1,016.7</td></tr>
+<tr><td data-label="2025">2025</td><td data-label="ROE">8.0%</td><td data-label="负债率">54.8%</td><td data-label="货币资金"><strong>159.7</strong></td><td data-label="总资产"><strong>1,113.2</strong></td></tr>
+</tbody>
+</table>
+</div>
+<p>ROE从2022年2.8%的低谷修复至8.0%，主要靠净利率回升驱动。负债率55%左右，货币资金160亿创历史新高，现金流充裕。对于电力股来说，ROE 8%属于行业中游水平（长江电力ROE 14%+、华能国际ROE 6%~8%）。</p>
+
+<h3>§3.3 现金流与资产负债</h3>
+<ul>
+  <li><strong>货币资金</strong>：159.66亿，同比+14.4%。现金储备充裕，主要来自经营现金流积累。</li>
+  <li><strong>总资产</strong>：1,113亿，同比+9.5%。资产扩张主要投向新能源发电项目（海上风电）和天然气基础设施。</li>
+  <li><strong>总负债</strong>：609.69亿，负债率54.8%。以长期借款为主，央企信用评级融资成本低，偿债风险可控。</li>
+</ul>
+
+<h2>4. 技术面分析</h2>
+
+<h3>§4.1 整体趋势</h3>
+<ul>
+  <li><strong>最新价</strong>：10.65元（2026-06-02）</li>
+  <li><strong>均线排列</strong>：价格10.65 &gt; MA20(9.71) &gt; MA60(9.27) &gt; MA120(8.73) &gt; 年线(8.53) —— 完全多头排列，中长期趋势向上。</li>
+  <li><strong>RSI(14)</strong>：<span class="tag-bear">71.2</span> —— 已进入超买区域（>70），短期存在技术性回调需求。</li>
+  <li><strong>MACD</strong>：Hist 0.109，多头但动能偏弱。</li>
+  <li><strong>价格位置</strong>：52周区间7.58~10.98，当前位置90.3% —— 接近年内高点10.98，上方空间有限。</li>
+  <li><strong>1年涨幅</strong>：+33.6% —— 电力板块整体回暖，公司利润修复驱动估值回升。</li>
+</ul>
+
+<h3>§4.2 月度走势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>月份</th><th>开盘</th><th>最高</th><th>最低</th><th>收盘</th><th>月涨跌</th><th>成交量(万手)</th></tr></thead>
+<tbody>
+<tr><td data-label="2025-07">2025-07</td><td data-label="开盘">8.61</td><td data-label="最高">9.11</td><td data-label="最低">8.10</td><td data-label="收盘">8.17</td><td data-label="月涨跌" class="pct-down">-5.1%</td><td data-label="成交量">67.4</td></tr>
+<tr><td data-label="2025-08">2025-08</td><td data-label="开盘">8.17</td><td data-label="最高">8.31</td><td data-label="最低">8.00</td><td data-label="收盘">8.08</td><td data-label="月涨跌" class="pct-down">-1.1%</td><td data-label="成交量">44.0</td></tr>
+<tr><td data-label="2025-09">2025-09</td><td data-label="开盘">8.08</td><td data-label="最高">8.14</td><td data-label="最低">7.58</td><td data-label="收盘">7.82</td><td data-label="月涨跌" class="pct-down"><strong>-3.2%</strong></td><td data-label="成交量">43.6</td></tr>
+<tr><td data-label="2025-10">2025-10</td><td data-label="开盘">7.83</td><td data-label="最高">8.33</td><td data-label="最低">7.82</td><td data-label="收盘">8.23</td><td data-label="月涨跌" class="pct-up">+5.2%</td><td data-label="成交量">33.9</td></tr>
+<tr><td data-label="2025-11">2025-11</td><td data-label="开盘">8.25</td><td data-label="最高">8.53</td><td data-label="最低">8.22</td><td data-label="收盘">8.40</td><td data-label="月涨跌" class="pct-up">+2.1%</td><td data-label="成交量">38.1</td></tr>
+<tr><td data-label="2025-12">2025-12</td><td data-label="开盘">8.40</td><td data-label="最高">8.44</td><td data-label="最低">7.78</td><td data-label="收盘">7.78</td><td data-label="月涨跌" class="pct-down">-7.4%</td><td data-label="成交量">57.1</td></tr>
+<tr><td data-label="2026-01">2026-01</td><td data-label="开盘">7.82</td><td data-label="最高">8.43</td><td data-label="最低">7.76</td><td data-label="收盘">8.33</td><td data-label="月涨跌" class="pct-up">+7.1%</td><td data-label="成交量">44.5</td></tr>
+<tr><td data-label="2026-02">2026-02</td><td data-label="开盘">8.36</td><td data-label="最高">8.59</td><td data-label="最低">8.15</td><td data-label="收盘">8.56</td><td data-label="月涨跌" class="pct-up">+2.8%</td><td data-label="成交量">31.4</td></tr>
+<tr><td data-label="2026-03">2026-03</td><td data-label="开盘">8.65</td><td data-label="最高">9.38</td><td data-label="最低">8.56</td><td data-label="收盘">8.91</td><td data-label="月涨跌" class="pct-up">+4.1%</td><td data-label="成交量">80.8</td></tr>
+<tr><td data-label="2026-04">2026-04</td><td data-label="开盘">8.95</td><td data-label="最高">9.52</td><td data-label="最低">8.55</td><td data-label="收盘">9.06</td><td data-label="月涨跌" class="pct-up">+1.7%</td><td data-label="成交量">55.8</td></tr>
+<tr><td data-label="2026-05">2026-05</td><td data-label="开盘">9.03</td><td data-label="最高">10.45</td><td data-label="最低">8.90</td><td data-label="收盘">10.32</td><td data-label="月涨跌" class="pct-up"><strong>+13.9%</strong></td><td data-label="成交量">74.7</td></tr>
+<tr><td data-label="2026-06">2026-06</td><td data-label="开盘">10.30</td><td data-label="最高">10.98</td><td data-label="最低">10.18</td><td data-label="收盘">10.65</td><td data-label="月涨跌" class="pct-up">+3.2%</td><td data-label="成交量">14.7</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>§4.3 走势阶段划分</h3>
+<ul>
+  <li><strong>第一阶段（2025-07 ~ 2025-12）：震荡磨底</strong>。股价在7.58~9.11区间反复震荡，2025年9月触及52周低点7.58后缓慢回升。成交量低迷，市场对电力股关注度低。</li>
+  <li><strong>第二阶段（2026-01 ~ 2026-04）：缓慢抬升</strong>。受益于煤价持续低位+电力市场化改革推进，股价从7.76逐步攀升至9.52。涨幅温和但趋势稳健。</li>
+  <li><strong>第三阶段（2026-05至今）：加速冲顶</strong>。2025年报净利40亿超预期+高股息主题资金流入，股价从9.03加速涨至10.98年内高点。5月单月+13.9%为近年最大月涨幅。RSI已进入超买区域。</li>
+</ul>
+
+<h2>5. 估值分析</h2>
+<ul>
+  <li><strong>PE(TTM)</strong>：<span class="tag-neutral">13.2x</span> —— A股电力板块中最低一档（长江电力22x、华能国际15x）。13x的PE反映了市场对其低增长的定价。</li>
+  <li><strong>Forward PE(2026E)</strong>：假设2026年净利+5%至42亿，EPS约0.85元，forward PE约12.5x。</li>
+  <li><strong>PB</strong>：市净率约1.04倍（净资产约503亿），略高于1倍——属于电力行业合理水平。</li>
+  <li><strong>股息率</strong>：按2024年分红比例~50%（约0.40元/股），现价10.65对应股息率约3.8%。若2025年维持50%分红率，股息率约3.8%。在电力板块中股息率中等。</li>
+  <li><strong>EV/EBITDA</strong>：预计约7~8x，低于行业均值，估值有安全边际。</li>
+</ul>
+
+<h2>6. 同业对比</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>公司</th><th>代码</th><th>2025营收增速</th><th>净利率</th><th>ROE</th><th>PE</th><th>股息率</th></tr></thead>
+<tbody>
+<tr><td data-label="标的">申能股份</td><td data-label="代码">600642</td><td data-label="营收增速"><span class="pct-down">-5.4%</span></td><td data-label="净利率">18.0%</td><td data-label="ROE">8.0%</td><td data-label="PE"><strong>13.2x</strong></td><td data-label="股息率">~3.8%</td></tr>
+<tr><td data-label="标的">长江电力</td><td data-label="代码">600900</td><td data-label="营收增速">+4.8%</td><td data-label="净利率">38.5%</td><td data-label="ROE">14.8%</td><td data-label="PE">22.4x</td><td data-label="股息率">~3.2%</td></tr>
+<tr><td data-label="标的">华能国际</td><td data-label="代码">600011</td><td data-label="营收增速">+2.1%</td><td data-label="净利率">6.5%</td><td data-label="ROE">6.8%</td><td data-label="PE">15.3x</td><td data-label="股息率">~3.5%</td></tr>
+<tr><td data-label="标的">浙能电力</td><td data-label="代码">600023</td><td data-label="营收增速">+3.5%</td><td data-label="净利率">12.2%</td><td data-label="ROE">9.5%</td><td data-label="PE">11.8x</td><td data-label="股息率">~4.2%</td></tr>
+</tbody>
+</table>
+</div>
+<p>申能PE仅13.2x，略高于浙能电力的11.8x，低于华能和长江电力。净利率18%在火电企业中属于较高水平，主要得益于燃机发电（天然气）占比高于纯煤电企业。</p>
+
+<h2>7. 核心优势</h2>
+<ul>
+  <li><span class="tag-bull">优势</span> <strong>利润修复确定性强</strong> —— 煤价从2022年高位持续回落，火电企业利润处于修复通道。申能2022年ROE仅2.8%是极端低点，当前8%远未到天花板，煤价每降10%利润弹性约15~20%。</li>
+  <li><span class="tag-bull">优势</span> <strong>低PE存在估值修复空间</strong> —— 13x PE在A股电力股中属于低估区域。如果市场给予估值修复至15~18x，对应股价12~14.5元，有15~35%上行空间。</li>
+  <li><span class="tag-bull">优势</span> <strong>高现金+低负债扩张能力</strong> —— 货币资金160亿，有息负债率可控，有能力在新能源领域持续投资。</li>
+  <li><span class="tag-bull">优势</span> <strong>上海区域垄断地位</strong> —— 作为上海主要电力供应商，受益于东部发达地区的用电需求和电价承受力，经营稳定性优于内陆火电企业。</li>
+</ul>
+
+<h2>8. 主要风险</h2>
+<ul>
+  <li><span class="tag-bear">风险</span> <strong>营收零增长甚至下滑</strong> —— 2023~2025年营收几乎原地踏步，2025年还下滑5.4%。火电行业整体面临用电增速放缓+新能源挤压的双重压力。</li>
+  <li><span class="tag-bear">风险</span> <strong>ROE偏低，成长性不足</strong> —— 8% ROE在A股属于中低水平。公司缺乏高增长业务驱动，本质上是一只"收息股"而非"成长股"。</li>
+  <li><span class="tag-bear">风险</span> <strong>RSI超买，短期回调压力</strong> —— RSI 71.2突破超买线，价格接近52周高点，5月急涨+13.9%后短期技术性回调风险上升。</li>
+  <li><span class="tag-bear">风险</span> <strong>能源政策不确定性</strong> —— 电力市场化改革可能压缩火电上网电价。碳交易扩围增加火电额外成本。</li>
+  <li><span class="tag-bear">风险</span> <strong>天然气价格波动</strong> —— 公司燃机占比高于同行，国际气价波动对成本影响较大。</li>
+</ul>
+
+<h2>9. 综合判断</h2>
+<ul>
+  <li><strong>长期逻辑（3年以上）</strong>：申能作为上海能源保供的"压舱石"，在能源转型过程中有稳定的基本盘。但传统火电资产长期价值将被新能源替代所侵蚀。公司需加快新能源转型步伐才能维持长期增长。</li>
+  <li><strong>中期走势（6~12个月）</strong>：当前10.65元处于年内高位，RSI超买+接近前高10.98。如果2026年Q1业绩继续向好且煤价维持低位，可能突破11元创阶段新高。但更大的概率是在9.5~11元区间震荡消化涨幅。</li>
+  <li><strong>短期风险</strong>：RSI 71.2超买、5月急涨后获利盘压力大、MACD动能减弱。建议等待回调至9.5元左右再考虑介入。</li>
+</ul>
+
+<h2>10. 操作边界参考</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>场景</th><th>参考价位</th><th>对应PE</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td data-label="场景">乐观（利润持续修复+估值重估）</td><td data-label="价位">11~14</td><td data-label="PE">14~17x</td><td data-label="说明">需突破前高10.98并放量确认</td></tr>
+<tr><td data-label="场景">中性（当前估值合理）</td><td data-label="价位">9.5~11</td><td data-label="PE">12~14x</td><td data-label="说明">当前价格区间，等待业绩验证</td></tr>
+<tr><td data-label="场景">谨慎（市场情绪降温）</td><td data-label="价位">8.5~9.5</td><td data-label="PE">10.5~12x</td><td data-label="说明">CEBIT对应3月突破前震荡区间</td></tr>
+<tr><td data-label="场景">悲观（煤价回升+电价下行）</td><td data-label="价位">7.5~8.5</td><td data-label="PE">9~10.5x</td><td data-label="说明">接近52周低点，年线8.53为强支撑</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="footer">
+  <p>数据来源：TDX gpcw财务数据 / TDX日线行情 / 新浪财经公司资料</p>
+  <p>报告生成时间：2026-06-04 | 仅供研究参考，不构成投资建议</p>
+  <p>MIO RESEARCH · DEEP DIVE · 600642.SH</p>
+</div>
+
+</main>
+</body>
+</html>
