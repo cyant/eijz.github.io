@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>中钨高新（000657）深度分析</title>
+<style>
+:root {
+  --paper:#fffdf8; --ink:#1f2937; --muted:#64748b; --line:#e5e0d6;
+  --soft:#fff7ed; --accent:#b45309; --accent2:#7c2d12;
+  --red:#b91c1c; --green:#047857; --blue:#1d4ed8;
+}
+* { box-sizing:border-box; }
+html { margin:0; background:#ece7dd; }
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;
+  color:var(--ink); font-size:15px; line-height:1.68;
+}
+.page { width:min(100%, 470px); margin:0 auto; padding:12px 10px 28px; background:var(--paper); min-height:100vh; }
+.cover { padding:20px 18px 18px; border-radius:16px; background:linear-gradient(135deg,#1a2a3a 0%,#2d4a5c 52%,#0d7377 100%); color:#fff; box-shadow:0 10px 24px rgba(36,52,71,.16); }
+.cover .eyebrow { font-size:11px; opacity:.82; letter-spacing:.06em; }
+h1 { margin:7px 0 8px; font-size:26px; line-height:1.2; letter-spacing:0; }
+.cover p { margin:0; color:rgba(255,255,255,.9); font-size:14px; }
+.summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 6px; }
+.summary-card { min-height:108px; border:1px solid var(--line); border-radius:12px; padding:10px 11px; background:#fff; }
+.summary-card span { display:block; color:var(--accent); font-weight:800; font-size:12px; margin-bottom:5px; }
+.summary-card b { display:block; color:#111827; font-size:15px; line-height:1.3; margin-bottom:5px; }
+.summary-card em { display:block; color:var(--muted); font-style:normal; font-size:12px; line-height:1.42; }
+h2 { margin:22px 0 10px; padding:9px 11px; border-left:5px solid var(--accent); border-radius:9px; background:#f8efe3; color:#111827; font-size:18px; line-height:1.34; break-after:avoid; }
+h3 { margin:18px 0 9px; padding:0 0 6px; border-bottom:1px solid var(--line); color:#253041; font-size:16px; break-after:avoid; }
+p { margin:8px 2px 10px; }
+ul { margin:8px 0 13px; padding:0; list-style:none; display:grid; gap:7px; }
+li { position:relative; padding:9px 10px 9px 17px; border:1px solid #eee6d8; border-radius:10px; background:#fffaf1; }
+li::before { content:""; position:absolute; left:8px; top:18px; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+strong { color:#111827; }
+.table-wrap { margin:10px 0 14px; }
+table { width:100%; border-collapse:separate; border-spacing:0 8px; font-size:13px; line-height:1.45; }
+thead { display:none; }
+tr { display:block; border:1px solid var(--line); border-radius:12px; background:#fff; overflow:hidden; }
+td { display:grid; grid-template-columns:86px minmax(0,1fr); gap:8px; padding:7px 9px; border-bottom:1px solid #f0e7d8; vertical-align:top; }
+td:last-child { border-bottom:0; }
+td::before { content:attr(data-label); color:var(--accent2); font-weight:800; font-size:12px; }
+.pct-up, .money-in { color:var(--red); font-weight:800; }
+.pct-down, .money-out { color:var(--green); font-weight:800; }
+.tag-bull { display:inline-block; background:#dcfce7; color:#166534; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-bear { display:inline-block; background:#fee2e2; color:#991b1b; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-neutral { display:inline-block; background:#fef3c7; color:#92400e; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.footer { margin-top:22px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; text-align:center; }
+@media (min-width:760px) {
+  body { font-size:15px; }
+  .page { width:min(960px, calc(100vw - 32px)); padding:30px 38px 42px; box-shadow:0 18px 55px rgba(36,52,71,.10); }
+  .cover { padding:26px 30px 24px; }
+  h1 { font-size:34px; }
+  .cover p { font-size:15px; }
+  .summary-grid { grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0 8px; }
+  .summary-card { min-height:118px; padding:12px 13px; }
+  h2 { font-size:20px; margin-top:30px; }
+  h3 { font-size:17px; }
+  table { border-collapse:collapse; border-spacing:0; font-size:12.5px; min-width:760px; }
+  .table-wrap { border:1px solid var(--line); border-radius:12px; overflow:auto; background:#fff; }
+  thead { display:table-header-group; }
+  tr { display:table-row; border:0; border-radius:0; background:transparent; }
+  th, td { display:table-cell; padding:8px 9px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+  th { background:#f3eadc; color:#111827; text-align:left; white-space:nowrap; font-weight:800; }
+  td::before { content:none; }
+  th:last-child, td:last-child { border-right:none; }
+  tr:last-child td { border-bottom:none; }
+  tbody tr:nth-child(even) td { background:#fffaf2; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+<section class="cover">
+  <div class="eyebrow">MIO RESEARCH · DEEP DIVE · 2026-06-04</div>
+  <h1>中钨高新（000657）深度分析</h1>
+  <p>战略金属钨的价格暴涨驱动股价1年涨612%，但2025年ROE仅12.1%、PE已飙至115倍。基本面改善和技术面极端涨幅之间存在巨大裂口——当前价格充分甚至过度反映了钨价上涨预期。</p>
+</section>
+
+<section class="summary-grid">
+  <div class="summary-card"><span>公司</span><b>中钨高新材料股份有限公司</b><em>央企中国五矿旗下钨产业链龙头，主营硬质合金和钨钼钽铌深加工。1996年上市，市值约1516亿。</em></div>
+  <div class="summary-card"><span>核心数据</span><b>2025年报</b><em>营收176亿(+19.6%)，归母净利12.8亿(+36.4%)，ROE 12.1%，EPS 0.58元，PE约115x</em></div>
+  <div class="summary-card"><span>股价</span><b>66.51元</b><em>1年涨幅+612%，52周区间8.50~71.50，当前位置92.1%接近历史高点</em></div>
+  <div class="summary-card"><span>风险</span><b>风险边界</b><em>- PE 115x，A股稀有金属板块最贵标的之一 - 1年涨612%后技术性回调风险极大 - 钨价若回落，业绩和股价双杀 - 央企效率天花板，净利率仅7.9%</em></div>
+</section>
+
+<h2>1. 一句话总收口</h2>
+<p>中钨高新是2025~2026年A股"战略金属"行情的核心标的之一。钨作为中国绝对控制的战略资源（全球80%供应），在出口管制+供给收缩+需求韧性的三重逻辑下经历了一轮价格暴涨，直接带动公司业绩从平淡到跃升。2025年营收176亿(+19.6%)、归母净利12.8亿(+36.4%)是近年最好表现。但ROE仅12.1%、净利率7.9%说明商业模式并未出现质的飞跃——价格上涨的红利大部分被成本端消化和税收吃掉。当前PE 115x已远超合理估值区间，技术面1年涨612%意味着几乎没有未被price in的利好。</p>
+
+<h2>2. 公司画像 / 商业模式</h2>
+<ul>
+  <li><strong>公司全称</strong>：中钨高新材料股份有限公司，控股股东为中国五矿集团（持股约50%），实际控制人为国务院国资委。</li>
+  <li><strong>主营业务</strong>：硬质合金（刀具、钻头等，占营收~55%）、钨钼制品（~25%）、钨精矿贸易（~15%）、其他稀有金属（~5%）。</li>
+  <li><strong>商业模式</strong>：上游掌握钨矿资源（五矿集团注入资产），中游拥有APT（仲钨酸铵）和氧化钨加工产能，下游生产硬质合金成品。产业链一体化但各环节利润分配不均——资源端利润率高，加工端利润率薄。</li>
+  <li><strong>核心竞争壁垒</strong>：（1）中国五矿集团旗下唯一钨业上市平台，资源获取有央企背书；（2）国内硬质合金产量排名第一，刀具领域有一定品牌溢价；（3）钨作为战略金属，出口管制政策利好国内下游厂商。</li>
+</ul>
+
+<h2>3. 基本面分析</h2>
+
+<h3>§3.1 营收与利润趋势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>营收(亿)</th><th>增速</th><th>归母净利(亿)</th><th>增速</th><th>EPS</th><th>净利率</th></tr></thead>
+<tbody>
+<tr><td data-label="2020">2020</td><td data-label="营收">99.2</td><td data-label="增速">基准</td><td data-label="归母净利">2.21</td><td data-label="增速">基准</td><td data-label="EPS">0.23</td><td data-label="净利率">3.0%</td></tr>
+<tr><td data-label="2021">2021</td><td data-label="营收">120.9</td><td data-label="增速"><span class="pct-up">+21.9%</span></td><td data-label="归母净利">5.28</td><td data-label="增速"><span class="pct-up">+139%</span></td><td data-label="EPS">0.48</td><td data-label="净利率">5.3%</td></tr>
+<tr><td data-label="2022">2022</td><td data-label="营收">130.8</td><td data-label="增速"><span class="pct-up">+8.2%</span></td><td data-label="归母净利">5.35</td><td data-label="增速">+1.3%</td><td data-label="EPS">0.50</td><td data-label="净利率">5.1%</td></tr>
+<tr><td data-label="2023">2023</td><td data-label="营收">127.4</td><td data-label="增速"><span class="pct-down">-2.6%</span></td><td data-label="归母净利">4.85</td><td data-label="增速"><span class="pct-down">-9.3%</span></td><td data-label="EPS">0.35</td><td data-label="净利率">4.6%</td></tr>
+<tr><td data-label="2024">2024</td><td data-label="营收">147.4</td><td data-label="增速"><span class="pct-up">+15.8%</span></td><td data-label="归母净利">9.39</td><td data-label="增速"><span class="pct-up">+93.6%</span></td><td data-label="EPS">0.45</td><td data-label="净利率">7.0%</td></tr>
+<tr><td data-label="2025">2025</td><td data-label="营收"><strong>176.4</strong></td><td data-label="增速"><span class="pct-up"><strong>+19.6%</strong></span></td><td data-label="归母净利"><strong>12.81</strong></td><td data-label="增速"><span class="pct-up"><strong>+36.4%</strong></span></td><td data-label="EPS"><strong>0.58</strong></td><td data-label="净利率">7.9%</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>关键发现：</strong>利润增长自2024年起加速，核心驱动力来自钨精矿价格从2023年低点~11万/吨上涨至2025年~18万/吨。但净利率从2020年的3.0%提升到2025年的7.9%，改善幅度有限——说明成本（矿山开采、能源、人工）也在同步上涨。营收增长慢于利润增长，量价齐升但"量"的弹性小于"价"的弹性。</p>
+
+<h3>§3.2 ROE与资本结构</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>ROE</th><th>资产负债率</th><th>货币资金(亿)</th><th>总资产(亿)</th></tr></thead>
+<tbody>
+<tr><td data-label="2020">2020</td><td data-label="ROE">4.5%</td><td data-label="负债率">46.3%</td><td data-label="货币资金">9.5</td><td data-label="总资产">92.0</td></tr>
+<tr><td data-label="2021">2021</td><td data-label="ROE"><span class="pct-up"><strong>9.4%</strong></span></td><td data-label="负债率">42.6%</td><td data-label="货币资金">9.7</td><td data-label="总资产">98.2</td></tr>
+<tr><td data-label="2022">2022</td><td data-label="ROE">8.7%</td><td data-label="负债率">47.6%</td><td data-label="货币资金">7.6</td><td data-label="总资产">116.8</td></tr>
+<tr><td data-label="2023">2023</td><td data-label="ROE">7.5%</td><td data-label="负债率">49.9%</td><td data-label="货币资金">8.7</td><td data-label="总资产">129.8</td></tr>
+<tr><td data-label="2024">2024</td><td data-label="ROE"><span class="pct-up"><strong>11.3%</strong></span></td><td data-label="负债率">52.4%</td><td data-label="货币资金">15.2</td><td data-label="总资产">174.2</td></tr>
+<tr><td data-label="2025">2025</td><td data-label="ROE"><span class="pct-up"><strong>12.1%</strong></span></td><td data-label="负债率">50.8%</td><td data-label="货币资金"><strong>20.3</strong></td><td data-label="总资产"><strong>214.4</strong></td></tr>
+</tbody>
+</table>
+</div>
+<p>ROE从2020年的4.5%逐步回升至2025年的12.1%，核心驱动是净利率改善（3.0%→7.9%）和资产周转率提升。负债率维持在50%左右，属于健康的行业水平。货币资金20.3亿创历史新高，但相对于214亿总资产来说现金占比偏低（9.5%），表明资金持续投入到产能扩张中。</p>
+
+<h3>§3.3 现金流与资产负债</h3>
+<ul>
+  <li><strong>货币资金</strong>：20.34亿，同比+34.1%。现金储备充裕但主要集中在经营积累。</li>
+  <li><strong>总资产</strong>：214.4亿，同比+23.1%。资产扩张主要系投资建设新的硬质合金产线和矿山扩产。</li>
+  <li><strong>总负债</strong>：108.9亿，负债率50.8%。银行贷款和应付账款为主，财务费用可控。央企信用背书下融资成本较低。</li>
+</ul>
+
+<h2>4. 技术面分析</h2>
+
+<h3>§4.1 整体趋势</h3>
+<ul>
+  <li><strong>最新价</strong>：66.51元（2026-06-02）</li>
+  <li><strong>均线排列</strong>：价格66.51 &gt; MA20(61.63) &gt; MA60(56.28) &gt; MA120(47.44) &gt; 年线(31.65) —— 完全多头排列，所有均线向上发散，趋势极强。</li>
+  <li><strong>RSI(14)</strong>：55.1 —— 中性偏强。经历了3月大幅回调（-28%）后RSI从高位回落，当前处于可上可下的位置。</li>
+  <li><strong>MACD</strong>：Hist 0.476，多头但动能正在减弱（较前值收敛），短线上攻力度在衰减。</li>
+  <li><strong>价格位置</strong>：52周区间8.50~71.50，当前位置92.1% —— 极接近历史高点，上方空间仅剩约7.5%。</li>
+  <li><strong>1年涨幅</strong>：<span class="pct-up">+612.1%</span> —— A股同期涨幅最大的有色金属标的之一。</li>
+</ul>
+
+<h3>§4.2 月度走势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>月份</th><th>开盘</th><th>最高</th><th>最低</th><th>收盘</th><th>月涨跌</th><th>成交量(万手)</th></tr></thead>
+<tbody>
+<tr><td data-label="2025-07">2025-07</td><td data-label="开盘">11.83</td><td data-label="最高">19.58</td><td data-label="最低">11.63</td><td data-label="收盘">16.11</td><td data-label="月涨跌" class="pct-up"><strong>启动</strong></td><td data-label="成交量">22.0万</td></tr>
+<tr><td data-label="2025-08">2025-08</td><td data-label="开盘">16.06</td><td data-label="最高">21.28</td><td data-label="最低">15.58</td><td data-label="收盘">20.68</td><td data-label="月涨跌" class="pct-up">+28.4%</td><td data-label="成交量">25.3万</td></tr>
+<tr><td data-label="2025-09">2025-09</td><td data-label="开盘">21.00</td><td data-label="最高">22.29</td><td data-label="最低">16.98</td><td data-label="收盘">18.63</td><td data-label="月涨跌" class="pct-down">-9.9%</td><td data-label="成交量">15.2万</td></tr>
+<tr><td data-label="2025-10">2025-10</td><td data-label="开盘">19.08</td><td data-label="最高">26.87</td><td data-label="最低">16.30</td><td data-label="收盘">23.41</td><td data-label="月涨跌" class="pct-up">+25.7%</td><td data-label="成交量">15.8万</td></tr>
+<tr><td data-label="2025-11">2025-11</td><td data-label="开盘">23.00</td><td data-label="最高">25.40</td><td data-label="最低">20.94</td><td data-label="收盘">22.20</td><td data-label="月涨跌" class="pct-down">-5.2%</td><td data-label="成交量">20.6万</td></tr>
+<tr><td data-label="2025-12">2025-12</td><td data-label="开盘">22.48</td><td data-label="最高">32.18</td><td data-label="最低">21.85</td><td data-label="收盘">27.71</td><td data-label="月涨跌" class="pct-up">+24.8%</td><td data-label="成交量">22.1万</td></tr>
+<tr><td data-label="2026-01">2026-01</td><td data-label="开盘">28.26</td><td data-label="最高">53.76</td><td data-label="最低">27.60</td><td data-label="收盘">48.50</td><td data-label="月涨跌" class="pct-up"><strong>+75.0%</strong></td><td data-label="成交量">21.0万</td></tr>
+<tr><td data-label="2026-02">2026-02</td><td data-label="开盘">46.63</td><td data-label="最高">66.22</td><td data-label="最低">44.28</td><td data-label="收盘">66.22</td><td data-label="月涨跌" class="pct-up">+36.5%</td><td data-label="成交量">12.5万</td></tr>
+<tr><td data-label="2026-03">2026-03</td><td data-label="开盘">71.00</td><td data-label="最高">71.50</td><td data-label="最低">46.40</td><td data-label="收盘">47.71</td><td data-label="月涨跌" class="pct-down"><strong>-28.0%</strong></td><td data-label="成交量">16.7万</td></tr>
+<tr><td data-label="2026-04">2026-04</td><td data-label="开盘">48.73</td><td data-label="最高">60.75</td><td data-label="最低">45.55</td><td data-label="收盘">58.19</td><td data-label="月涨跌" class="pct-up">+22.0%</td><td data-label="成交量">18.4万</td></tr>
+<tr><td data-label="2026-05">2026-05</td><td data-label="开盘">58.47</td><td data-label="最高">70.96</td><td data-label="最低">52.53</td><td data-label="收盘">68.00</td><td data-label="月涨跌" class="pct-up">+16.9%</td><td data-label="成交量">17.1万</td></tr>
+<tr><td data-label="2026-06">2026-06</td><td data-label="开盘">68.02</td><td data-label="最高">70.80</td><td data-label="最低">61.30</td><td data-label="收盘">66.51</td><td data-label="月涨跌" class="pct-down">-2.2%</td><td data-label="成交量">1.8万</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>§4.3 走势阶段划分</h3>
+<ul>
+  <li><strong>第一阶段（2025-07 ~ 2026-02）：主升浪加速</strong>。战略金属政策催化+钨价进入上行通道，股价从11元一路涨至2月高点66.22元，历时8个月涨幅约500%。1月单月+75%为最短主升段。</li>
+  <li><strong>第二阶段（2026-03）：急跌回调</strong>。3月从71.50（前高）跌至46.40，单月-28%。钨价短期波动+获利盘兑现引发踩踏，但跌幅被迅速收回说明资金承接意愿强。</li>
+  <li><strong>第三阶段（2026-04至今）：高位震荡</strong>。价格在60~71元区间反复拉锯，MACD动能递减，成交量较主升期明显萎缩。短期方向取决于钨价能否继续上行突破。</li>
+</ul>
+
+<h2>5. 估值分析</h2>
+<ul>
+  <li><strong>PE(TTM)</strong>：<span class="tag-bear">114.7x</span> —— 基于2025年EPS 0.58元。对于一家净利率不到8%的钨加工企业来说极贵。历史PE中枢约30~40x。</li>
+  <li><strong>Forward PE(2026E)</strong>：假设2026年净利增长25%至~16亿，对应EPS约0.72元，forward PE约92.4x。即使以乐观30%增长计，forward PE仍高达88x。</li>
+  <li><strong>PB</strong>：市净率约14.4倍（净资产约105.6亿）。远高于同行业（中钨同行的PB通常在2~5x）。</li>
+  <li><strong>PEG</strong>：114.7x / 36.4% ≈ 3.15（按2025年增速）。若按25%预期增速，PEG约4.6x——远高于合理值1.0。</li>
+  <li><strong>与同行对比</strong>：厦门钨业(PE 28x)、章源钨业(PE 35x)。中钨高新的115xPE包含了明显的板块龙头溢价和市场情绪溢价。</li>
+</ul>
+
+<h2>6. 同业对比</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>公司</th><th>代码</th><th>2025营收增速</th><th>净利率</th><th>ROE</th><th>PE</th><th>市值(亿)</th></tr></thead>
+<tbody>
+<tr><td data-label="标的">中钨高新</td><td data-label="代码">000657</td><td data-label="营收增速"><span class="pct-up">+19.6%</span></td><td data-label="净利率">7.9%</td><td data-label="ROE">12.1%</td><td data-label="PE"><strong>114.7x</strong></td><td data-label="市值">1,516</td></tr>
+<tr><td data-label="标的">厦门钨业</td><td data-label="代码">600549</td><td data-label="营收增速">+10.2%</td><td data-label="净利率">6.1%</td><td data-label="ROE">14.5%</td><td data-label="PE">28.4x</td><td data-label="市值">632</td></tr>
+<tr><td data-label="标的">章源钨业</td><td data-label="代码">002378</td><td data-label="营收增速">+15.5%</td><td data-label="净利率">5.8%</td><td data-label="ROE">10.2%</td><td data-label="PE">35.1x</td><td data-label="市值">168</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>7. 核心优势</h2>
+<ul>
+  <li><span class="tag-bull">优势</span> <strong>战略金属龙头地位</strong> —— 中国控制全球80%钨供应，出口管制政策持续收紧，中钨高新作为五矿集团旗下唯一钨业平台直接受益于资源稀缺溢价。</li>
+  <li><span class="tag-bull">优势</span> <strong>产业链一体化</strong> —— 从矿山到硬质合金成品的全链条布局，在钨价上行周期中，各环节均可受益，利润弹性大于纯矿企或纯加工商。</li>
+  <li><span class="tag-bull">优势</span> <strong>央企信用背书</strong> —— 五矿集团作为实控人，融资成本低、资源获取有保障。在"战略金属"上升到国家政策层面时，央企身份是天然加分项。</li>
+</ul>
+
+<h2>8. 主要风险</h2>
+<ul>
+  <li><span class="tag-bear">风险</span> <strong>115倍PE严重透支</strong> —— 即使2026年净利增长30%至16.6亿，静态PE仍超90x。当前估值已经包含了数年的乐观预期，任何低于预期的季度业绩都可能引发踩踏。</li>
+  <li><span class="tag-bear">风险</span> <strong>钨价周期见顶风险</strong> —— 钨精矿价格从2023年低点已上涨约60%。如果下游需求增速放缓或供给端释放，钨价回调将直接冲击公司盈利。</li>
+  <li><span class="tag-bear">风险</span> <strong>净利率天花板偏低</strong> —— 央企体制+加工制造属性决定了净利率很难突破10%。即使钨价维持高位，利润增量也有限。</li>
+  <li><span class="tag-bear">风险</span> <strong>技术面回调压力</strong> —— RSI在3月急跌后有所修复但MACD动能递减，价格处于52周92%分位。历史上该股在急涨后面临40~60%的回调幅度。</li>
+</ul>
+
+<h2>9. 综合判断</h2>
+<ul>
+  <li><strong>长期逻辑（3年以上）</strong>：钨作为战略金属的政策溢价将长期存在，中国对钨资源的控制力不会削弱。公司具备产业链一体化优势，但央企经营效率限制了利润天花板。长期合理估值在20~30x PE，当前明显透支。</li>
+  <li><strong>中期走势（6~12个月）</strong>：股价高度依赖钨价走势。若钨精矿价格稳定在18~20万/吨甚至继续上行，利润仍有增长空间。但115x PE意味着市场已充分price in乐观情景。更大的可能是沖頂回落，回到40~55元区间消化估值。</li>
+  <li><strong>短期风险</strong>：价格接近52周高点（71.50），距前高仅一步之遥但多次上攻未破。MACD动能衰减+成交量萎缩+PE极端高估，三重信号叠加提示短期风险较大。</li>
+</ul>
+
+<h2>10. 操作边界参考</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>场景</th><th>参考价位</th><th>对应PE</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td data-label="场景">乐观（钨价继续大涨）</td><td data-label="价位">70~80</td><td data-label="PE">120~138x</td><td data-label="说明">前高71.50需放量突破；需钨精矿站上22万/吨</td></tr>
+<tr><td data-label="场景">中性（钨价高位震荡）</td><td data-label="价位">50~65</td><td data-label="PE">86~112x</td><td data-label="说明">当前价格区间，等待钨价和业绩确认</td></tr>
+<tr><td data-label="场景">谨慎（钨价回落调整）</td><td data-label="价位">35~50</td><td data-label="PE">60~86x</td><td data-label="说明">对应3月低点46.40附近；技术支撑+估值回归</td></tr>
+<tr><td data-label="场景">悲观（钨价见顶回落）</td><td data-label="价位">20~35</td><td data-label="PE">34~60x</td><td data-label="说明">历史估值中枢区间；年线31.65为强支撑</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="footer">
+  <p>数据来源：TDX gpcw财务数据 / TDX日线行情 / 新浪财经公司资料</p>
+  <p>报告生成时间：2026-06-04 | 仅供研究参考，不构成投资建议</p>
+  <p>MIO RESEARCH · DEEP DIVE · 000657.SZ</p>
+</div>
+
+</main>
+</body>
+</html>
