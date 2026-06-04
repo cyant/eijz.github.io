@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>大族激光（002008）深度分析</title>
+<style>
+:root {
+  --paper:#fffdf8; --ink:#1f2937; --muted:#64748b; --line:#e5e0d6;
+  --soft:#fff7ed; --accent:#b45309; --accent2:#7c2d12;
+  --red:#b91c1c; --green:#047857; --blue:#1d4ed8;
+}
+* { box-sizing:border-box; }
+html { margin:0; background:#ece7dd; }
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;
+  color:var(--ink); font-size:15px; line-height:1.68;
+}
+.page { width:min(100%, 470px); margin:0 auto; padding:12px 10px 28px; background:var(--paper); min-height:100vh; }
+.cover { padding:20px 18px 18px; border-radius:16px; background:linear-gradient(135deg,#1a2a3a 0%,#2d4a5c 52%,#0d7377 100%); color:#fff; box-shadow:0 10px 24px rgba(36,52,71,.16); }
+.cover .eyebrow { font-size:11px; opacity:.82; letter-spacing:.06em; }
+h1 { margin:7px 0 8px; font-size:26px; line-height:1.2; letter-spacing:0; }
+.cover p { margin:0; color:rgba(255,255,255,.9); font-size:14px; }
+.summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 6px; }
+.summary-card { min-height:108px; border:1px solid var(--line); border-radius:12px; padding:10px 11px; background:#fff; }
+.summary-card span { display:block; color:var(--accent); font-weight:800; font-size:12px; margin-bottom:5px; }
+.summary-card b { display:block; color:#111827; font-size:15px; line-height:1.3; margin-bottom:5px; }
+.summary-card em { display:block; color:var(--muted); font-style:normal; font-size:12px; line-height:1.42; }
+h2 { margin:22px 0 10px; padding:9px 11px; border-left:5px solid var(--accent); border-radius:9px; background:#f8efe3; color:#111827; font-size:18px; line-height:1.34; break-after:avoid; }
+h3 { margin:18px 0 9px; padding:0 0 6px; border-bottom:1px solid var(--line); color:#253041; font-size:16px; break-after:avoid; }
+p { margin:8px 2px 10px; }
+ul { margin:8px 0 13px; padding:0; list-style:none; display:grid; gap:7px; }
+li { position:relative; padding:9px 10px 9px 17px; border:1px solid #eee6d8; border-radius:10px; background:#fffaf1; }
+li::before { content:""; position:absolute; left:8px; top:18px; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+strong { color:#111827; }
+.table-wrap { margin:10px 0 14px; }
+table { width:100%; border-collapse:separate; border-spacing:0 8px; font-size:13px; line-height:1.45; }
+thead { display:none; }
+tr { display:block; border:1px solid var(--line); border-radius:12px; background:#fff; overflow:hidden; }
+td { display:grid; grid-template-columns:86px minmax(0,1fr); gap:8px; padding:7px 9px; border-bottom:1px solid #f0e7d8; vertical-align:top; }
+td:last-child { border-bottom:0; }
+td::before { content:attr(data-label); color:var(--accent2); font-weight:800; font-size:12px; }
+.pct-up, .money-in { color:var(--red); font-weight:800; }
+.pct-down, .money-out { color:var(--green); font-weight:800; }
+.tag-bull { display:inline-block; background:#dcfce7; color:#166534; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-bear { display:inline-block; background:#fee2e2; color:#991b1b; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-neutral { display:inline-block; background:#fef3c7; color:#92400e; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.footer { margin-top:22px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; text-align:center; }
+@media (min-width:760px) {
+  body { font-size:15px; }
+  .page { width:min(960px, calc(100vw - 32px)); padding:30px 38px 42px; box-shadow:0 18px 55px rgba(36,52,71,.10); }
+  .cover { padding:26px 30px 24px; }
+  h1 { font-size:34px; }
+  .cover p { font-size:15px; }
+  .summary-grid { grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0 8px; }
+  .summary-card { min-height:118px; padding:12px 13px; }
+  h2 { font-size:20px; margin-top:30px; }
+  h3 { font-size:17px; }
+  table { border-collapse:collapse; border-spacing:0; font-size:12.5px; min-width:760px; }
+  .table-wrap { border:1px solid var(--line); border-radius:12px; overflow:auto; background:#fff; }
+  thead { display:table-header-group; }
+  tr { display:table-row; border:0; border-radius:0; background:transparent; }
+  th, td { display:table-cell; padding:8px 9px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+  th { background:#f3eadc; color:#111827; text-align:left; white-space:nowrap; font-weight:800; }
+  td::before { content:none; }
+  th:last-child, td:last-child { border-right:none; }
+  tr:last-child td { border-bottom:none; }
+  tbody tr:nth-child(even) td { background:#fffaf2; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+<section class="cover">
+  <div class="eyebrow">MIO RESEARCH · DEEP DIVE · 2026-06-04</div>
+  <h1>大族激光（002008）深度分析</h1>
+  <p>大族激光作为大族激光的核心企业，当前营收面临压力、ROE一般，市场给予约793.8x PE（估值较高）。核心关注：能否重回增长。</p>
+</section>
+
+<section class="summary-grid">
+  <div class="summary-card"><span>公司</span><b>大族激光</b><em>主营详见主营业务说明</em></div>
+  <div class="summary-card"><span>核心数据</span><b>【最新年报/季报】</b><em>营收29.4亿(增速-80.1%)，净利1.6亿(增速-90.3%)，ROE0.9%, EPS0.160元，PE约793.8x</em></div>
+  <div class="summary-card"><span>股价</span><b>127.00元</b><em>年内涨幅+203.4%，52周区间22.99~149.23，当前位置82%</em></div>
+  <div class="summary-card"><span>风险</span><b>风险边界</b><em>- 见下方详细风险分析</em></div>
+</section>
+
+<h2>1. 一句话总收口</h2>
+<p>【综合分析结论：公司核心逻辑、当前处境、关键变量】</p>
+
+<h2>2. 公司画像 / 商业模式</h2>
+<ul>
+  <li><strong>公司全称</strong>：大族激光，—，—。</li>
+  <li><strong>主营业务</strong>：【主要业务构成，收入占比】。</li>
+  <li><strong>商业模式</strong>：【商业模式描述，如何赚钱】。</li>
+  <li><strong>核心竞争壁垒</strong>：（1）【壁垒1】；（2）【壁垒2】；（3）【壁垒3】。</li>
+</ul>
+
+<h2>3. 基本面分析</h2>
+
+<h3>§3.1 营收与利润趋势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>营收(亿)</th><th>增速</th><th>归母净利(亿)</th><th>增速</th><th>EPS</th><th>净利率</th></tr></thead>
+<tbody>
+<tr>
+<td data-label="2020">2020</td>
+<td data-label="营收">119.4</td>
+<td data-label="增速">基准</td>
+<td data-label="归母净利">9.8</td>
+<td data-label="增速">基准</td>
+<td data-label="EPS">0.9300</td>
+<td data-label="净利率">8.2%</td>
+</tr>
+<tr>
+<td data-label="2021">2021</td>
+<td data-label="营收">163.3</td>
+<td data-label="增速" class="pct-up">+36.8%</td>
+<td data-label="归母净利">19.9</td>
+<td data-label="增速" class="pct-up">+103.7%</td>
+<td data-label="EPS">1.9000</td>
+<td data-label="净利率">12.2%</td>
+</tr>
+<tr>
+<td data-label="2022">2022</td>
+<td data-label="营收">149.6</td>
+<td data-label="增速" class="pct-down">-8.4%</td>
+<td data-label="归母净利">12.1</td>
+<td data-label="增速" class="pct-down">-39.1%</td>
+<td data-label="EPS">1.1500</td>
+<td data-label="净利率">8.1%</td>
+</tr>
+<tr>
+<td data-label="2023">2023</td>
+<td data-label="营收">140.9</td>
+<td data-label="增速" class="pct-down">-5.8%</td>
+<td data-label="归母净利">8.2</td>
+<td data-label="增速" class="pct-down">-32.5%</td>
+<td data-label="EPS">0.7800</td>
+<td data-label="净利率">5.8%</td>
+</tr>
+<tr>
+<td data-label="2024">2024</td>
+<td data-label="营收">147.7</td>
+<td data-label="增速" class="pct-up">+4.8%</td>
+<td data-label="归母净利">16.9</td>
+<td data-label="增速" class="pct-up">+106.5%</td>
+<td data-label="EPS">1.6200</td>
+<td data-label="净利率">11.5%</td>
+</tr>
+<tr>
+<td data-label="2025Q1">2025Q1</td>
+<td data-label="营收">29.4</td>
+<td data-label="增速" class="pct-down">-80.1%</td>
+<td data-label="归母净利">1.6</td>
+<td data-label="增速" class="pct-down">-90.3%</td>
+<td data-label="EPS">0.1600</td>
+<td data-label="净利率">5.6%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>【关键发现和分析结论】</p>
+
+<h3>§3.2 ROE与资本结构</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>ROE</th><th>资产负债率</th><th>货币资金(亿)</th><th>总资产(亿)</th></tr></thead>
+<tbody>
+<tr>
+<td data-label="2020">2020</td>
+<td data-label="ROE">N/A</td>
+<td data-label="负债率">52.7%</td>
+<td data-label="货币资金">49.1</td>
+<td data-label="总资产">213.5</td>
+</tr>
+<tr>
+<td data-label="2021">2021</td>
+<td data-label="ROE">16.5%</td>
+<td data-label="负债率">55.6%</td>
+<td data-label="货币资金">59.9</td>
+<td data-label="总资产">271.8</td>
+</tr>
+<tr>
+<td data-label="2022">2022</td>
+<td data-label="ROE">7.8%</td>
+<td data-label="负债率">51.6%</td>
+<td data-label="货币资金">96.2</td>
+<td data-label="总资产">320.5</td>
+</tr>
+<tr>
+<td data-label="2023">2023</td>
+<td data-label="ROE">5.0%</td>
+<td data-label="负债率">52.1%</td>
+<td data-label="货币资金">107.6</td>
+<td data-label="总资产">342.0</td>
+</tr>
+<tr>
+<td data-label="2024">2024</td>
+<td data-label="ROE">9.7%</td>
+<td data-label="负债率">48.9%</td>
+<td data-label="货币资金">82.4</td>
+<td data-label="总资产">342.3</td>
+</tr>
+<tr>
+<td data-label="2025Q1">2025Q1</td>
+<td data-label="ROE">0.9%</td>
+<td data-label="负债率">51.8%</td>
+<td data-label="货币资金">90.2</td>
+<td data-label="总资产">365.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>【ROE驱动因素分析】</p>
+
+<h3>§3.3 现金流与资产负债</h3>
+<ul>
+  <li><strong>货币资金</strong>：90.2亿。现金储备充裕，主要来源【XXX】。</li>
+  <li><strong>总资产</strong>：365.6亿。。</li>
+  <li><strong>总负债</strong>：189.3亿，负债率51.8%。。</li>
+</ul>
+
+<h2>4. 技术面分析</h2>
+
+<h3>§4.1 整体趋势</h3>
+<ul>
+  <li><strong>最新价</strong>：127.00元（2026-06-02）</li>
+  <li><strong>均线排列</strong>：均线交织——震荡趋势。</li>
+  <li><strong>RSI(14)</strong>：32.2——偏弱。</li>
+  <li><strong>MACD</strong>：Hist -3.810，空头，空头（动能增强）。</li>
+  <li><strong>价格位置</strong>：52周区间22.99~149.23，当前位置82%——52周高位区域 —— 注意追高风险。</li>
+  <li><strong>N年涨幅</strong>：【+X%】。</li>
+</ul>
+
+<h3>§4.2 月度走势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>月份</th><th>开盘</th><th>最高</th><th>最低</th><th>收盘</th><th>月涨跌</th><th>成交量(万手)</th></tr></thead>
+<tbody>
+<tr>
+<td data-label="2025-07">2025-07</td>
+<td data-label="开盘">24.39</td>
+<td data-label="最高">28.30</td>
+<td data-label="最低">23.87</td>
+<td data-label="收盘">26.97</td>
+<td data-label="月涨跌" class="pct-up">+10.7%</td>
+<td data-label="成交量">591811192</td>
+</tr>
+<tr>
+<td data-label="2025-08">2025-08</td>
+<td data-label="开盘">26.90</td>
+<td data-label="最高">38.36</td>
+<td data-label="最低">25.99</td>
+<td data-label="收盘">37.46</td>
+<td data-label="月涨跌" class="pct-up">+38.9%</td>
+<td data-label="成交量">1585819412</td>
+</tr>
+<tr>
+<td data-label="2025-09">2025-09</td>
+<td data-label="开盘">37.21</td>
+<td data-label="最高">47.62</td>
+<td data-label="最低">32.16</td>
+<td data-label="收盘">40.71</td>
+<td data-label="月涨跌" class="pct-up">+8.7%</td>
+<td data-label="成交量">1193279424</td>
+</tr>
+<tr>
+<td data-label="2025-10">2025-10</td>
+<td data-label="开盘">41.03</td>
+<td data-label="最高">44.05</td>
+<td data-label="最低">34.43</td>
+<td data-label="收盘">41.18</td>
+<td data-label="月涨跌" class="pct-up">+1.2%</td>
+<td data-label="成交量">715624381</td>
+</tr>
+<tr>
+<td data-label="2025-11">2025-11</td>
+<td data-label="开盘">41.40</td>
+<td data-label="最高">42.39</td>
+<td data-label="最低">34.87</td>
+<td data-label="收盘">36.77</td>
+<td data-label="月涨跌" class="pct-down">-10.7%</td>
+<td data-label="成交量">398785897</td>
+</tr>
+<tr>
+<td data-label="2025-12">2025-12</td>
+<td data-label="开盘">37.18</td>
+<td data-label="最高">43.50</td>
+<td data-label="最低">35.79</td>
+<td data-label="收盘">41.19</td>
+<td data-label="月涨跌" class="pct-up">+12.0%</td>
+<td data-label="成交量">529911198</td>
+</tr>
+<tr>
+<td data-label="2026-01">2026-01</td>
+<td data-label="开盘">41.86</td>
+<td data-label="最高">53.71</td>
+<td data-label="最低">41.44</td>
+<td data-label="收盘">48.25</td>
+<td data-label="月涨跌" class="pct-up">+17.1%</td>
+<td data-label="成交量">849309123</td>
+</tr>
+<tr>
+<td data-label="2026-02">2026-02</td>
+<td data-label="开盘">48.10</td>
+<td data-label="最高">73.21</td>
+<td data-label="最低">46.80</td>
+<td data-label="收盘">72.30</td>
+<td data-label="月涨跌" class="pct-up">+49.8%</td>
+<td data-label="成交量">561843418</td>
+</tr>
+<tr>
+<td data-label="2026-03">2026-03</td>
+<td data-label="开盘">71.00</td>
+<td data-label="最高">75.88</td>
+<td data-label="最低">59.20</td>
+<td data-label="收盘">61.28</td>
+<td data-label="月涨跌" class="pct-down">-15.2%</td>
+<td data-label="成交量">783123199</td>
+</tr>
+<tr>
+<td data-label="2026-04">2026-04</td>
+<td data-label="开盘">63.36</td>
+<td data-label="最高">110.96</td>
+<td data-label="最低">60.89</td>
+<td data-label="收盘">100.72</td>
+<td data-label="月涨跌" class="pct-up">+64.4%</td>
+<td data-label="成交量">985005382</td>
+</tr>
+<tr>
+<td data-label="2026-05">2026-05</td>
+<td data-label="开盘">101.10</td>
+<td data-label="最高">156.50</td>
+<td data-label="最低">98.89</td>
+<td data-label="收盘">131.85</td>
+<td data-label="月涨跌" class="pct-up">+30.9%</td>
+<td data-label="成交量">995575708</td>
+</tr>
+<tr>
+<td data-label="2026-06">2026-06</td>
+<td data-label="开盘">133.68</td>
+<td data-label="最高">136.52</td>
+<td data-label="最低">123.32</td>
+<td data-label="收盘">127.00</td>
+<td data-label="月涨跌" class="pct-down">-3.7%</td>
+<td data-label="成交量">76948096</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>§4.3 走势阶段划分</h3>
+<ul>
+  <li><strong>第一阶段（2004-06-25 ~ 2011-12-02）：调整期</strong>。区间涨幅+193.5%。</li>
+  <li><strong>第二阶段（2011-12-05 ~ 2019-03-14）：震荡期</strong>。区间涨幅+419.0%。</li>
+  <li><strong>第三阶段（2019-03-15 ~ 2026-06-04）：近期走势</strong>。区间涨幅+201.2%。</li>
+</ul>
+
+<h2>5. 估值分析</h2>
+<ul>
+  <li><strong>PE(TTM)</strong>：793.8x —— 基于EPS 0.1600元。当前处于较高区间。</li>
+  <li><strong>Forward PE</strong>：假设增速-90.3%，对应EPS约0.1600元，forward PE约793.8x。</li>
+  <li><strong>PB</strong>：市净率约1858.49倍（净资产约176.2亿）。</li>
+  <li><strong>PEG</strong>：8.79（PE约793.8x / 利润增速90.3%）。</li>
+</ul>
+<h2>6. 同业对比</h2>
+<p>同业对比数据涉及多只个股的详细财务指标，建议在每日组合分析中同步生成。当前为独立个股报告，暂未包含完整同业对比表。</p>
+<h2>7. 核心优势</h2>
+<ul>
+  <li><span class="tag-bull">优势</span> <strong>激光加工设备龙头</strong> —— 大族激光是国内激光加工设备龙头企业，产品覆盖切割、焊接、打标、钻孔等全系列。</li>
+  <li><span class="tag-bull">优势</span> <strong>下游覆盖广泛</strong> —— 消费电子、PCB、新能源、半导体等多行业覆盖，分散单一行业周期风险。</li>
+  <li><span class="tag-bull">优势</span> <strong>技术持续升级</strong> —— 在超高功率激光切割、紫外激光、超快激光等领域持续突破，进口替代空间大。</li>
+</ul>
+<h2>8. 主要风险</h2>
+<ul>
+  <li><span class="tag-bear">风险</span> <strong>下游需求周期性</strong> —— 消费电子、PCB等下游行业周期性强，需求波动大。</li>
+  <li><span class="tag-bear">风险</span> <strong>行业竞争加剧</strong> —— 激光加工设备赛道竞争者众多，价格战压缩利润率。</li>
+  <li><span class="tag-bear">风险</span> <strong>应收账款风险</strong> —— 大型设备订单账期较长，应收账款规模较大，回款存在不确定性。</li>
+</ul>
+<h2>9. 综合判断</h2>
+<ul>
+  <li><strong>长期逻辑（3年以上）</strong>：公司当前处于调整期，长期价值需关注业务转型效果和行业拐点。</li>
+  <li><strong>中期走势（6~12个月）</strong>：技术面偏弱，RSI处于偏弱区间。中期需等待基本面催化剂或行业利好刺激才能扭转趋势。</li>
+  <li><strong>短期风险</strong>：需关注季报业绩披露、行业政策变化等短期催化剂或风险因素。</li>
+</ul>
+<h2>10. 操作边界参考</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>场景</th><th>参考价位</th><th>对应PE</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td data-label="场景">乐观</td><td data-label="价位">3.20~4.00元</td><td data-label="PE">20~25x</td><td data-label="说明">基本面持续向好，市场给予估值溢价</td></tr>
+<tr><td data-label="场景">中性</td><td data-label="价位">2.24~2.88元</td><td data-label="PE">14~18x</td><td data-label="说明">当前合理估值区间（当前PE 793.8x）</td></tr>
+<tr><td data-label="场景">谨慎</td><td data-label="价位">1.92~2.40元</td><td data-label="PE">12~15x</td><td data-label="说明">基本面低于预期或市场情绪恶化</td></tr>
+<tr><td data-label="场景">悲观</td><td data-label="价位">1.28~1.60元</td><td data-label="PE">8~10x</td><td data-label="说明">重大利空下的极限调整区间</td></tr>
+</tbody>
+</table>
+</div>
+<div class="footer">
+  <p>数据来源：TDX gpcw财务数据 / TDX日线行情 / 新浪财经公司资料</p>
+  <p>报告生成时间：2026-06-04 | 仅供研究参考，不构成投资建议</p>
+  <p>MIO RESEARCH · DEEP DIVE · 002008.SZ</p>
+</div>
+
+</main>
+</body>
+</html>
