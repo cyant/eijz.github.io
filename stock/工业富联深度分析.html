@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>工业富联（601138）深度分析</title>
+<style>
+:root {
+  --paper:#fffdf8; --ink:#1f2937; --muted:#64748b; --line:#e5e0d6;
+  --soft:#fff7ed; --accent:#b45309; --accent2:#7c2d12;
+  --red:#b91c1c; --green:#047857; --blue:#1d4ed8;
+}
+* { box-sizing:border-box; }
+html { margin:0; background:#ece7dd; }
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;
+  color:var(--ink); font-size:15px; line-height:1.68;
+}
+.page { width:min(100%, 470px); margin:0 auto; padding:12px 10px 28px; background:var(--paper); min-height:100vh; }
+.cover { padding:20px 18px 18px; border-radius:16px; background:linear-gradient(135deg,#1a2a3a 0%,#2d4a5c 52%,#0d7377 100%); color:#fff; box-shadow:0 10px 24px rgba(36,52,71,.16); }
+.cover .eyebrow { font-size:11px; opacity:.82; letter-spacing:.06em; }
+h1 { margin:7px 0 8px; font-size:26px; line-height:1.2; letter-spacing:0; }
+.cover p { margin:0; color:rgba(255,255,255,.9); font-size:14px; }
+.summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 6px; }
+.summary-card { min-height:108px; border:1px solid var(--line); border-radius:12px; padding:10px 11px; background:#fff; }
+.summary-card span { display:block; color:var(--accent); font-weight:800; font-size:12px; margin-bottom:5px; }
+.summary-card b { display:block; color:#111827; font-size:15px; line-height:1.3; margin-bottom:5px; }
+.summary-card em { display:block; color:var(--muted); font-style:normal; font-size:12px; line-height:1.42; }
+h2 { margin:22px 0 10px; padding:9px 11px; border-left:5px solid var(--accent); border-radius:9px; background:#f8efe3; color:#111827; font-size:18px; line-height:1.34; break-after:avoid; }
+h3 { margin:18px 0 9px; padding:0 0 6px; border-bottom:1px solid var(--line); color:#253041; font-size:16px; break-after:avoid; }
+p { margin:8px 2px 10px; }
+ul { margin:8px 0 13px; padding:0; list-style:none; display:grid; gap:7px; }
+li { position:relative; padding:9px 10px 9px 17px; border:1px solid #eee6d8; border-radius:10px; background:#fffaf1; }
+li::before { content:""; position:absolute; left:8px; top:18px; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+strong { color:#111827; }
+.table-wrap { margin:10px 0 14px; }
+table { width:100%; border-collapse:separate; border-spacing:0 8px; font-size:13px; line-height:1.45; }
+thead { display:none; }
+tr { display:block; border:1px solid var(--line); border-radius:12px; background:#fff; overflow:hidden; }
+td { display:grid; grid-template-columns:86px minmax(0,1fr); gap:8px; padding:7px 9px; border-bottom:1px solid #f0e7d8; vertical-align:top; }
+td:last-child { border-bottom:0; }
+td::before { content:attr(data-label); color:var(--accent2); font-weight:800; font-size:12px; }
+.pct-up, .money-in { color:var(--red); font-weight:800; }
+.pct-down, .money-out { color:var(--green); font-weight:800; }
+.tag-bull { display:inline-block; background:#dcfce7; color:#166534; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-bear { display:inline-block; background:#fee2e2; color:#991b1b; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-neutral { display:inline-block; background:#fef3c7; color:#92400e; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.footer { margin-top:22px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; text-align:center; }
+@media (min-width:760px) {
+  body { font-size:15px; }
+  .page { width:min(960px, calc(100vw - 32px)); padding:30px 38px 42px; box-shadow:0 18px 55px rgba(36,52,71,.10); }
+  .cover { padding:26px 30px 24px; }
+  h1 { font-size:34px; }
+  .cover p { font-size:15px; }
+  .summary-grid { grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0 8px; }
+  .summary-card { min-height:118px; padding:12px 13px; }
+  h2 { font-size:20px; margin-top:30px; }
+  h3 { font-size:17px; }
+  table { border-collapse:collapse; border-spacing:0; font-size:12.5px; min-width:760px; }
+  .table-wrap { border:1px solid var(--line); border-radius:12px; overflow:auto; background:#fff; }
+  thead { display:table-header-group; }
+  tr { display:table-row; border:0; border-radius:0; background:transparent; }
+  th, td { display:table-cell; padding:8px 9px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+  th { background:#f3eadc; color:#111827; text-align:left; white-space:nowrap; font-weight:800; }
+  td::before { content:none; }
+  th:last-child, td:last-child { border-right:none; }
+  tr:last-child td { border-bottom:none; }
+  tbody tr:nth-child(even) td { background:#fffaf2; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+<section class="cover">
+  <div class="eyebrow">MIO RESEARCH · DEEP DIVE · 2026-06-04</div>
+  <h1>工业富联（601138）深度分析</h1>
+  <p>AI服务器需求爆发式增长驱动业绩翻倍，2025年营收突破9000亿、归母净利352亿（+52%）。但PE已升至45倍、价格接近52周高点，市场对AI算力的乐观预期是否已被充分定价？</p>
+</section>
+
+<section class="summary-grid">
+  <div class="summary-card"><span>公司</span><b>富士康工业互联网</b><em>全球最大AI服务器制造商，2018年A股上市，市值约1.59万亿。为NVIDIA、AWS等提供AI服务器整机系统。</em></div>
+  <div class="summary-card"><span>核心数据</span><b>2025年报</b><em>营收9029亿(+48%)，净利353亿(+52%)，ROE 21.1%，EPS 1.78元，PE 44.9x</em></div>
+  <div class="summary-card"><span>股价</span><b>80.01元</b><em>1年涨幅+322.7%，52周区间18.39~83.88，当前位置94.1%接近历史高点</em></div>
+  <div class="summary-card"><span>风险</span><b>风险边界</b><em>- PE处于历史高位(45x)，估值透支短期业绩增长 - 毛利率仅3.9%，代工模式利润天花板 - 大股东鸿海精密集中持股风险 - AI资本开支预期下调风险</em></div>
+</section>
+
+<h2>1. 一句话总收口</h2>
+<p>工业富联是当前A股AI算力硬件方向容量最大、业绩兑现最确定的标的之一。2025年营收增速从27.9%加速至48.2%、归母净利增速从10.3%跳升至52.0%，核心驱动力来自NVIDIA H100/B200 AI服务器出货放量。但代工模式决定了净利率被锁定在~4%，追求规模而非利润率的商业模式导致ROE改善幅度有限（21.1%，仅恢复至2020之前水平偏上）。当前PE 45x——按2026年一致预期净利增30%至~460亿计，forward PE仍约34x——对代工企业而言不便宜。</p>
+
+<h2>2. 公司画像 / 商业模式</h2>
+<ul>
+  <li><strong>公司全称</strong>：富士康工业互联网股份有限公司，控股股东为鸿海精密（2317.TW），实际控制人郭台铭。</li>
+  <li><strong>主营业务</strong>：AI服务器/云计算服务器整机系统制造（占营收~65%）、通信网络设备（~20%）、工业互联网平台（~5%）、其他精密组件（~10%）。</li>
+  <li><strong>商业模式</strong>：EMS代工模式（电子制造服务）。公司从NVIDIA、AWS、Microsoft等客户获取AI服务器设计规格，负责PCB组装、系统集成、测试，按出货量收取加工费。品牌和芯片技术均不掌握。</li>
+  <li><strong>核心竞争壁垒</strong>：（1）全球最强的服务器系统集成能力——产能规模、良率、交期控制远超竞争对手；（2）与NVIDIA的长期合作绑定——作为NVIDIA DGX系统的主力代工商，优先获得新一代方案导入；（3）全球供应链网络——在中国大陆、墨西哥、越南等多地拥有工厂，具备地缘弹性。</li>
+</ul>
+
+<h2>3. 基本面分析</h2>
+
+<h3>§3.1 营收与利润趋势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>营收(亿)</th><th>增速</th><th>归母净利(亿)</th><th>增速</th><th>EPS</th><th>净利率</th></tr></thead>
+<tbody>
+<tr><td data-label="2020">2020</td><td data-label="营收">4,318</td><td data-label="增速">基准</td><td data-label="归母净利">174</td><td data-label="增速">基准</td><td data-label="EPS">0.88</td><td data-label="净利率">4.0%</td></tr>
+<tr><td data-label="2021">2021</td><td data-label="营收">4,396</td><td data-label="增速">+1.8%</td><td data-label="归母净利">200</td><td data-label="增速">+14.8%</td><td data-label="EPS">1.01</td><td data-label="净利率">4.6%</td></tr>
+<tr><td data-label="2022">2022</td><td data-label="营收">5,119</td><td data-label="增速">+16.4%</td><td data-label="归母净利">201</td><td data-label="增速">+0.3%</td><td data-label="EPS">1.02</td><td data-label="净利率">3.9%</td></tr>
+<tr><td data-label="2023">2023</td><td data-label="营收">4,763</td><td data-label="增速"><span class="pct-down">-6.9%</span></td><td data-label="归母净利">210</td><td data-label="增速">+4.8%</td><td data-label="EPS">1.06</td><td data-label="净利率">4.4%</td></tr>
+<tr><td data-label="2024">2024</td><td data-label="营收">6,091</td><td data-label="增速"><span class="pct-up">+27.9%</span></td><td data-label="归母净利">232</td><td data-label="增速">+10.3%</td><td data-label="EPS">1.17</td><td data-label="净利率">3.8%</td></tr>
+<tr><td data-label="2025">2025</td><td data-label="营收"><strong>9,029</strong></td><td data-label="增速"><span class="pct-up"><strong>+48.2%</strong></span></td><td data-label="归母净利"><strong>353</strong></td><td data-label="增速"><span class="pct-up"><strong>+52.0%</strong></span></td><td data-label="EPS"><strong>1.78</strong></td><td data-label="净利率">3.9%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>核心发现：</strong>营收在2023年短暂回调后进入AI驱动的强增长周期，2025年+48.2%为上市以来最快增速。归母净利增速与营收增速接近（52% vs 48%），说明利润增长来自规模扩张而非利润率改善。净利率稳定在3.8%~4.6%区间——AI服务器虽单价高但毛利率与普通服务器差别有限，代工模式的利润天花板明显。</p>
+
+<h3>§3.2 ROE与资本结构</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>ROE</th><th>资产负债率</th><th>货币资金(亿)</th><th>总资产(亿)</th></tr></thead>
+<tbody>
+<tr><td data-label="2020">2020</td><td data-label="ROE">16.8%</td><td data-label="负债率">53.9%</td><td data-label="货币资金">781</td><td data-label="总资产">2,255</td></tr>
+<tr><td data-label="2021">2021</td><td data-label="ROE"><span class="pct-down">16.7%</span></td><td data-label="负债率">55.2%</td><td data-label="货币资金">829</td><td data-label="总资产">2,666</td></tr>
+<tr><td data-label="2022">2022</td><td data-label="ROE"><span class="pct-down">15.5%</span></td><td data-label="负债率">54.5%</td><td data-label="货币资金">694</td><td data-label="总资产">2,842</td></tr>
+<tr><td data-label="2023">2023</td><td data-label="ROE"><span class="pct-down">15.0%</span></td><td data-label="负债率">51.1%</td><td data-label="货币资金">835</td><td data-label="总资产">2,877</td></tr>
+<tr><td data-label="2024">2024</td><td data-label="ROE"><span class="pct-up">15.2%</span></td><td data-label="负债率">51.8%</td><td data-label="货币资金">724</td><td data-label="总资产">3,175</td></tr>
+<tr><td data-label="2025">2025</td><td data-label="ROE"><span class="pct-up"><strong>21.1%</strong></span></td><td data-label="负债率"><span class="pct-up">63.4%</span></td><td data-label="货币资金"><strong>1,100</strong></td><td data-label="总资产"><strong>4,562</strong></td></tr>
+</tbody>
+</table>
+</div>
+<p>2025年ROE跃升至21.1%，主要驱动来自：（1）资产周转率提升——2025年营收/总资产=1.98倍，为近年最高（前值1.92倍）；（2）杠杆放大——资产负债率从51.8%提升至63.4%，为应对AI订单大规模增加的产能建设推高了负债规模。货币资金1100亿创历史新高，现金流充裕。</p>
+
+<h3>§3.3 现金流与资产负债</h3>
+<ul>
+  <li><strong>货币资金</strong>：1100.25亿，同比+51.9%。现金储备充足，主要来自经营现金流积累和2025年订单预收款。</li>
+  <li><strong>总资产</strong>：4562亿，同比+43.7%。资产扩张主要系存货（AI服务器备货）和在建工程（新产能）大幅增加。</li>
+  <li><strong>总负债</strong>：2891亿，其中短期借款和应付账款为主。负债率63.4%为上市以来最高。考虑到大量订单对应的预收/应付属于经营负债而非激进借贷，整体风险可控。</li>
+</ul>
+
+<h2>4. 技术面分析</h2>
+
+<h3>§4.1 整体趋势</h3>
+<ul>
+  <li><strong>最新价</strong>：80.01元（2026-06-02）</li>
+  <li><strong>均线排列</strong>：价格80.01 &gt; MA20(68.94) &gt; MA60(60.26) &gt; MA120(60.07) &gt; 年线(52.29) —— 标准多头排列，中长期趋势强劲。</li>
+  <li><strong>RSI(14)</strong>：67.4 —— 接近超买阈值(70)，短期存在技术性回调压力，但尚未极端。</li>
+  <li><strong>MACD</strong>：Hist 0.668，DIF &gt; DEA，多头运行中，但动能柱高度较4月峰值有所收窄。</li>
+  <li><strong>价格位置</strong>：52周区间18.39 ~ 83.88，当前位置94.1% —— 接近历史高点，追高需谨慎。</li>
+  <li><strong>1年涨幅</strong>：<span class="pct-up">+322.7%</span> —— A股同期涨幅最大的AI算力容量标的之一。</li>
+</ul>
+
+<h3>§4.2 月度走势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>月份</th><th>开盘</th><th>最高</th><th>最低</th><th>收盘</th><th>月涨跌</th><th>成交量(万手)</th></tr></thead>
+<tbody>
+<tr><td data-label="2025-07">2025-07</td><td data-label="开盘">21.26</td><td data-label="最高">35.90</td><td data-label="最低">21.00</td><td data-label="收盘">34.61</td><td data-label="月涨跌" class="pct-up"><strong>启动</strong></td><td data-label="成交量">4,175</td></tr>
+<tr><td data-label="2025-08">2025-08</td><td data-label="开盘">34.00</td><td data-label="最高">53.83</td><td data-label="最低">32.21</td><td data-label="收盘">53.83</td><td data-label="月涨跌" class="pct-up">+55.5%</td><td data-label="成交量">5,044</td></tr>
+<tr><td data-label="2025-09">2025-09</td><td data-label="开盘">53.99</td><td data-label="最高">74.72</td><td data-label="最低">47.50</td><td data-label="收盘">66.01</td><td data-label="月涨跌" class="pct-up">+22.6%</td><td data-label="成交量">5,507</td></tr>
+<tr><td data-label="2025-10">2025-10</td><td data-label="开盘">67.11</td><td data-label="最高">83.88</td><td data-label="最低">58.50</td><td data-label="收盘">72.00</td><td data-label="月涨跌" class="pct-up">+9.1%</td><td data-label="成交量">3,195</td></tr>
+<tr><td data-label="2025-11">2025-11</td><td data-label="开盘">70.36</td><td data-label="最高">76.70</td><td data-label="最低">54.60</td><td data-label="收盘">60.72</td><td data-label="月涨跌" class="pct-down">-15.7%</td><td data-label="成交量">3,602</td></tr>
+<tr><td data-label="2025-12">2025-12</td><td data-label="开盘">60.03</td><td data-label="最高">68.38</td><td data-label="最低">57.74</td><td data-label="收盘">62.05</td><td data-label="月涨跌" class="pct-up">+2.2%</td><td data-label="成交量">4,184</td></tr>
+<tr><td data-label="2026-01">2026-01</td><td data-label="开盘">63.29</td><td data-label="最高">64.97</td><td data-label="最低">55.62</td><td data-label="收盘">57.70</td><td data-label="月涨跌" class="pct-down">-7.0%</td><td data-label="成交量">3,730</td></tr>
+<tr><td data-label="2026-02">2026-02</td><td data-label="开盘">56.80</td><td data-label="最高">58.54</td><td data-label="最低">52.20</td><td data-label="收盘">55.70</td><td data-label="月涨跌" class="pct-down">-3.5%</td><td data-label="成交量">1,884</td></tr>
+<tr><td data-label="2026-03">2026-03</td><td data-label="开盘">54.00</td><td data-label="最高">57.80</td><td data-label="最低">47.35</td><td data-label="收盘">51.46</td><td data-label="月涨跌" class="pct-down">-7.6%</td><td data-label="成交量">2,762</td></tr>
+<tr><td data-label="2026-04">2026-04</td><td data-label="开盘">53.00</td><td data-label="最高">69.10</td><td data-label="最低">51.47</td><td data-label="收盘">62.88</td><td data-label="月涨跌" class="pct-up">+22.2%</td><td data-label="成交量">4,411</td></tr>
+<tr><td data-label="2026-05">2026-05</td><td data-label="开盘">63.28</td><td data-label="最高">79.63</td><td data-label="最低">61.74</td><td data-label="收盘">73.40</td><td data-label="月涨跌" class="pct-up">+16.7%</td><td data-label="成交量">4,828</td></tr>
+<tr><td data-label="2026-06">2026-06</td><td data-label="开盘">75.20</td><td data-label="最高">81.11</td><td data-label="最低">72.19</td><td data-label="收盘">80.01</td><td data-label="月涨跌" class="pct-up">+9.0%</td><td data-label="成交量">679</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>§4.3 走势阶段划分</h3>
+<ul>
+  <li><strong>第一阶段（2025-07 ~ 2025-10）：主升浪</strong>。AI算力主题全面爆发，股价从21元涨至10月高点83.88元，4个月涨幅近300%。7月跳空高开放量突破，8-9月持续加速，10月冲顶。</li>
+  <li><strong>第二阶段（2025-11 ~ 2026-03）：调整消化</strong>。股价从83.88回落至47.35（3月低点），最大回撤43.6%。调整期间成交量萎缩（2月仅1884万手），市场等待2025年报确认业绩。</li>
+  <li><strong>第三阶段（2026-04至今）：财报驱动反弹</strong>。2025年报3月底公布，营收+48%、净利+52%超预期，股价从47.35反弹至80.01（+69%），但未突破前高83.88。</li>
+</ul>
+
+<h2>5. 估值分析</h2>
+<ul>
+  <li><strong>PE(TTM)</strong>：44.9x —— 基于2025年EPS 1.78元。历史PE区间为12x~58x，当前处于历史高位。</li>
+  <li><strong>Forward PE(2026E)</strong>：假设2026年净利增长30%至~460亿，对应EPS约2.31元，forward PE约34.6x。</li>
+  <li><strong>PB</strong>：市净率约9.5倍（净资产约1671亿）。对于代工制造业而言偏高。</li>
+  <li><strong>PEG</strong>：44.9x / 52% ≈ 0.86（按2025年增速），但增速不可持续。若按30%预期增速，PEG约1.5x。</li>
+  <li><strong>与同行对比</strong>：相比立讯精密(PE 22x)、歌尔股份(PE 35x)，工业富联估值溢价主要来自AI服务器主题溢价和更高的营收增速。</li>
+</ul>
+
+<h2>6. 同业对比</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>公司</th><th>代码</th><th>2025营收增速</th><th>净利率</th><th>ROE</th><th>PE</th><th>市值(亿)</th></tr></thead>
+<tbody>
+<tr><td data-label="标的">工业富联</td><td data-label="代码">601138</td><td data-label="营收增速"><span class="pct-up">+48.2%</span></td><td data-label="净利率">3.9%</td><td data-label="ROE">21.1%</td><td data-label="PE">44.9x</td><td data-label="市值">15,861</td></tr>
+<tr><td data-label="标的">立讯精密</td><td data-label="代码">002475</td><td data-label="营收增速">+15.3%</td><td data-label="净利率">7.2%</td><td data-label="ROE">18.5%</td><td data-label="PE">22.1x</td><td data-label="市值">3,420</td></tr>
+<tr><td data-label="标的">中科曙光</td><td data-label="代码">603019</td><td data-label="营收增速">+12.8%</td><td data-label="净利率">8.6%</td><td data-label="ROE">12.4%</td><td data-label="PE">38.5x</td><td data-label="市值">1,860</td></tr>
+<tr><td data-label="标的">浪潮信息</td><td data-label="代码">000977</td><td data-label="营收增速">+22.7%</td><td data-label="净利率">2.8%</td><td data-label="ROE">14.3%</td><td data-label="PE">28.6x</td><td data-label="市值">1,120</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>7. 核心优势</h2>
+<ul>
+  <li><span class="tag-bull">优势</span> <strong>AI服务器出货量第一的确定性</strong> —— NVIDIA Blackwell Ultra+B200系列持续放量，2026年GB300出货预期为工业富联带来明确的业绩增量。</li>
+  <li><span class="tag-bull">优势</span> <strong>营收体量和增速稀缺</strong> —— 9000亿营收级别还能保持+48%增长，在A股全市场极其稀缺；大市值+高增速组合使其成为机构配置AI算力的首选容量标的。</li>
+  <li><span class="tag-bull">优势</span> <strong>现金流充裕，分红潜力</strong> —— 货币资金1100亿，若提高分红比例，股息率有提升空间。</li>
+  <li><span class="tag-bull">优势</span> <strong>工业互联网业务逐步落地</strong> —— 母公司鸿海精密在全球3C制造领域的积累为公司工业互联网业务提供实践平台，虽然当前占比小但长期想象空间大。</li>
+</ul>
+
+<h2>8. 主要风险</h2>
+<ul>
+  <li><span class="tag-bear">风险</span> <strong>代工模式利润天花板</strong> —— 净利率3.9%是商业模式决定的硬约束。AI服务器单价虽高但利润率与普通服务器一致，营收万亿级时利润也只能做到400~500亿级别，不足以支撑当前45x PE。</li>
+  <li><span class="tag-bear">风险</span> <strong>AI资本开支预期波动</strong> —— 工业富联的订单完全取决于NVIDIA和CSP厂商的资本开支计划。若北美云厂商缩减AI投资或NVIDIA转移代工厂商，公司面临订单断崖风险。</li>
+  <li><span class="tag-bear">风险</span> <strong>估值处于历史高位</strong> —— PE 45x是上市以来第二高位（仅次于2020年7月的58x）。代工企业通常合理估值在15~25x，当前溢价包含大量AI主题预期。</li>
+  <li><span class="tag-bear">风险</span> <strong>大股东集中持股与减持风险</strong> —— 鸿海精密持股约84%，流动性有限。主力机构持仓高度集中，一旦市场情绪转向，大规模卖出可能引发连锁反应。</li>
+  <li><span class="tag-bear">风险</span> <strong>地缘政治风险</strong> —— AI服务器涉及技术出口管制。若美国政府进一步扩大对华芯片/设备出口限制，可能影响工业富联获得最新一代GPU的能力。</li>
+</ul>
+
+<h2>9. 综合判断</h2>
+<ul>
+  <li><strong>长期逻辑（3年以上）</strong>：AI算力长期增长趋势不变，工业富联作为全球AI服务器制造龙头，将充分受益于AI基础设施建设周期。但代工模式的利润率上限决定了它更接近"卖铲人"而非"挖金者"，长期年化回报率无法与科技平台型公司相比。</li>
+  <li><strong>中期走势（6~12个月）</strong>：2026年GB300等新品出货将推动业绩进一步增长，但44.9x PE已经包含了较大的乐观预期。当前价格80元接近前高83.88元，短期内突破前高需要更强催化剂（如2026年Q1业绩超预期）。</li>
+  <li><strong>短期风险</strong>：RSI 67接近超买，价格处于52周区间94%分位，短期追高风险较大。如出现AI板块整体回调或美股科技股调整，工业富联的回调幅度可能较大。</li>
+</ul>
+
+<h2>10. 操作边界参考</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>场景</th><th>参考价位</th><th>对应PE</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td data-label="场景">乐观（业绩超预期+情绪延续）</td><td data-label="价位">85~95</td><td data-label="PE">48~53x</td><td data-label="说明">前高83.88需放量突破确认</td></tr>
+<tr><td data-label="场景">中性（业绩符合预期）</td><td data-label="价位">65~80</td><td data-label="PE">37~45x</td><td data-label="说明">当前价格区间，等待业绩验证</td></tr>
+<tr><td data-label="场景">谨慎（板块情绪降温）</td><td data-label="价位">50~65</td><td data-label="PE">28~37x</td><td data-label="说明">对应2025年回调低点附近</td></tr>
+<tr><td data-label="场景">悲观（订单不及预期）</td><td data-label="价位">40~50</td><td data-label="PE">22~28x</td><td data-label="说明">接近2026年3月低点47.35</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="footer">
+  <p>数据来源：TDX gpcw财务数据 / TDX日线行情 / 新浪财经公司资料</p>
+  <p>报告生成时间：2026-06-04 | 仅供研究参考，不构成投资建议</p>
+  <p>MIO RESEARCH · DEEP DIVE · 601138.SH</p>
+</div>
+
+</main>
+</body>
+</html>
