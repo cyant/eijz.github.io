@@ -5,18 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>个股深度分析报告列表</title>
 <style>
-:root {
-  --paper:#fffdf8; --ink:#1f2937; --muted:#64748b; --line:#e5e0d6;
-  --accent:#b45309; --accent2:#7c2d12;
-  --red:#b91c1c; --green:#047857;
-}
+:root { --paper:#fffdf8; --ink:#1f2937; --muted:#64748b; --line:#e5e0d6; --accent:#b45309; --accent2:#7c2d12; --red:#b91c1c; --green:#047857; }
 * { box-sizing:border-box; }
 html { margin:0; background:#ece7dd; }
-body {
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;
-  color:var(--ink); font-size:15px; line-height:1.68;
-}
+body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif; color:var(--ink); font-size:15px; line-height:1.68; }
 .page { width:min(100%, 580px); margin:0 auto; padding:20px 14px 40px; background:var(--paper); min-height:100vh; }
 .cover { padding:24px 20px; border-radius:16px; background:linear-gradient(135deg,#1a2a3a 0%,#2d4a5c 52%,#0d7377 100%); color:#fff; box-shadow:0 10px 24px rgba(36,52,71,.16); margin-bottom:20px; }
 .cover .eyebrow { font-size:11px; opacity:.82; letter-spacing:.06em; }
@@ -35,21 +27,28 @@ h2 { margin:20px 0 10px; padding:8px 12px; border-left:5px solid var(--accent); 
 .tag-red { background:#fee2e2; color:#991b1b; }
 .tag-green { background:#dcfce7; color:#166534; }
 .tag-yellow { background:#fef3c7; color:#92400e; }
+.tag-blue { background:#dbeafe; color:#1e40af; }
 .footer { margin-top:24px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; text-align:center; }
 </style>
 </head>
 <body>
 <main class="page">
-
 <section class="cover">
   <div class="eyebrow">MIO RESEARCH</div>
   <h1>个股深度分析报告</h1>
   <p>沪深板块 | ROE筛选 | 技术面+基本面综合评估</p>
 </section>
-
 <h2>📈 最新报告</h2>
-
 <div class="report-list">
+
+<div class="report-card">
+  <a href="申能股份深度分析.html">
+    <div class="code">600642 · 上海主板</div>
+    <div class="name">申能股份 <span class="tag tag-blue">PE 13x</span></div>
+    <div class="summary">上海国资综合能源，ROE 8%稳定但偏低，PE 13x为电力板块最低一档。高股息+防御属性核心看点。</div>
+    <div class="meta"><span>📅 2026-06-04</span><span>🏷️ 电力 · 公用事业</span></div>
+  </a>
+</div>
 
 <div class="report-card">
   <a href="亨通光电深度分析.html">
@@ -79,12 +78,10 @@ h2 { margin:20px 0 10px; padding:8px 12px; border-left:5px solid var(--accent); 
 </div>
 
 </div>
-
 <div class="footer">
   <p>数据来源：TDX gpcw财务数据 / TDX日线行情 / 新浪财经公司资料</p>
   <p>MIO RESEARCH · 仅供研究参考，不构成投资建议</p>
 </div>
-
 </main>
 </body>
 </html>
