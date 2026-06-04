@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>亨通光电（600487）深度分析</title>
+<style>
+:root {
+  --paper:#fffdf8; --ink:#1f2937; --muted:#64748b; --line:#e5e0d6;
+  --soft:#fff7ed; --accent:#b45309; --accent2:#7c2d12;
+  --red:#b91c1c; --green:#047857; --blue:#1d4ed8;
+}
+* { box-sizing:border-box; }
+html { margin:0; background:#ece7dd; }
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;
+  color:var(--ink); font-size:15px; line-height:1.68;
+}
+.page { width:min(100%, 470px); margin:0 auto; padding:12px 10px 28px; background:var(--paper); min-height:100vh; }
+.cover { padding:20px 18px 18px; border-radius:16px; background:linear-gradient(135deg,#1a2a3a 0%,#2d4a5c 52%,#0d7377 100%); color:#fff; box-shadow:0 10px 24px rgba(36,52,71,.16); }
+.cover .eyebrow { font-size:11px; opacity:.82; letter-spacing:.06em; }
+h1 { margin:7px 0 8px; font-size:26px; line-height:1.2; letter-spacing:0; }
+.cover p { margin:0; color:rgba(255,255,255,.9); font-size:14px; }
+.summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 6px; }
+.summary-card { min-height:108px; border:1px solid var(--line); border-radius:12px; padding:10px 11px; background:#fff; }
+.summary-card span { display:block; color:var(--accent); font-weight:800; font-size:12px; margin-bottom:5px; }
+.summary-card b { display:block; color:#111827; font-size:15px; line-height:1.3; margin-bottom:5px; }
+.summary-card em { display:block; color:var(--muted); font-style:normal; font-size:12px; line-height:1.42; }
+h2 { margin:22px 0 10px; padding:9px 11px; border-left:5px solid var(--accent); border-radius:9px; background:#f8efe3; color:#111827; font-size:18px; line-height:1.34; break-after:avoid; }
+h3 { margin:18px 0 9px; padding:0 0 6px; border-bottom:1px solid var(--line); color:#253041; font-size:16px; break-after:avoid; }
+p { margin:8px 2px 10px; }
+ul { margin:8px 0 13px; padding:0; list-style:none; display:grid; gap:7px; }
+li { position:relative; padding:9px 10px 9px 17px; border:1px solid #eee6d8; border-radius:10px; background:#fffaf1; }
+li::before { content:""; position:absolute; left:8px; top:18px; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+strong { color:#111827; }
+.table-wrap { margin:10px 0 14px; }
+table { width:100%; border-collapse:separate; border-spacing:0 8px; font-size:13px; line-height:1.45; }
+thead { display:none; }
+tr { display:block; border:1px solid var(--line); border-radius:12px; background:#fff; overflow:hidden; }
+td { display:grid; grid-template-columns:86px minmax(0,1fr); gap:8px; padding:7px 9px; border-bottom:1px solid #f0e7d8; vertical-align:top; }
+td:last-child { border-bottom:0; }
+td::before { content:attr(data-label); color:var(--accent2); font-weight:800; font-size:12px; }
+.pct-up, .money-in { color:var(--red); font-weight:800; }
+.pct-down, .money-out { color:var(--green); font-weight:800; }
+.tag-bull { display:inline-block; background:#dcfce7; color:#166534; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-bear { display:inline-block; background:#fee2e2; color:#991b1b; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-neutral { display:inline-block; background:#fef3c7; color:#92400e; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.footer { margin-top:22px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; text-align:center; }
+@media (min-width:760px) {
+  body { font-size:15px; }
+  .page { width:min(960px, calc(100vw - 32px)); padding:30px 38px 42px; box-shadow:0 18px 55px rgba(36,52,71,.10); }
+  .cover { padding:26px 30px 24px; }
+  h1 { font-size:34px; }
+  .cover p { font-size:15px; }
+  .summary-grid { grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0 8px; }
+  .summary-card { min-height:118px; padding:12px 13px; }
+  h2 { font-size:20px; margin-top:30px; }
+  h3 { font-size:17px; }
+  table { border-collapse:collapse; border-spacing:0; font-size:12.5px; min-width:760px; }
+  .table-wrap { border:1px solid var(--line); border-radius:12px; overflow:auto; background:#fff; }
+  thead { display:table-header-group; }
+  tr { display:table-row; border:0; border-radius:0; background:transparent; }
+  th, td { display:table-cell; padding:8px 9px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+  th { background:#f3eadc; color:#111827; text-align:left; white-space:nowrap; font-weight:800; }
+  td::before { content:none; }
+  th:last-child, td:last-child { border-right:none; }
+  tr:last-child td { border-bottom:none; }
+  tbody tr:nth-child(even) td { background:#fffaf2; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+<section class="cover">
+  <div class="eyebrow">MIO RESEARCH · DEEP DIVE · 2026-06-04</div>
+  <h1>亨通光电（600487）深度分析</h1>
+  <p>AI数据中心光互联+海底光缆双轮驱动，股价1年涨391%创历史新高。但2025年净利同比-3.2%、ROE仅7.7%、PE已至76x——基本面改善远跟不上股价涨幅，当前定价已透支未来2~3年业绩。</p>
+</section>
+
+<section class="summary-grid">
+  <div class="summary-card"><span>公司</span><b>江苏亨通光电股份有限公司</b><em>中国光纤光缆龙头，布局海底通信/海缆/智能电网。2003年上市，市值约2050亿。崔根良家族控股民营企业。</em></div>
+  <div class="summary-card"><span>核心数据</span><b>2025年报</b><em>营收669亿(+11.5%)，归母净利26.8亿(-3.2%)，ROE 7.7%，EPS 1.10元，PE约76x</em></div>
+  <div class="summary-card"><span>股价</span><b>83.12元</b><em>1年涨幅+391%，52周区间13.86~83.12(历史新高)，当前位置100%</em></div>
+  <div class="summary-card"><span>风险</span><b>风险边界</b><em>- PE 76x，光纤光缆历史PE中枢20~30x - 2025年净利-3.2%，营收增长利润反降 - 股价已在高位，下方无均线支撑 - 民企大股东质押风险需关注</em></div>
+</section>
+
+<h2>1. 一句话总收口</h2>
+<p>亨通光电是2025~2026年A股光通信主线中兼具"趋势+容量+题材"属性的龙头标的。AI数据中心对高速光互联的需求爆发、海底光缆全球建设周期、以及海上风电海缆订单放量，三重逻辑叠加驱动股价创历史新高。但2025年报显示出隐忧——营收增长11.5%的情况下归母净利反而下降3.2%，说明毛利率在压缩、费用在膨胀。76x PE远远超过了光纤光缆企业的历史估值中枢（20~30x），当前定价已经price in了最乐观情景。</p>
+
+<h2>2. 公司画像 / 商业模式</h2>
+<ul>
+  <li><strong>公司全称</strong>：江苏亨通光电股份有限公司，实际控制人为崔根良家族（亨通集团），民营企业。</li>
+  <li><strong>主营业务</strong>：光通信（光纤预制棒/光纤/光缆，~35%）、智能电网/电缆（~30%）、海洋通信/海缆工程（~20%）、新能源/其他（~15%）。</li>
+  <li><strong>商业模式</strong>：垂直一体化制造。从光纤预制棒（产业链利润最厚环节）到光纤拉丝到光缆成缆全链条自产。海缆业务从产品制造扩展到海洋工程总包（敷缆船施工）。</li>
+  <li><strong>核心竞争壁垒</strong>：（1）全球极少数具备光纤预制棒自给能力的企业之一，预制棒是光通信产业链技术壁垒最高的环节；（2）海缆领域具备全球交付能力，敷缆船船队覆盖亚太/欧洲；（3）与华为、中国移动等核心客户深度绑定。</li>
+</ul>
+
+<h2>3. 基本面分析</h2>
+
+<h3>§3.1 营收与利润趋势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>营收(亿)</th><th>增速</th><th>归母净利(亿)</th><th>增速</th><th>EPS</th><th>净利率</th></tr></thead>
+<tbody>
+<tr><td data-label="2020">2020</td><td data-label="营收">323.8</td><td data-label="增速">基准</td><td data-label="归母净利">10.62</td><td data-label="增速">基准</td><td data-label="EPS">0.55</td><td data-label="净利率">3.6%</td></tr>
+<tr><td data-label="2021">2021</td><td data-label="营收">412.7</td><td data-label="增速"><span class="pct-up">+27.4%</span></td><td data-label="归母净利">14.36</td><td data-label="增速"><span class="pct-up">+35.2%</span></td><td data-label="EPS">0.61</td><td data-label="净利率">3.8%</td></tr>
+<tr><td data-label="2022">2022</td><td data-label="营收">464.6</td><td data-label="增速"><span class="pct-up">+12.6%</span></td><td data-label="归母净利">15.84</td><td data-label="增速">+10.3%</td><td data-label="EPS">0.67</td><td data-label="净利率">3.4%</td></tr>
+<tr><td data-label="2023">2023</td><td data-label="营收">476.2</td><td data-label="增速">+2.5%</td><td data-label="归母净利">21.54</td><td data-label="增速"><span class="pct-up">+36.0%</span></td><td data-label="EPS">0.87</td><td data-label="净利率">4.7%</td></tr>
+<tr><td data-label="2024">2024</td><td data-label="营收">599.8</td><td data-label="增速"><span class="pct-up">+26.0%</span></td><td data-label="归母净利">27.69</td><td data-label="增速"><span class="pct-up">+28.6%</span></td><td data-label="EPS">1.14</td><td data-label="净利率">5.0%</td></tr>
+<tr><td data-label="2025">2025</td><td data-label="营收"><strong>668.6</strong></td><td data-label="增速"><span class="pct-up">+11.5%</span></td><td data-label="归母净利">26.80</td><td data-label="增速"><span class="pct-down"><strong>-3.2%</strong></span></td><td data-label="EPS">1.10</td><td data-label="净利率">4.3%</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>核心发现：</strong>2025年营收继续增长11.5%但归母净利反而下降3.2%，出现了典型的"增收不增利"现象。主要原因是：（1）光纤光缆产品价格竞争加剧，毛利率承压；（2）海缆业务扩张期费用前置（敷缆船折旧、研发投入增加）；（3）应收账款减值损失增加。净利率从2024年的5.0%回落至4.3%，回到了2021年水平。</p>
+
+<h3>§3.2 ROE与资本结构</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>ROE</th><th>资产负债率</th><th>货币资金(亿)</th><th>总资产(亿)</th></tr></thead>
+<tbody>
+<tr><td data-label="2020">2020</td><td data-label="ROE">4.5%</td><td data-label="负债率">51.9%</td><td data-label="货币资金">97.3</td><td data-label="总资产">484.9</td></tr>
+<tr><td data-label="2021">2021</td><td data-label="ROE"><span class="pct-up">5.8%</span></td><td data-label="负债率">53.0%</td><td data-label="货币资金">102.5</td><td data-label="总资产">524.6</td></tr>
+<tr><td data-label="2022">2022</td><td data-label="ROE"><span class="pct-up">5.9%</span></td><td data-label="负债率">51.7%</td><td data-label="货币资金">96.8</td><td data-label="总资产">556.8</td></tr>
+<tr><td data-label="2023">2023</td><td data-label="ROE"><span class="pct-up"><strong>7.7%</strong></span></td><td data-label="负债率">55.0%</td><td data-label="货币资金">115.4</td><td data-label="总资产">624.9</td></tr>
+<tr><td data-label="2024">2024</td><td data-label="ROE"><span class="pct-up"><strong>9.0%</strong></span></td><td data-label="负债率">53.5%</td><td data-label="货币资金">119.2</td><td data-label="总资产">664.4</td></tr>
+<tr><td data-label="2025">2025</td><td data-label="ROE"><span class="pct-down">7.7%</span></td><td data-label="负债率">51.7%</td><td data-label="货币资金"><strong>133.8</strong></td><td data-label="总资产"><strong>723.6</strong></td></tr>
+</tbody>
+</table>
+</div>
+<p>ROE经历了从2020年4.5%到2024年9.0%的持续改善，但2025年回落至7.7%。负债率稳定在52~55%的合理范围。货币资金133.8亿创历史新高，占总资产18.5%，现金储备较为充裕。但ROE水平（7.7%）对于一家制造业公司来说只能算中等，远不能支撑76x PE的估值。</p>
+
+<h3>§3.3 现金流与资产负债</h3>
+<ul>
+  <li><strong>货币资金</strong>：133.75亿，同比+12.2%。现金充裕，主要来自经营积累和海缆工程预收款。</li>
+  <li><strong>总资产</strong>：723.6亿，同比+8.9%。资产扩张趋缓，主要投向海缆产能升级和研发中心。</li>
+  <li><strong>总负债</strong>：374.4亿，负债率51.7%。结构合理，以长期借款和应付账款为主。短期偿债能力无忧。</li>
+</ul>
+
+<h2>4. 技术面分析</h2>
+
+<h3>§4.1 整体趋势</h3>
+<ul>
+  <li><strong>最新价</strong>：83.12元（2026-06-02）—— <span class="tag-bull">历史新高</span></li>
+  <li><strong>均线排列</strong>：价格83.12 &gt; MA20(73.91) &gt; MA60(60.75) &gt; MA120(45.09) &gt; 年线(31.21) —— 完全多头排列，所有均线向上发散，趋势极强。但价格远离所有均线，存在技术性回调的引力。</li>
+  <li><strong>RSI(14)</strong>：58.9 —— 中性偏强。未进入超买区域(70+)，短期仍有上攻空间。</li>
+  <li><strong>MACD</strong>：Hist 0.028 —— 多头但动能极弱，DIF和DEA几乎粘合，即将选择方向。</li>
+  <li><strong>价格位置</strong>：52周区间13.86~83.12，当前位置100%——历史最高价，上方无任何技术压力位，但也无任何安全垫。</li>
+  <li><strong>1年涨幅</strong>：<span class="pct-up">+391.3%</span>。</li>
+</ul>
+
+<h3>§4.2 月度走势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>月份</th><th>开盘</th><th>最高</th><th>最低</th><th>收盘</th><th>月涨跌</th><th>成交量(万手)</th></tr></thead>
+<tbody>
+<tr><td data-label="2025-07">2025-07</td><td data-label="开盘">15.25</td><td data-label="最高">16.55</td><td data-label="最低">15.14</td><td data-label="收盘">15.93</td><td data-label="月涨跌" class="pct-up"><strong>启动</strong></td><td data-label="成交量">121</td></tr>
+<tr><td data-label="2025-08">2025-08</td><td data-label="开盘">15.82</td><td data-label="最高">20.97</td><td data-label="最低">15.59</td><td data-label="收盘">20.48</td><td data-label="月涨跌" class="pct-up">+28.6%</td><td data-label="成交量">236</td></tr>
+<tr><td data-label="2025-09">2025-09</td><td data-label="开盘">20.80</td><td data-label="最高">23.85</td><td data-label="最低">18.82</td><td data-label="收盘">22.97</td><td data-label="月涨跌" class="pct-up">+12.2%</td><td data-label="成交量">313</td></tr>
+<tr><td data-label="2025-10">2025-10</td><td data-label="开盘">22.99</td><td data-label="最高">24.48</td><td data-label="最低">20.22</td><td data-label="收盘">22.36</td><td data-label="月涨跌" class="pct-down">-2.7%</td><td data-label="成交量">149</td></tr>
+<tr><td data-label="2025-11">2025-11</td><td data-label="开盘">22.15</td><td data-label="最高">22.50</td><td data-label="最低">18.91</td><td data-label="收盘">19.78</td><td data-label="月涨跌" class="pct-down">-11.5%</td><td data-label="成交量">104</td></tr>
+<tr><td data-label="2025-12">2025-12</td><td data-label="开盘">19.83</td><td data-label="最高">27.08</td><td data-label="最低">19.50</td><td data-label="收盘">24.73</td><td data-label="月涨跌" class="pct-up">+25.0%</td><td data-label="成交量">228</td></tr>
+<tr><td data-label="2026-01">2026-01</td><td data-label="开盘">24.96</td><td data-label="最高">35.01</td><td data-label="最低">23.78</td><td data-label="收盘">35.01</td><td data-label="月涨跌" class="pct-up"><strong>+41.6%</strong></td><td data-label="成交量">281</td></tr>
+<tr><td data-label="2026-02">2026-02</td><td data-label="开盘">35.72</td><td data-label="最高">47.60</td><td data-label="最低">33.80</td><td data-label="收盘">47.50</td><td data-label="月涨跌" class="pct-up">+35.7%</td><td data-label="成交量">236</td></tr>
+<tr><td data-label="2026-03">2026-03</td><td data-label="开盘">46.00</td><td data-label="最高">54.66</td><td data-label="最低">40.92</td><td data-label="收盘">52.66</td><td data-label="月涨跌" class="pct-up">+10.9%</td><td data-label="成交量">322</td></tr>
+<tr><td data-label="2026-04">2026-04</td><td data-label="开盘">54.66</td><td data-label="最高">74.49</td><td data-label="最低">50.58</td><td data-label="收盘">65.70</td><td data-label="月涨跌" class="pct-up"><strong>+24.8%</strong></td><td data-label="成交量">387</td></tr>
+<tr><td data-label="2026-05">2026-05</td><td data-label="开盘">67.50</td><td data-label="最高">79.90</td><td data-label="最低">65.62</td><td data-label="收盘">77.12</td><td data-label="月涨跌" class="pct-up">+17.4%</td><td data-label="成交量">313</td></tr>
+<tr><td data-label="2026-06">2026-06</td><td data-label="开盘">75.24</td><td data-label="最高">83.12</td><td data-label="最低">73.40</td><td data-label="收盘">83.12</td><td data-label="月涨跌" class="pct-up">+7.8%</td><td data-label="成交量">43</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>§4.3 走势阶段划分</h3>
+<ul>
+  <li><strong>第一阶段（2025-07 ~ 2025-09）：光通信主线启动</strong>。AI算力基建传导至光互联环节，亨通光电作为光纤光缆龙头率先受益。股价从15元翻倍至23元。成交量放大至313万手。</li>
+  <li><strong>第二阶段（2025-10 ~ 2025-11）：短暂回调洗盘</strong>。涨幅过大后的技术性调整，股价从23元回落至19.78元（-14%）。成交量萎缩，洗盘特征明显。</li>
+  <li><strong>第三阶段（2025-12 ~ 2026-06）：主升浪加速+新高</strong>。2024年报超预期+海缆订单催化+AI主题延续，股价从19.78元一路涨至83.12元历史新高，涨幅320%。连续8个月阳线，每月涨幅均为正。</li>
+</ul>
+
+<h2>5. 估值分析</h2>
+<ul>
+  <li><strong>PE(TTM)</strong>：<span class="tag-bear">75.6x</span> —— 基于2025年EPS 1.10元。光纤光缆企业历史PE中枢在20~30x，当前是历史中枢的2.5~3.8倍。</li>
+  <li><strong>Forward PE(2026E)</strong>：假设2026年净利恢复增长至32亿（+19%），对应EPS约1.30元，forward PE约64x。仍远高于合理估值。</li>
+  <li><strong>PB</strong>：市净率约5.9倍（净资产约349亿）。对于制造业公司来说偏高，历史PB中枢约2~3x。</li>
+  <li><strong>PEG</strong>：75.6x / 11.5%(营收增速) ≈ 6.6。按净利增速-3.2%计算PEG为负。</li>
+  <li><strong>与同行对比</strong>：长飞光纤(PE 22x)、中天科技(PE 18x)、烽火通信(PE 35x)。亨通76x的PE远超同行业，市场给予的AI+海缆主题溢价是主要推动力。</li>
+</ul>
+
+<h2>6. 同业对比</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>公司</th><th>代码</th><th>2025营收增速</th><th>净利率</th><th>ROE</th><th>PE</th><th>市值(亿)</th></tr></thead>
+<tbody>
+<tr><td data-label="标的">亨通光电</td><td data-label="代码">600487</td><td data-label="营收增速"><span class="pct-up">+11.5%</span></td><td data-label="净利率">4.3%</td><td data-label="ROE">7.7%</td><td data-label="PE"><strong>75.6x</strong></td><td data-label="市值">2,050</td></tr>
+<tr><td data-label="标的">长飞光纤</td><td data-label="代码">601869</td><td data-label="营收增速">+8.2%</td><td data-label="净利率">9.1%</td><td data-label="ROE">10.5%</td><td data-label="PE">22.4x</td><td data-label="市值">680</td></tr>
+<tr><td data-label="标的">中天科技</td><td data-label="代码">600522</td><td data-label="营收增速">+14.3%</td><td data-label="净利率">6.8%</td><td data-label="ROE">11.2%</td><td data-label="PE">18.3x</td><td data-label="市值">580</td></tr>
+<tr><td data-label="标的">烽火通信</td><td data-label="代码">600498</td><td data-label="营收增速">+9.6%</td><td data-label="净利率">2.1%</td><td data-label="ROE">4.8%</td><td data-label="PE">35.2x</td><td data-label="市值">420</td></tr>
+</tbody>
+</table>
+</div>
+<p>同业对比显示，亨通光电的PE远高于同行。长飞光纤作为行业龙头PE仅22x，净利率9.1%和ROE 10.5%均优于亨通。这说明亨通当前的估值主要由AI主题预期推动，而非基本面相对优势。</p>
+
+<h2>7. 核心优势</h2>
+<ul>
+  <li><span class="tag-bull">优势</span> <strong>光纤预制棒技术壁垒</strong> —— 国内少数具备光纤预制棒自给能力的企业之一，预制棒占光纤成本的~70%，自给率越高利润弹性越大。亨通预制棒自给率约80%。</li>
+  <li><span class="tag-bull">优势</span> <strong>海缆+海洋工程全产业链</strong> —— 从海缆制造到敷设施工到运营维护的全链条能力。全球海缆建设周期受益确定性高（跨洋通信+海上风电）。</li>
+  <li><span class="tag-bull">优势</span> <strong>AI数据中心光互联需求爆发</strong> —— 大规模AI集群对高速光纤互联的需求量级是传统数据中心的数倍。亨通在400G/800G光模块光互联领域有布局。</li>
+  <li><span class="tag-bull">优势</span> <strong>全球化产能布局</strong> —— 在印尼、巴西、埃及等地设有海外工厂，避免单一市场地缘风险，有利于获取海外海缆订单。</li>
+</ul>
+
+<h2>8. 主要风险</h2>
+<ul>
+  <li><span class="tag-bear">风险</span> <strong>76倍PE已严重透支</strong> —— 即使以最乐观的2026年净利增长20%计，forward PE仍高达64x。相比之下ROE仅7.7%，两者严重不匹配。</li>
+  <li><span class="tag-bear">风险</span> <strong>2025年增收不增利是重大警示</strong> —— 营收增11.5%但净利反降3.2%。如果2026年毛利率继续承压，业绩可能继续低于预期。</li>
+  <li><span class="tag-bear">风险</span> <strong>历史新高后无安全垫</strong> —— 股价在历史最高位置，下方无均线或技术位提供参考支撑。从历史规律看，涨幅近4倍后大概率出现30~50%的回调。</li>
+  <li><span class="tag-bear">风险</span> <strong>主题退潮/资金切换风险</strong> —— 光通信主线情绪一旦转向，资金大规模撤离可能导致踩踏。66只涨停到情绪退潮的切换可能在几天内完成。</li>
+  <li><span class="tag-bear">风险</span> <strong>民企大股东资金链</strong> —— 崔根良家族通过亨通集团控股，存在股权质押风险。高质押率在市场下跌时可能触发补充质押或平仓。</li>
+</ul>
+
+<h2>9. 综合判断</h2>
+<ul>
+  <li><strong>长期逻辑（3年以上）</strong>：AI驱动的光互联需求增长是确定性趋势，亨通光电作为光通信产业链核心环节标的将中长期受益。但代工/制造属性决定了利润率的提升空间有限，长期年化回报率预计在10~15%区间，远低于当前估值隐含的预期。</li>
+  <li><strong>中期走势（6~12个月）</strong>：当前83元处于历史高位，向下概率大于向上。2025年报业绩负增长是一个预警信号，如果2026年Q1/Q2不能扭转，估值将面临大幅修正。合理目标区间45~60元（对应PE 40~55x，仍高于历史中枢但可接受）。</li>
+  <li><strong>短期风险</strong>：股价创历史新高后MACD动能衰竭，RSI虽未超买但连续拉升后换手率下降。如果出现放量下跌或关键均线（MA20 73.91）失守，将是短期转弱的信号。</li>
+</ul>
+
+<h2>10. 操作边界参考</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>场景</th><th>参考价位</th><th>对应PE</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td data-label="场景">乐观（AI主线延续）</td><td data-label="价位">83~95</td><td data-label="PE">76~86x</td><td data-label="说明">新高后无阻力位，但需持续催化剂驱动</td></tr>
+<tr><td data-label="场景">中性（高位震荡）</td><td data-label="价位">65~80</td><td data-label="PE">59~73x</td><td data-label="说明">等待2026年中报验证业绩能否扭正</td></tr>
+<tr><td data-label="场景">谨慎（估值回归）</td><td data-label="价位">50~65</td><td data-label="PE">45~59x</td><td data-label="说明">对应4月初的震荡区间，有较强筹码支撑</td></tr>
+<tr><td data-label="场景">悲观（主线退潮）</td><td data-label="价位">35~50</td><td data-label="PE">32~45x</td><td data-label="说明">接近2025年12月启动前的平台；年线31元为底线</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="footer">
+  <p>数据来源：TDX gpcw财务数据 / TDX日线行情 / 新浪财经公司资料</p>
+  <p>报告生成时间：2026-06-04 | 仅供研究参考，不构成投资建议</p>
+  <p>MIO RESEARCH · DEEP DIVE · 600487.SH</p>
+</div>
+
+</main>
+</body>
+</html>
