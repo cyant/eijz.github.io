@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>佰维存储（688525）深度分析</title>
+<style>
+:root {
+  --paper:#fffdf8; --ink:#1f2937; --muted:#64748b; --line:#e5e0d6;
+  --soft:#fff7ed; --accent:#b45309; --accent2:#7c2d12;
+  --red:#b91c1c; --green:#047857; --blue:#1d4ed8;
+}
+* { box-sizing:border-box; }
+html { margin:0; background:#ece7dd; }
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;
+  color:var(--ink); font-size:15px; line-height:1.68;
+}
+.page { width:min(100%, 470px); margin:0 auto; padding:12px 10px 28px; background:var(--paper); min-height:100vh; }
+.cover { padding:20px 18px 18px; border-radius:16px; background:linear-gradient(135deg,#1a2a3a 0%,#2d4a5c 52%,#0d7377 100%); color:#fff; box-shadow:0 10px 24px rgba(36,52,71,.16); }
+.cover .eyebrow { font-size:11px; opacity:.82; letter-spacing:.06em; }
+h1 { margin:7px 0 8px; font-size:26px; line-height:1.2; letter-spacing:0; }
+.cover p { margin:0; color:rgba(255,255,255,.9); font-size:14px; }
+.summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 6px; }
+.summary-card { min-height:108px; border:1px solid var(--line); border-radius:12px; padding:10px 11px; background:#fff; }
+.summary-card span { display:block; color:var(--accent); font-weight:800; font-size:12px; margin-bottom:5px; }
+.summary-card b { display:block; color:#111827; font-size:15px; line-height:1.3; margin-bottom:5px; }
+.summary-card em { display:block; color:var(--muted); font-style:normal; font-size:12px; line-height:1.42; }
+h2 { margin:22px 0 10px; padding:9px 11px; border-left:5px solid var(--accent); border-radius:9px; background:#f8efe3; color:#111827; font-size:18px; line-height:1.34; break-after:avoid; }
+h3 { margin:18px 0 9px; padding:0 0 6px; border-bottom:1px solid var(--line); color:#253041; font-size:16px; break-after:avoid; }
+p { margin:8px 2px 10px; }
+ul { margin:8px 0 13px; padding:0; list-style:none; display:grid; gap:7px; }
+li { position:relative; padding:9px 10px 9px 17px; border:1px solid #eee6d8; border-radius:10px; background:#fffaf1; }
+li::before { content:""; position:absolute; left:8px; top:18px; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+strong { color:#111827; }
+.table-wrap { margin:10px 0 14px; }
+table { width:100%; border-collapse:separate; border-spacing:0 8px; font-size:13px; line-height:1.45; }
+thead { display:none; }
+tr { display:block; border:1px solid var(--line); border-radius:12px; background:#fff; overflow:hidden; }
+td { display:grid; grid-template-columns:86px minmax(0,1fr); gap:8px; padding:7px 9px; border-bottom:1px solid #f0e7d8; vertical-align:top; }
+td:last-child { border-bottom:0; }
+td::before { content:attr(data-label); color:var(--accent2); font-weight:800; font-size:12px; }
+.pct-up, .money-in { color:var(--red); font-weight:800; }
+.pct-down, .money-out { color:var(--green); font-weight:800; }
+.tag-bull { display:inline-block; background:#dcfce7; color:#166534; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-bear { display:inline-block; background:#fee2e2; color:#991b1b; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-neutral { display:inline-block; background:#fef3c7; color:#92400e; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.footer { margin-top:22px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; text-align:center; }
+@media (min-width:760px) {
+  body { font-size:15px; }
+  .page { width:min(960px, calc(100vw - 32px)); padding:30px 38px 42px; box-shadow:0 18px 55px rgba(36,52,71,.10); }
+  .cover { padding:26px 30px 24px; }
+  h1 { font-size:34px; }
+  .cover p { font-size:15px; }
+  .summary-grid { grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0 8px; }
+  .summary-card { min-height:118px; padding:12px 13px; }
+  h2 { font-size:20px; margin-top:30px; }
+  h3 { font-size:17px; }
+  table { border-collapse:collapse; border-spacing:0; font-size:12.5px; min-width:760px; }
+  .table-wrap { border:1px solid var(--line); border-radius:12px; overflow:auto; background:#fff; }
+  thead { display:table-header-group; }
+  tr { display:table-row; border:0; border-radius:0; background:transparent; }
+  th, td { display:table-cell; padding:8px 9px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+  th { background:#f3eadc; color:#111827; text-align:left; white-space:nowrap; font-weight:800; }
+  td::before { content:none; }
+  th:last-child, td:last-child { border-right:none; }
+  tr:last-child td { border-bottom:none; }
+  tbody tr:nth-child(even) td { background:#fffaf2; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+<section class="cover">
+  <div class="eyebrow">MIO RESEARCH · DEEP DIVE · 2026-06-04</div>
+  <h1>佰维存储（688525）深度分析</h1>
+  <p>佰维存储作为佰维存储的核心企业，当前营收面临压力、ROE一般，市场给予约0.0x PE（估值合理）。核心关注：能否重回增长。</p>
+</section>
+
+<section class="summary-grid">
+  <div class="summary-card"><span>公司</span><b>佰维存储</b><em>主营详见主营业务说明</em></div>
+  <div class="summary-card"><span>核心数据</span><b>【最新年报/季报】</b><em>营收15.4亿(增速-76.9%)，净利-2.0亿(增速-222.5%)，ROE0.0%, EPS-0.460元，PE约0.0x</em></div>
+  <div class="summary-card"><span>股价</span><b>303.40元</b><em>年内涨幅+437.1%，52周区间18.54~331.10，当前位置91%</em></div>
+  <div class="summary-card"><span>风险</span><b>风险边界</b><em>- 见下方详细风险分析</em></div>
+</section>
+
+<h2>1. 一句话总收口</h2>
+<p>【综合分析结论：公司核心逻辑、当前处境、关键变量】</p>
+
+<h2>2. 公司画像 / 商业模式</h2>
+<ul>
+  <li><strong>公司全称</strong>：佰维存储，—，—。</li>
+  <li><strong>主营业务</strong>：【主要业务构成，收入占比】。</li>
+  <li><strong>商业模式</strong>：【商业模式描述，如何赚钱】。</li>
+  <li><strong>核心竞争壁垒</strong>：（1）【壁垒1】；（2）【壁垒2】；（3）【壁垒3】。</li>
+</ul>
+
+<h2>3. 基本面分析</h2>
+
+<h3>§3.1 营收与利润趋势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>营收(亿)</th><th>增速</th><th>归母净利(亿)</th><th>增速</th><th>EPS</th><th>净利率</th></tr></thead>
+<tbody>
+<tr>
+<td data-label="2020">2020</td>
+<td data-label="营收">16.4</td>
+<td data-label="增速">基准</td>
+<td data-label="归母净利">0.3</td>
+<td data-label="增速">基准</td>
+<td data-label="EPS">0.1800</td>
+<td data-label="净利率">1.7%</td>
+</tr>
+<tr>
+<td data-label="2021">2021</td>
+<td data-label="营收">26.1</td>
+<td data-label="增速" class="pct-up">+58.9%</td>
+<td data-label="归母净利">1.2</td>
+<td data-label="增速" class="pct-up">+325.7%</td>
+<td data-label="EPS">0.3200</td>
+<td data-label="净利率">4.5%</td>
+</tr>
+<tr>
+<td data-label="2022">2022</td>
+<td data-label="营收">29.9</td>
+<td data-label="增速" class="pct-up">+14.4%</td>
+<td data-label="归母净利">0.7</td>
+<td data-label="增速" class="pct-down">-38.9%</td>
+<td data-label="EPS">0.1800</td>
+<td data-label="净利率">2.4%</td>
+</tr>
+<tr>
+<td data-label="2023">2023</td>
+<td data-label="营收">35.9</td>
+<td data-label="增速" class="pct-up">+20.3%</td>
+<td data-label="归母净利">N/A</td>
+<td data-label="增速">N/A</td>
+<td data-label="EPS">N/A</td>
+<td data-label="净利率">N/A</td>
+</tr>
+<tr>
+<td data-label="2024">2024</td>
+<td data-label="营收">67.0</td>
+<td data-label="增速" class="pct-up">+86.5%</td>
+<td data-label="归母净利">1.6</td>
+<td data-label="增速">N/A</td>
+<td data-label="EPS">0.3700</td>
+<td data-label="净利率">2.4%</td>
+</tr>
+<tr>
+<td data-label="2025Q1">2025Q1</td>
+<td data-label="营收">15.4</td>
+<td data-label="增速" class="pct-down">-76.9%</td>
+<td data-label="归母净利">N/A</td>
+<td data-label="增速">N/A</td>
+<td data-label="EPS">N/A</td>
+<td data-label="净利率">N/A</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>【关键发现和分析结论】</p>
+
+<h3>§3.2 ROE与资本结构</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>ROE</th><th>资产负债率</th><th>货币资金(亿)</th><th>总资产(亿)</th></tr></thead>
+<tbody>
+<tr>
+<td data-label="2020">2020</td>
+<td data-label="ROE">N/A</td>
+<td data-label="负债率">37.9%</td>
+<td data-label="货币资金">2.0</td>
+<td data-label="总资产">17.7</td>
+</tr>
+<tr>
+<td data-label="2021">2021</td>
+<td data-label="ROE">6.4%</td>
+<td data-label="负债率">35.2%</td>
+<td data-label="货币资金">2.1</td>
+<td data-label="总资产">28.1</td>
+</tr>
+<tr>
+<td data-label="2022">2022</td>
+<td data-label="ROE">2.9%</td>
+<td data-label="负债率">45.1%</td>
+<td data-label="货币资金">8.0</td>
+<td data-label="总资产">44.1</td>
+</tr>
+<tr>
+<td data-label="2023">2023</td>
+<td data-label="ROE">N/A</td>
+<td data-label="负债率">69.7%</td>
+<td data-label="货币资金">3.4</td>
+<td data-label="总资产">63.3</td>
+</tr>
+<tr>
+<td data-label="2024">2024</td>
+<td data-label="ROE">6.6%</td>
+<td data-label="负债率">69.5%</td>
+<td data-label="货币资金">7.9</td>
+<td data-label="总资产">79.6</td>
+</tr>
+<tr>
+<td data-label="2025Q1">2025Q1</td>
+<td data-label="ROE">N/A</td>
+<td data-label="负债率">75.4%</td>
+<td data-label="货币资金">17.1</td>
+<td data-label="总资产">93.8</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>【ROE驱动因素分析】</p>
+
+<h3>§3.3 现金流与资产负债</h3>
+<ul>
+  <li><strong>货币资金</strong>：17.1亿。现金储备较为充裕，主要来源【XXX】。</li>
+  <li><strong>总资产</strong>：93.8亿。。</li>
+  <li><strong>总负债</strong>：70.7亿，负债率75.4%。。</li>
+</ul>
+
+<h2>4. 技术面分析</h2>
+
+<h3>§4.1 整体趋势</h3>
+<ul>
+  <li><strong>最新价</strong>：303.40元（2026-06-02）</li>
+  <li><strong>均线排列</strong>：均线交织——震荡趋势。</li>
+  <li><strong>RSI(14)</strong>：42.2——中性。</li>
+  <li><strong>MACD</strong>：Hist -5.343，空头，空头（动能增强）。</li>
+  <li><strong>价格位置</strong>：52周区间18.54~331.10，当前位置91%——52周高位区域 —— 注意追高风险。</li>
+  <li><strong>N年涨幅</strong>：【+X%】。</li>
+</ul>
+
+<h3>§4.2 月度走势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>月份</th><th>开盘</th><th>最高</th><th>最低</th><th>收盘</th><th>月涨跌</th><th>成交量(万手)</th></tr></thead>
+<tbody>
+<tr>
+<td data-label="2025-07">2025-07</td>
+<td data-label="开盘">22.22</td>
+<td data-label="最高">23.04</td>
+<td data-label="最低">20.70</td>
+<td data-label="收盘">21.02</td>
+<td data-label="月涨跌" class="pct-down">-5.7%</td>
+<td data-label="成交量">186104111</td>
+</tr>
+<tr>
+<td data-label="2025-08">2025-08</td>
+<td data-label="开盘">20.93</td>
+<td data-label="最高">24.66</td>
+<td data-label="最低">20.70</td>
+<td data-label="收盘">23.31</td>
+<td data-label="月涨跌" class="pct-up">+10.9%</td>
+<td data-label="成交量">340664428</td>
+</tr>
+<tr>
+<td data-label="2025-09">2025-09</td>
+<td data-label="开盘">24.00</td>
+<td data-label="最高">40.88</td>
+<td data-label="最低">20.59</td>
+<td data-label="收盘">38.93</td>
+<td data-label="月涨跌" class="pct-up">+67.1%</td>
+<td data-label="成交量">643467012</td>
+</tr>
+<tr>
+<td data-label="2025-10">2025-10</td>
+<td data-label="开盘">41.21</td>
+<td data-label="最高">53.37</td>
+<td data-label="最低">34.53</td>
+<td data-label="收盘">48.90</td>
+<td data-label="月涨跌" class="pct-up">+25.6%</td>
+<td data-label="成交量">550721138</td>
+</tr>
+<tr>
+<td data-label="2025-11">2025-11</td>
+<td data-label="开盘">47.04</td>
+<td data-label="最高">67.87</td>
+<td data-label="最低">42.93</td>
+<td data-label="收盘">51.76</td>
+<td data-label="月涨跌" class="pct-up">+5.9%</td>
+<td data-label="成交量">584001069</td>
+</tr>
+<tr>
+<td data-label="2025-12">2025-12</td>
+<td data-label="开盘">52.21</td>
+<td data-label="最高">58.75</td>
+<td data-label="最低">49.64</td>
+<td data-label="收盘">54.49</td>
+<td data-label="月涨跌" class="pct-up">+5.3%</td>
+<td data-label="成交量">492291058</td>
+</tr>
+<tr>
+<td data-label="2026-01">2026-01</td>
+<td data-label="开盘">56.49</td>
+<td data-label="最高">114.64</td>
+<td data-label="最低">56.49</td>
+<td data-label="收盘">104.18</td>
+<td data-label="月涨跌" class="pct-up">+91.2%</td>
+<td data-label="成交量">687017383</td>
+</tr>
+<tr>
+<td data-label="2026-02">2026-02</td>
+<td data-label="开盘">99.92</td>
+<td data-label="最高">100.63</td>
+<td data-label="最低">88.06</td>
+<td data-label="收盘">92.23</td>
+<td data-label="月涨跌" class="pct-down">-11.5%</td>
+<td data-label="成交量">314507507</td>
+</tr>
+<tr>
+<td data-label="2026-03">2026-03</td>
+<td data-label="开盘">89.06</td>
+<td data-label="最高">197.94</td>
+<td data-label="最低">81.23</td>
+<td data-label="收盘">160.40</td>
+<td data-label="月涨跌" class="pct-up">+73.9%</td>
+<td data-label="成交量">933566579</td>
+</tr>
+<tr>
+<td data-label="2026-04">2026-04</td>
+<td data-label="开盘">172.51</td>
+<td data-label="最高">251.34</td>
+<td data-label="最低">159.05</td>
+<td data-label="收盘">225.85</td>
+<td data-label="月涨跌" class="pct-up">+40.8%</td>
+<td data-label="成交量">743430825</td>
+</tr>
+<tr>
+<td data-label="2026-05">2026-05</td>
+<td data-label="开盘">286.70</td>
+<td data-label="最高">345.00</td>
+<td data-label="最低">281.20</td>
+<td data-label="收盘">327.37</td>
+<td data-label="月涨跌" class="pct-up">+44.9%</td>
+<td data-label="成交量">755398253</td>
+</tr>
+<tr>
+<td data-label="2026-06">2026-06</td>
+<td data-label="开盘">331.00</td>
+<td data-label="最高">333.99</td>
+<td data-label="最低">287.41</td>
+<td data-label="收盘">303.40</td>
+<td data-label="月涨跌" class="pct-down">-7.3%</td>
+<td data-label="成交量">68666302</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>§4.3 走势阶段划分</h3>
+<ul>
+  <li><strong>第一阶段（2022-12-30 ~ 2024-02-22）：调整期</strong>。区间涨幅+10093.1%。</li>
+  <li><strong>第二阶段（2024-02-23 ~ 2025-04-11）：震荡期</strong>。区间涨幅+305.2%。</li>
+  <li><strong>第三阶段（2025-04-14 ~ 2026-06-04）：近期走势</strong>。区间涨幅+1349.0%。</li>
+</ul>
+
+<h2>5. 估值分析</h2>
+<ul>
+  <li>估值数据获取中，请结合公开信息自行判断。</li>
+</ul>
+<h2>6. 同业对比</h2>
+<p>同业对比数据涉及多只个股的详细财务指标，建议在每日组合分析中同步生成。当前为独立个股报告，暂未包含完整同业对比表。</p>
+<h2>7. 核心优势</h2>
+<ul>
+  <li><span class="tag-bull">优势</span> <strong>存储芯片模组先锋</strong> —— 佰维存储是国内领先的存储芯片模组企业，产品覆盖SSD、内存模组、嵌入式存储等。</li>
+  <li><span class="tag-bull">优势</span> <strong>国产替代机遇</strong> —— 存储芯片国产化趋势下，公司作为本土模组厂受益于政策支持和客户供应链转移。</li>
+  <li><span class="tag-bull">优势</span> <strong>技术迭代快</strong> —— 持续投入研发，掌握先进封装和测试技术，产品性能对标国际品牌。</li>
+</ul>
+<h2>8. 主要风险</h2>
+<ul>
+  <li><span class="tag-bear">风险</span> <strong>存储芯片价格波动</strong> —— 存储芯片价格具有强周期性，价格下行周期公司盈利受损。</li>
+  <li><span class="tag-bear">风险</span> <strong>技术更新迭代快</strong> —— 存储技术快速迭代，研发投入跟不上可能削弱竞争力。</li>
+  <li><span class="tag-bear">风险</span> <strong>国产替代不确定性</strong> —— 虽然国产化趋势明确，但技术突破和客户导入进度存在不确定性。</li>
+</ul>
+<h2>9. 综合判断</h2>
+<ul>
+  <li><strong>长期逻辑（3年以上）</strong>：公司当前处于调整期，长期价值需关注业务转型效果和行业拐点。</li>
+  <li><strong>中期走势（6~12个月）</strong>：技术面目前处于空头趋势（空头（动能增强）），中期需关注量能变化和关键价位突破情况。</li>
+  <li><strong>短期风险</strong>：股价处于52周高位附近，短期已有较大涨幅，追高需谨慎。</li>
+</ul>
+<h2>10. 操作边界参考</h2>
+<p>估值数据不足，暂无法提供精确操作边界。</p>
+<div class="footer">
+  <p>数据来源：TDX gpcw财务数据 / TDX日线行情 / 新浪财经公司资料</p>
+  <p>报告生成时间：2026-06-04 | 仅供研究参考，不构成投资建议</p>
+  <p>MIO RESEARCH · DEEP DIVE · 688525.SH</p>
+</div>
+
+</main>
+</body>
+</html>
