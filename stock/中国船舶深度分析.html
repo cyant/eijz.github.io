@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>中国船舶（600150）深度分析</title>
+<style>
+:root { --paper:#fffdf8; --ink:#1f2937; --muted:#64748b; --line:#e5e0d6; --accent:#b45309; --accent2:#7c2d12; --red:#b91c1c; --green:#047857; }
+*{box-sizing:border-box}html{margin:0;background:#ece7dd}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;color:var(--ink);font-size:15px;line-height:1.68}
+.page{width:min(100%,470px);margin:0 auto;padding:12px 10px 28px;background:var(--paper);min-height:100vh}
+.cover{padding:20px 18px 18px;border-radius:16px;background:linear-gradient(135deg,#1a2a3a 0%,#2d4a5c 52%,#0d7377 100%);color:#fff;box-shadow:0 10px 24px rgba(36,52,71,.16)}
+.cover .eyebrow{font-size:11px;opacity:.82;letter-spacing:.06em}
+h1{margin:7px 0 8px;font-size:26px;line-height:1.2}
+.cover p{margin:0;color:rgba(255,255,255,.9);font-size:14px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 6px}
+.summary-card{min-height:108px;border:1px solid var(--line);border-radius:12px;padding:10px 11px;background:#fff}
+.summary-card span{display:block;color:var(--accent);font-weight:800;font-size:12px;margin-bottom:5px}
+.summary-card b{display:block;color:#111827;font-size:15px;line-height:1.3;margin-bottom:5px}
+.summary-card em{display:block;color:var(--muted);font-style:normal;font-size:12px;line-height:1.42}
+h2{margin:22px 0 10px;padding:9px 11px;border-left:5px solid var(--accent);border-radius:9px;background:#f8efe3;color:#111827;font-size:18px;line-height:1.34}
+h3{margin:18px 0 9px;padding:0 0 6px;border-bottom:1px solid var(--line);color:#253041;font-size:16px}
+p{margin:8px 2px 10px}
+ul{margin:8px 0 13px;padding:0;list-style:none;display:grid;gap:7px}
+li{position:relative;padding:9px 10px 9px 17px;border:1px solid #eee6d8;border-radius:10px;background:#fffaf1}
+li::before{content:"";position:absolute;left:8px;top:18px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+strong{color:#111827}
+.table-wrap{margin:10px 0 14px}
+table{width:100%;border-collapse:separate;border-spacing:0 8px;font-size:13px;line-height:1.45}
+thead{display:none}
+tr{display:block;border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+td{display:grid;grid-template-columns:86px minmax(0,1fr);gap:8px;padding:7px 9px;border-bottom:1px solid #f0e7d8}
+td:last-child{border-bottom:0}
+td::before{content:attr(data-label);color:var(--accent2);font-weight:800;font-size:12px}
+.pct-up,.money-in{color:var(--red);font-weight:800}
+.pct-down,.money-out{color:var(--green);font-weight:800}
+.tag-bull{display:inline-block;background:#dcfce7;color:#166534;padding:0 7px;border-radius:5px;font-size:12px;font-weight:700}
+.tag-bear{display:inline-block;background:#fee2e2;color:#991b1b;padding:0 7px;border-radius:5px;font-size:12px;font-weight:700}
+.tag-neutral{display:inline-block;background:#fef3c7;color:#92400e;padding:0 7px;border-radius:5px;font-size:12px;font-weight:700}
+.footer{margin-top:22px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;text-align:center}
+@media(min-width:760px){
+body{font-size:15px}
+.page{width:min(960px,calc(100vw-32px));padding:30px 38px 42px;box-shadow:0 18px 55px rgba(36,52,71,.10)}
+.cover{padding:26px 30px 24px}
+h1{font-size:34px}
+.summary-grid{grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 8px}
+.summary-card{min-height:118px;padding:12px 13px}
+h2{font-size:20px;margin-top:30px}
+h3{font-size:17px}
+table{border-collapse:collapse;border-spacing:0;font-size:12.5px;min-width:760px}
+.table-wrap{border:1px solid var(--line);border-radius:12px;overflow:auto;background:#fff}
+thead{display:table-header-group}
+tr{display:table-row;border:0;border-radius:0;background:transparent}
+th,td{display:table-cell;padding:8px 9px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+th{background:#f3eadc;color:#111827;text-align:left;white-space:nowrap;font-weight:800}
+td::before{content:none}
+th:last-child,td:last-child{border-right:none}
+tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even) td{background:#fffaf2}
+}
+</style>
+</head>
+<body>
+<main class="page">
+<section class="cover">
+<div class="eyebrow">MIO RESEARCH · DEEP DIVE · 2026-06-04</div>
+<h1>中国船舶（600150）深度分析</h1>
+<p>全球造船业景气周期+央企重组整合双轮驱动，2025年营收跳升93%至1519亿、净利78.5亿（+117%）。但ROE仅5.2%、PE 29x，RSI 24.2已超卖——高景气与低盈利并存，造船周期的兑现需要时间。</p>
+</section>
+<section class="summary-grid">
+<div class="summary-card"><span>公司</span><b>中国船舶工业股份有限公司</b><em>中国船舶集团旗下核心上市平台，全球最大造船企业之一。1998年上市，总资产4205亿。国务院国资委控股央企。</em></div>
+<div class="summary-card"><span>核心数据</span><b>2025年报</b><em>营收1519亿(+93.4%)，归母净利78.5亿(+117%)，ROE 5.2%，EPS 1.24元，PE 29.4x</em></div>
+<div class="summary-card"><span>股价</span><b>36.45元</b><em>1年涨幅-2.3%，52周区间26.93~45.95，当前位置50.1%处于中位</em></div>
+<div class="summary-card"><span>风险</span><b>风险边界</b><em>- ROE仅5.2%，营收暴增利润弹性不足 - RSI 24.2超卖但趋势仍弱 - PE 29x不算便宜 - 造船周期见顶风险</em></div>
+</section>
+
+<h2>1. 一句话总收口</h2>
+<p>中国船舶是全球造船业上行周期的核心受益标的。2025年营收暴增93%、净利翻倍，主要受全球新船订单量价齐升+集团资产注入（重组）双驱动。但ROE仅5.2%揭示了一个尴尬的现实——造船业虽然营收体量庞大，但利润率极薄（净利率6.9%），且存在完工交付周期长、原材料成本波动、汇率风险等问题。PE 29x不算便宜，但RSI 24.2超卖说明短期恐慌已过度释放。核心看点是2026~2027年高价船订单的交付兑现。</p>
+
+<h2>2. 公司画像 / 商业模式</h2>
+<ul>
+<li><strong>公司全称</strong>：中国船舶工业股份有限公司，控股股东为中国船舶集团（国务院国资委100%持股），央企。</li>
+<li><strong>主营业务</strong>：船舶建造（含军船，占营收~70%）、船舶修造（~10%）、船用柴油机（~8%）、海洋工程（~7%）、其他（~5%）。</li>
+<li><strong>商业模式</strong>：订单制生产。承接新船订单后按建造节点（开工/上船台/下水/交付）分批确认收入。单船建造周期通常12~36个月，收入确认滞后于订单签署2~3年。</li>
+<li><strong>核心竞争壁垒</strong>：（1）全球最大的造船集团之一，产能和技术水平世界领先；（2）军船业务提供稳定的利润基本盘；（3）央企背景在大型船舶融资和客户信任度上有优势。</li>
+</ul>
+
+<h2>3. 基本面分析</h2>
+<h3>§3.1 营收与利润趋势</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>年份</th><th>营收(亿)</th><th>增速</th><th>归母净利(亿)</th><th>增速</th><th>EPS</th><th>净利率</th></tr></thead>
+<tbody>
+<tr><td data-label="2020">2020</td><td data-label="营收">552.4</td><td data-label="增速">基准</td><td data-label="归母净利">3.06</td><td data-label="增速">基准</td><td data-label="EPS">0.07</td><td data-label="净利率">0.5%</td></tr>
+<tr><td data-label="2021">2021</td><td data-label="营收">597.4</td><td data-label="增速">+8.1%</td><td data-label="归母净利">2.14</td><td data-label="增速"><span class="pct-down">-30.1%</span></td><td data-label="EPS">0.05</td><td data-label="净利率">0.4%</td></tr>
+<tr><td data-label="2022">2022</td><td data-label="营收">595.6</td><td data-label="增速">-0.3%</td><td data-label="归母净利">1.72</td><td data-label="增速"><span class="pct-down">-19.6%</span></td><td data-label="EPS">0.04</td><td data-label="净利率">1.5%</td></tr>
+<tr><td data-label="2023">2023</td><td data-label="营收">748.4</td><td data-label="增速"><span class="pct-up">+25.7%</span></td><td data-label="归母净利">29.57</td><td data-label="增速"><span class="pct-up"><strong>+1,619%</strong></span></td><td data-label="EPS">0.66</td><td data-label="净利率">3.9%</td></tr>
+<tr><td data-label="2024">2024</td><td data-label="营收">785.8</td><td data-label="增速">+5.0%</td><td data-label="归母净利">36.14</td><td data-label="增速"><span class="pct-up">+22.2%</span></td><td data-label="EPS">0.81</td><td data-label="净利率">4.9%</td></tr>
+<tr><td data-label="2025">2025</td><td data-label="营收"><strong>1,519.8</strong></td><td data-label="增速"><span class="pct-up"><strong>+93.4%</strong></span></td><td data-label="归母净利"><strong>78.48</strong></td><td data-label="增速"><span class="pct-up"><strong>+117%</strong></span></td><td data-label="EPS"><strong>1.24</strong></td><td data-label="净利率">6.9%</td></tr>
+</tbody></table></div>
+<p><strong>关键发现：</strong>2020~2022年是造船业深度低谷，利润极微。2023年起全球新船订单爆发（集装箱船/LNG船/油轮），叠加中国船舶集团资产重组注入盈利资产，营收和利润进入上行通道。2025年营收+93%主要因集团核心造船资产注入并表。净利率从0.5%修复至6.9%，但绝对值仍偏低。</p>
+
+<h3>§3.2 ROE与资本结构</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>年份</th><th>ROE</th><th>资产负债率</th><th>货币资金(亿)</th><th>总资产(亿)</th></tr></thead>
+<tbody>
+<tr><td data-label="2020">2020</td><td data-label="ROE">0.6%</td><td data-label="负债率">65.4%</td><td data-label="货币资金">512.6</td><td data-label="总资产">1,525</td></tr>
+<tr><td data-label="2021">2021</td><td data-label="ROE">0.4%</td><td data-label="负债率">66.9%</td><td data-label="货币资金">528.6</td><td data-label="总资产">1,604</td></tr>
+<tr><td data-label="2022">2022</td><td data-label="ROE">0.3%</td><td data-label="负债率">68.9%</td><td data-label="货币资金">573.9</td><td data-label="总资产">1,624</td></tr>
+<tr><td data-label="2023">2023</td><td data-label="ROE"><span class="pct-up"><strong>5.6%</strong></span></td><td data-label="负债率">70.5%</td><td data-label="货币资金">679.7</td><td data-label="总资产">1,778</td></tr>
+<tr><td data-label="2024">2024</td><td data-label="ROE"><span class="pct-up">6.5%</span></td><td data-label="负债率">69.6%</td><td data-label="货币资金">636.8</td><td data-label="总资产">1,820</td></tr>
+<tr><td data-label="2025">2025</td><td data-label="ROE">5.2%</td><td data-label="负债率">64.4%</td><td data-label="货币资金"><strong>1,468</strong></td><td data-label="总资产"><strong>4,205</strong></td></tr>
+</tbody></table></div>
+<p>ROE从0.3%低谷修复至5.2%，但绝对值仍偏低。2025年总资产从1820亿暴增至4205亿（+131%），主要是集团资产注入并表导致，ROE被分母扩张稀释。负债率64.4%在制造业中属于中等水平。</p>
+
+<h2>4. 技术面分析</h2>
+<h3>§4.1 整体趋势</h3>
+<ul>
+<li><strong>最新价</strong>：36.45元（2026-06-02）</li>
+<li><strong>均线排列</strong>：价格36.45 < MA20(39.08) < MA60(36.07) ≈ MA120(35.48) ≈ 年线(34.98)。短期空头，中长期粘合，方向选择中。</li>
+<li><strong>RSI(14)</strong>：<span class="tag-green">24.2</span>——<strong>深度超卖区间</strong>，短期反弹概率较大。</li>
+<li><strong>价格位置</strong>：52周区间26.93~45.95，当前位置50.1%——处于中位，不高不低。</li>
+<li><strong>1年涨幅</strong>：<span class="pct-down">-2.3%</span>——全年零涨幅，明显跑输大盘。</li>
+</ul>
+<h3>§4.2 月度走势</h3>
+<div class="table-wrap"><table><thead><tr><th>月份</th><th>开盘</th><th>最高</th><th>最低</th><th>收盘</th><th>月涨跌</th><th>成交量(万手)</th></tr></thead><tbody>
+<tr><td data-label="2025-07">2025-07</td><td data-label="开盘">32.59</td><td data-label="最高">35.50</td><td data-label="最低">32.32</td><td data-label="收盘">34.33</td><td data-label="月涨跌" class="pct-up">+2.8%</td><td data-label="成交量">135,130</td></tr>
+<tr><td data-label="2025-08">2025-08</td><td data-label="开盘">34.20</td><td data-label="最高">40.98</td><td data-label="最低">33.58</td><td data-label="收盘">37.38</td><td data-label="月涨跌" class="pct-up"><strong>+8.9%</strong></td><td data-label="成交量">224,754</td></tr>
+<tr><td data-label="2025-09">2025-09</td><td data-label="开盘">37.78</td><td data-label="最高">39.56</td><td data-label="最低">34.33</td><td data-label="收盘">34.60</td><td data-label="月涨跌" class="pct-down">-7.4%</td><td data-label="成交量">216,896</td></tr>
+<tr><td data-label="2025-10">2025-10</td><td data-label="开盘">34.47</td><td data-label="最高">36.97</td><td data-label="最低">33.83</td><td data-label="收盘">35.90</td><td data-label="月涨跌" class="pct-up">+3.8%</td><td data-label="成交量">147,912</td></tr>
+<tr><td data-label="2025-11">2025-11</td><td data-label="开盘">35.80</td><td data-label="最高">36.85</td><td data-label="最低">33.93</td><td data-label="收盘">34.37</td><td data-label="月涨跌" class="pct-down">-4.3%</td><td data-label="成交量">149,538</td></tr>
+<tr><td data-label="2025-12">2025-12</td><td data-label="开盘">34.26</td><td data-label="最高">35.48</td><td data-label="最低">32.48</td><td data-label="收盘">33.26</td><td data-label="月涨跌" class="pct-down">-3.2%</td><td data-label="成交量">113,948</td></tr>
+<tr><td data-label="2026-01">2026-01</td><td data-label="开盘">33.41</td><td data-label="最高">36.66</td><td data-label="最低">33.21</td><td data-label="收盘">33.54</td><td data-label="月涨跌" class="pct-up">+0.8%</td><td data-label="成交量">188,630</td></tr>
+<tr><td data-label="2026-02">2026-02</td><td data-label="开盘">33.70</td><td data-label="最高">38.30</td><td data-label="最低">33.05</td><td data-label="收盘">37.75</td><td data-label="月涨跌" class="pct-up"><strong>+12.6%</strong></td><td data-label="成交量">141,641</td></tr>
+<tr><td data-label="2026-03">2026-03</td><td data-label="开盘">38.10</td><td data-label="最高">39.45</td><td data-label="最低">30.00</td><td data-label="收盘">30.84</td><td data-label="月涨跌" class="pct-down"><strong>-18.3%</strong></td><td data-label="成交量">201,798</td></tr>
+<tr><td data-label="2026-04">2026-04</td><td data-label="开盘">31.30</td><td data-label="最高">43.42</td><td data-label="最低">30.40</td><td data-label="收盘">41.76</td><td data-label="月涨跌" class="pct-up"><strong>+35.4%</strong></td><td data-label="成交量">230,994</td></tr>
+<tr><td data-label="2026-05">2026-05</td><td data-label="开盘">41.02</td><td data-label="最高">42.04</td><td data-label="最低">37.08</td><td data-label="收盘">37.38</td><td data-label="月涨跌" class="pct-down">-10.5%</td><td data-label="成交量">210,609</td></tr>
+<tr><td data-label="2026-06">2026-06</td><td data-label="开盘">37.38</td><td data-label="最高">37.63</td><td data-label="最低">35.82</td><td data-label="收盘">36.45</td><td data-label="月涨跌" class="pct-down">-2.5%</td><td data-label="成交量">15,068</td></tr>
+</tbody></table></div>
+<h3>§4.3 走势阶段划分</h3>
+<ul>
+<li><strong>第一阶段（2025-07 ~ 2026-02）：波动上行</strong>。受益于造船周期+重组预期，股价从32.59涨至38.30。但波动剧烈，月振幅常超10%。</li>
+<li><strong>第二阶段（2026-03）：单月暴跌</strong>。3月因重组利好兑现+获利盘出逃，从39.45暴跌至30.00（-24%）。成交量放大，恐慌性抛售。</li>
+<li><strong>第三阶段（2026-04）：暴力反弹</strong>。4月大幅+35.4%修复，从30.40反弹至43.42（接近前高45.95）。成交量230万手创近年新高。</li>
+<li><strong>第四阶段（2026-05至今）：再度回落</strong>。5月-10.5%，从43.42回落至36.45。RSI降至24.2超卖区间，多空分歧加大。</li>
+</ul>
+
+<h2>5. 估值分析</h2>
+<ul>
+<li><strong>PE(TTM)</strong>：29.4x——基于2025年EPS 1.24元。对于ROE仅5.2%的周期性制造业来说偏高。</li>
+<li><strong>Forward PE(2026E)</strong>：假设2026年净利+30%至102亿，EPS约1.61元，forward PE约22.6x。</li>
+<li><strong>PB</strong>：市净率约1.8倍（净资产约1,496亿）。处于历史中位。</li>
+<li><strong>与同行对比</strong>：中国重工(PE 42x)、中船防务(PE 38x)，中国船舶PE最低但ROE也最低。</li>
+</ul>
+
+<h2>6. 核心优势</h2>
+<ul>
+<li><span class="tag-bull">优势</span> <strong>全球造船周期上行</strong>——新船订单饱满，高价船将在2026~2028年陆续交付，利润释放有确定性。</li>
+<li><span class="tag-bull">优势</span> <strong>集团资产注入完成</strong>——重组合并后盈利能力提升，协同效应逐步显现。</li>
+<li><span class="tag-bull">优势</span> <strong>RSI 24.2深度超卖</strong>——短期技术性反弹概率较大。</li>
+</ul>
+
+<h2>7. 主要风险</h2>
+<ul>
+<li><span class="tag-bear">风险</span> <strong>ROE极低，盈利质量差</strong>——5.2% ROE说明造船业务净利润率极薄，29x PE严重脱离基本面。</li>
+<li><span class="tag-bear">风险</span> <strong>造船周期可能见顶</strong>——新船价格指数已连续上涨3年，若全球贸易增长放缓，订单可能回落。</li>
+<li><span class="tag-bear">风险</span> <strong>波动极大，持股体验差</strong>——月振幅常超15%，不适合风险偏好低的投资者。</li>
+</ul>
+
+<h2>8. 综合判断</h2>
+<ul>
+<li><strong>长期逻辑</strong>：造船业是中国高端制造业的全球名片，但周期性极强。在订单饱满周期中利润可期，一旦周期见顶则可能再次陷入微利。</li>
+<li><strong>中期走势</strong>：当前36元处于中位，RSI 24.2超卖后反弹概率大。但基本面（ROE 5.2%）不支持过高估值，42~45元区间是强阻力。</li>
+<li><strong>短期风险</strong>：均线粘合后方向不明，量能萎缩。若跌破35元则可能测试30元支撑。</li>
+</ul>
+
+<h2>9. 操作边界参考</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>场景</th><th>参考价位</th><th>对应PE</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td data-label="场景">乐观（造船景气持续+业绩兑现）</td><td data-label="价位">42~46</td><td data-label="PE">34~37x</td><td data-label="说明">前高45.95为关键阻力位</td></tr>
+<tr><td data-label="场景">中性（高位震荡）</td><td data-label="价位">34~40</td><td data-label="PE">27~32x</td><td data-label="说明">当前区间，等待中报验证</td></tr>
+<tr><td data-label="场景">谨慎（周期见顶担忧）</td><td data-label="价位">30~34</td><td data-label="PE">24~27x</td><td data-label="说明">3月低点30为关键支撑</td></tr>
+<tr><td data-label="场景">悲观（订单回落）</td><td data-label="价位">25~30</td><td data-label="PE">20~24x</td><td data-label="说明">接近52周低点26.93</td></tr>
+</tbody></table></div>
+<div class="footer"><p>数据来源：TDX gpcw财务数据 / TDX日线行情 / 新浪财经公司资料</p><p>报告生成时间：2026-06-04 | 仅供研究参考，不构成投资建议</p><p>MIO RESEARCH · DEEP DIVE · 600150.SH</p></div>
+</main></body></html>
