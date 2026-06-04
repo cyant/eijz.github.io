@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>湖南裕能（301358）深度分析</title>
+<style>
+:root {
+  --paper:#fffdf8; --ink:#1f2937; --muted:#64748b; --line:#e5e0d6;
+  --soft:#fff7ed; --accent:#b45309; --accent2:#7c2d12;
+  --red:#b91c1c; --green:#047857; --blue:#1d4ed8;
+}
+* { box-sizing:border-box; }
+html { margin:0; background:#ece7dd; }
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;
+  color:var(--ink); font-size:15px; line-height:1.68;
+}
+.page { width:min(100%, 470px); margin:0 auto; padding:12px 10px 28px; background:var(--paper); min-height:100vh; }
+.cover { padding:20px 18px 18px; border-radius:16px; background:linear-gradient(135deg,#1a2a3a 0%,#2d4a5c 52%,#0d7377 100%); color:#fff; box-shadow:0 10px 24px rgba(36,52,71,.16); }
+.cover .eyebrow { font-size:11px; opacity:.82; letter-spacing:.06em; }
+h1 { margin:7px 0 8px; font-size:26px; line-height:1.2; letter-spacing:0; }
+.cover p { margin:0; color:rgba(255,255,255,.9); font-size:14px; }
+.summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 6px; }
+.summary-card { min-height:108px; border:1px solid var(--line); border-radius:12px; padding:10px 11px; background:#fff; }
+.summary-card span { display:block; color:var(--accent); font-weight:800; font-size:12px; margin-bottom:5px; }
+.summary-card b { display:block; color:#111827; font-size:15px; line-height:1.3; margin-bottom:5px; }
+.summary-card em { display:block; color:var(--muted); font-style:normal; font-size:12px; line-height:1.42; }
+h2 { margin:22px 0 10px; padding:9px 11px; border-left:5px solid var(--accent); border-radius:9px; background:#f8efe3; color:#111827; font-size:18px; line-height:1.34; break-after:avoid; }
+h3 { margin:18px 0 9px; padding:0 0 6px; border-bottom:1px solid var(--line); color:#253041; font-size:16px; break-after:avoid; }
+p { margin:8px 2px 10px; }
+ul { margin:8px 0 13px; padding:0; list-style:none; display:grid; gap:7px; }
+li { position:relative; padding:9px 10px 9px 17px; border:1px solid #eee6d8; border-radius:10px; background:#fffaf1; }
+li::before { content:""; position:absolute; left:8px; top:18px; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+strong { color:#111827; }
+.table-wrap { margin:10px 0 14px; }
+table { width:100%; border-collapse:separate; border-spacing:0 8px; font-size:13px; line-height:1.45; }
+thead { display:none; }
+tr { display:block; border:1px solid var(--line); border-radius:12px; background:#fff; overflow:hidden; }
+td { display:grid; grid-template-columns:86px minmax(0,1fr); gap:8px; padding:7px 9px; border-bottom:1px solid #f0e7d8; vertical-align:top; }
+td:last-child { border-bottom:0; }
+td::before { content:attr(data-label); color:var(--accent2); font-weight:800; font-size:12px; }
+.pct-up, .money-in { color:var(--red); font-weight:800; }
+.pct-down, .money-out { color:var(--green); font-weight:800; }
+.tag-bull { display:inline-block; background:#dcfce7; color:#166534; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-bear { display:inline-block; background:#fee2e2; color:#991b1b; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-neutral { display:inline-block; background:#fef3c7; color:#92400e; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.footer { margin-top:22px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; text-align:center; }
+@media (min-width:760px) {
+  body { font-size:15px; }
+  .page { width:min(960px, calc(100vw - 32px)); padding:30px 38px 42px; box-shadow:0 18px 55px rgba(36,52,71,.10); }
+  .cover { padding:26px 30px 24px; }
+  h1 { font-size:34px; }
+  .cover p { font-size:15px; }
+  .summary-grid { grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0 8px; }
+  .summary-card { min-height:118px; padding:12px 13px; }
+  h2 { font-size:20px; margin-top:30px; }
+  h3 { font-size:17px; }
+  table { border-collapse:collapse; border-spacing:0; font-size:12.5px; min-width:760px; }
+  .table-wrap { border:1px solid var(--line); border-radius:12px; overflow:auto; background:#fff; }
+  thead { display:table-header-group; }
+  tr { display:table-row; border:0; border-radius:0; background:transparent; }
+  th, td { display:table-cell; padding:8px 9px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+  th { background:#f3eadc; color:#111827; text-align:left; white-space:nowrap; font-weight:800; }
+  td::before { content:none; }
+  th:last-child, td:last-child { border-right:none; }
+  tr:last-child td { border-bottom:none; }
+  tbody tr:nth-child(even) td { background:#fffaf2; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+<section class="cover">
+  <div class="eyebrow">MIO RESEARCH · DEEP DIVE · 2026-06-04</div>
+  <h1>湖南裕能（301358）深度分析</h1>
+  <p>湖南裕能作为湖南裕能的核心企业，当前营收面临压力、ROE一般，市场给予约699.8x PE（估值较高）。核心关注：能否重回增长。</p>
+</section>
+
+<section class="summary-grid">
+  <div class="summary-card"><span>公司</span><b>湖南裕能</b><em>主营详见主营业务说明</em></div>
+  <div class="summary-card"><span>核心数据</span><b>【最新年报/季报】</b><em>营收67.6亿(增速-70.1%)，净利0.9亿(增速-84.1%)，ROE0.8%, EPS0.120元，PE约699.8x</em></div>
+  <div class="summary-card"><span>股价</span><b>83.98元</b><em>年内涨幅+50.0%，52周区间15.88~109.90，当前位置72%</em></div>
+  <div class="summary-card"><span>风险</span><b>风险边界</b><em>- 见下方详细风险分析</em></div>
+</section>
+
+<h2>1. 一句话总收口</h2>
+<p>【综合分析结论：公司核心逻辑、当前处境、关键变量】</p>
+
+<h2>2. 公司画像 / 商业模式</h2>
+<ul>
+  <li><strong>公司全称</strong>：湖南裕能，—，—。</li>
+  <li><strong>主营业务</strong>：【主要业务构成，收入占比】。</li>
+  <li><strong>商业模式</strong>：【商业模式描述，如何赚钱】。</li>
+  <li><strong>核心竞争壁垒</strong>：（1）【壁垒1】；（2）【壁垒2】；（3）【壁垒3】。</li>
+</ul>
+
+<h2>3. 基本面分析</h2>
+
+<h3>§3.1 营收与利润趋势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>营收(亿)</th><th>增速</th><th>归母净利(亿)</th><th>增速</th><th>EPS</th><th>净利率</th></tr></thead>
+<tbody>
+<tr>
+<td data-label="2020">2020</td>
+<td data-label="营收">9.6</td>
+<td data-label="增速">基准</td>
+<td data-label="归母净利">0.4</td>
+<td data-label="增速">基准</td>
+<td data-label="EPS">0.1300</td>
+<td data-label="净利率">4.1%</td>
+</tr>
+<tr>
+<td data-label="2021">2021</td>
+<td data-label="营收">70.7</td>
+<td data-label="增速" class="pct-up">+639.0%</td>
+<td data-label="归母净利">11.8</td>
+<td data-label="增速" class="pct-up">+2923.3%</td>
+<td data-label="EPS">2.0800</td>
+<td data-label="净利率">16.8%</td>
+</tr>
+<tr>
+<td data-label="2022">2022</td>
+<td data-label="营收">427.9</td>
+<td data-label="增速" class="pct-up">+505.4%</td>
+<td data-label="归母净利">30.1</td>
+<td data-label="增速" class="pct-up">+154.0%</td>
+<td data-label="EPS">5.2900</td>
+<td data-label="净利率">7.0%</td>
+</tr>
+<tr>
+<td data-label="2023">2023</td>
+<td data-label="营收">413.6</td>
+<td data-label="增速" class="pct-down">-3.3%</td>
+<td data-label="归母净利">15.8</td>
+<td data-label="增速" class="pct-down">-47.4%</td>
+<td data-label="EPS">2.1800</td>
+<td data-label="净利率">3.8%</td>
+</tr>
+<tr>
+<td data-label="2024">2024</td>
+<td data-label="营收">226.0</td>
+<td data-label="增速" class="pct-down">-45.4%</td>
+<td data-label="归母净利">5.9</td>
+<td data-label="增速" class="pct-down">-62.4%</td>
+<td data-label="EPS">0.7800</td>
+<td data-label="净利率">2.6%</td>
+</tr>
+<tr>
+<td data-label="2025Q1">2025Q1</td>
+<td data-label="营收">67.6</td>
+<td data-label="增速" class="pct-down">-70.1%</td>
+<td data-label="归母净利">0.9</td>
+<td data-label="增速" class="pct-down">-84.1%</td>
+<td data-label="EPS">0.1200</td>
+<td data-label="净利率">1.4%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>【关键发现和分析结论】</p>
+
+<h3>§3.2 ROE与资本结构</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>ROE</th><th>资产负债率</th><th>货币资金(亿)</th><th>总资产(亿)</th></tr></thead>
+<tbody>
+<tr>
+<td data-label="2020">2020</td>
+<td data-label="ROE">N/A</td>
+<td data-label="负债率">44.1%</td>
+<td data-label="货币资金">5.4</td>
+<td data-label="总资产">27.2</td>
+</tr>
+<tr>
+<td data-label="2021">2021</td>
+<td data-label="ROE">43.7%</td>
+<td data-label="负债率">69.0%</td>
+<td data-label="货币资金">4.9</td>
+<td data-label="总资产">87.3</td>
+</tr>
+<tr>
+<td data-label="2022">2022</td>
+<td data-label="ROE">52.6%</td>
+<td data-label="负债率">78.4%</td>
+<td data-label="货币资金">10.5</td>
+<td data-label="总资产">264.3</td>
+</tr>
+<tr>
+<td data-label="2023">2023</td>
+<td data-label="ROE">14.0%</td>
+<td data-label="负债率">57.8%</td>
+<td data-label="货币资金">18.9</td>
+<td data-label="总资产">267.9</td>
+</tr>
+<tr>
+<td data-label="2024">2024</td>
+<td data-label="ROE">5.1%</td>
+<td data-label="负债率">61.6%</td>
+<td data-label="货币资金">14.9</td>
+<td data-label="总资产">303.4</td>
+</tr>
+<tr>
+<td data-label="2025Q1">2025Q1</td>
+<td data-label="ROE">0.8%</td>
+<td data-label="负债率">62.3%</td>
+<td data-label="货币资金">12.0</td>
+<td data-label="总资产">312.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>【ROE驱动因素分析】</p>
+
+<h3>§3.3 现金流与资产负债</h3>
+<ul>
+  <li><strong>货币资金</strong>：12.0亿。现金储备较为充裕，主要来源【XXX】。</li>
+  <li><strong>总资产</strong>：312.5亿。。</li>
+  <li><strong>总负债</strong>：194.6亿，负债率62.3%。。</li>
+</ul>
+
+<h2>4. 技术面分析</h2>
+
+<h3>§4.1 整体趋势</h3>
+<ul>
+  <li><strong>最新价</strong>：83.98元（2026-06-02）</li>
+  <li><strong>均线排列</strong>：均线交织——震荡趋势。</li>
+  <li><strong>RSI(14)</strong>：24.4——超卖区间。</li>
+  <li><strong>MACD</strong>：Hist -2.067，空头，空头（动能增强）。</li>
+  <li><strong>价格位置</strong>：52周区间15.88~109.90，当前位置72%——52周中位区域。</li>
+  <li><strong>N年涨幅</strong>：【+X%】。</li>
+</ul>
+
+<h3>§4.2 月度走势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>月份</th><th>开盘</th><th>最高</th><th>最低</th><th>收盘</th><th>月涨跌</th><th>成交量(万手)</th></tr></thead>
+<tbody>
+<tr>
+<td data-label="2025-07">2025-07</td>
+<td data-label="开盘">18.00</td>
+<td data-label="最高">19.54</td>
+<td data-label="最低">17.19</td>
+<td data-label="收盘">17.99</td>
+<td data-label="月涨跌" class="pct-up">+0.0%</td>
+<td data-label="成交量">348084527</td>
+</tr>
+<tr>
+<td data-label="2025-08">2025-08</td>
+<td data-label="开盘">18.00</td>
+<td data-label="最高">21.65</td>
+<td data-label="最低">17.60</td>
+<td data-label="收盘">20.87</td>
+<td data-label="月涨跌" class="pct-up">+16.0%</td>
+<td data-label="成交量">386866405</td>
+</tr>
+<tr>
+<td data-label="2025-09">2025-09</td>
+<td data-label="开盘">21.16</td>
+<td data-label="最高">47.59</td>
+<td data-label="最低">20.57</td>
+<td data-label="收盘">46.17</td>
+<td data-label="月涨跌" class="pct-up">+121.2%</td>
+<td data-label="成交量">634806965</td>
+</tr>
+<tr>
+<td data-label="2025-10">2025-10</td>
+<td data-label="开盘">45.00</td>
+<td data-label="最高">61.29</td>
+<td data-label="最低">39.56</td>
+<td data-label="收盘">55.79</td>
+<td data-label="月涨跌" class="pct-up">+20.8%</td>
+<td data-label="成交量">437295592</td>
+</tr>
+<tr>
+<td data-label="2025-11">2025-11</td>
+<td data-label="开盘">55.35</td>
+<td data-label="最高">78.73</td>
+<td data-label="最低">51.81</td>
+<td data-label="收盘">66.26</td>
+<td data-label="月涨跌" class="pct-up">+18.7%</td>
+<td data-label="成交量">517311031</td>
+</tr>
+<tr>
+<td data-label="2025-12">2025-12</td>
+<td data-label="开盘">66.14</td>
+<td data-label="最高">66.15</td>
+<td data-label="最低">52.60</td>
+<td data-label="收盘">55.99</td>
+<td data-label="月涨跌" class="pct-down">-15.5%</td>
+<td data-label="成交量">446434454</td>
+</tr>
+<tr>
+<td data-label="2026-01">2026-01</td>
+<td data-label="开盘">55.99</td>
+<td data-label="最高">60.36</td>
+<td data-label="最低">51.44</td>
+<td data-label="收盘">54.45</td>
+<td data-label="月涨跌" class="pct-down">-2.8%</td>
+<td data-label="成交量">569239410</td>
+</tr>
+<tr>
+<td data-label="2026-02">2026-02</td>
+<td data-label="开盘">54.48</td>
+<td data-label="最高">62.29</td>
+<td data-label="最低">51.62</td>
+<td data-label="收盘">58.03</td>
+<td data-label="月涨跌" class="pct-up">+6.6%</td>
+<td data-label="成交量">289492707</td>
+</tr>
+<tr>
+<td data-label="2026-03">2026-03</td>
+<td data-label="开盘">57.07</td>
+<td data-label="最高">72.31</td>
+<td data-label="最低">53.95</td>
+<td data-label="收盘">65.45</td>
+<td data-label="月涨跌" class="pct-up">+12.8%</td>
+<td data-label="成交量">600190230</td>
+</tr>
+<tr>
+<td data-label="2026-04">2026-04</td>
+<td data-label="开盘">65.80</td>
+<td data-label="最高">108.99</td>
+<td data-label="最低">58.90</td>
+<td data-label="收盘">102.24</td>
+<td data-label="月涨跌" class="pct-up">+56.2%</td>
+<td data-label="成交量">611087609</td>
+</tr>
+<tr>
+<td data-label="2026-05">2026-05</td>
+<td data-label="开盘">103.72</td>
+<td data-label="最高">110.00</td>
+<td data-label="最低">84.36</td>
+<td data-label="收盘">88.41</td>
+<td data-label="月涨跌" class="pct-down">-13.5%</td>
+<td data-label="成交量">587081979</td>
+</tr>
+<tr>
+<td data-label="2026-06">2026-06</td>
+<td data-label="开盘">87.00</td>
+<td data-label="最高">88.84</td>
+<td data-label="最低">81.56</td>
+<td data-label="收盘">83.98</td>
+<td data-label="月涨跌" class="pct-down">-5.0%</td>
+<td data-label="成交量">45716678</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>§4.3 走势阶段划分</h3>
+<ul>
+  <li><strong>第一阶段（2023-02-09 ~ 2024-03-14）：调整期</strong>。区间涨幅-39.9%。</li>
+  <li><strong>第二阶段（2024-03-15 ~ 2025-04-22）：震荡期</strong>。区间涨幅+110.3%。</li>
+  <li><strong>第三阶段（2025-04-23 ~ 2026-06-04）：近期走势</strong>。区间涨幅+434.7%。</li>
+</ul>
+
+<h2>5. 估值分析</h2>
+<ul>
+  <li><strong>PE(TTM)</strong>：699.8x —— 基于EPS 0.1200元。当前处于较高区间。</li>
+  <li><strong>Forward PE</strong>：假设增速-84.1%，对应EPS约0.1200元，forward PE约699.8x。</li>
+  <li><strong>PB</strong>：市净率约748.62倍（净资产约117.9亿）。</li>
+  <li><strong>PEG</strong>：8.32（PE约699.8x / 利润增速84.1%）。</li>
+</ul>
+<h2>6. 同业对比</h2>
+<p>同业对比数据涉及多只个股的详细财务指标，建议在每日组合分析中同步生成。当前为独立个股报告，暂未包含完整同业对比表。</p>
+<h2>7. 核心优势</h2>
+<ul>
+  <li><span class="tag-bull">优势</span> <strong>磷酸铁锂正极龙头</strong> —— 湖南裕能是国内磷酸铁锂正极材料出货量领先企业，深度绑定宁德时代、比亚迪等头部电池厂。</li>
+  <li><span class="tag-bull">优势</span> <strong>产能规模优势</strong> —— 产能规模位居行业前列，成本控制能力强，与下游大客户签订长期供货协议。</li>
+  <li><span class="tag-bull">优势</span> <strong>新能源渗透红利</strong> —— 新能源汽车和储能双市场驱动磷酸铁锂需求持续增长，LFP渗透率提升趋势明确。</li>
+</ul>
+<h2>8. 主要风险</h2>
+<ul>
+  <li><span class="tag-bear">风险</span> <strong>锂电产业链价格战</strong> —— 磷酸铁锂行业产能过剩严重，价格战持续，毛利率承压。</li>
+  <li><span class="tag-bear">风险</span> <strong>客户高度集中</strong> —— 对宁德时代、比亚迪等大客户依赖度极高，议价能力受限。</li>
+  <li><span class="tag-bear">风险</span> <strong>技术路线替代</strong> —— 钠离子电池、固态电池等新技术路线可能对磷酸铁锂形成替代风险。</li>
+</ul>
+<h2>9. 综合判断</h2>
+<ul>
+  <li><strong>长期逻辑（3年以上）</strong>：公司当前处于调整期，长期价值需关注业务转型效果和行业拐点。</li>
+  <li><strong>中期走势（6~12个月）</strong>：技术面偏弱，RSI处于超卖区间区间。中期需等待基本面催化剂或行业利好刺激才能扭转趋势。</li>
+  <li><strong>短期风险</strong>：需关注季报业绩披露、行业政策变化等短期催化剂或风险因素。</li>
+</ul>
+<h2>10. 操作边界参考</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>场景</th><th>参考价位</th><th>对应PE</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td data-label="场景">乐观</td><td data-label="价位">2.40~3.00元</td><td data-label="PE">20~25x</td><td data-label="说明">基本面持续向好，市场给予估值溢价</td></tr>
+<tr><td data-label="场景">中性</td><td data-label="价位">1.68~2.16元</td><td data-label="PE">14~18x</td><td data-label="说明">当前合理估值区间（当前PE 699.8x）</td></tr>
+<tr><td data-label="场景">谨慎</td><td data-label="价位">1.44~1.80元</td><td data-label="PE">12~15x</td><td data-label="说明">基本面低于预期或市场情绪恶化</td></tr>
+<tr><td data-label="场景">悲观</td><td data-label="价位">0.96~1.20元</td><td data-label="PE">8~10x</td><td data-label="说明">重大利空下的极限调整区间</td></tr>
+</tbody>
+</table>
+</div>
+<div class="footer">
+  <p>数据来源：TDX gpcw财务数据 / TDX日线行情 / 新浪财经公司资料</p>
+  <p>报告生成时间：2026-06-04 | 仅供研究参考，不构成投资建议</p>
+  <p>MIO RESEARCH · DEEP DIVE · 301358.SZ</p>
+</div>
+
+</main>
+</body>
+</html>
