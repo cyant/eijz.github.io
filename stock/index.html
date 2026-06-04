@@ -1,90 +1,87 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>个股深度分析报告列表</title>
 <style>
-:root {
-  --paper:#fefcf5; --ink:#1f2937; --muted:#64748b; --line:#f5ede0;
-  --accent:#a16207; --accent2:#713f12;
-  --red:#b91c1c; --green:#047857;
-}
-* { box-sizing:border-box; }
-html { margin:0; background:#ece7dd; }
-body {
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;
-  color:var(--ink); font-size:15px; line-height:1.68;
-}
-.page { width:min(100%, 580px); margin:0 auto; padding:20px 14px 40px; background:var(--paper); min-height:100vh; }
-.cover { padding:24px 20px; border-radius:16px; background:linear-gradient(135deg,#713f12 0%,#a16207 52%,#34d399 100%); color:#fff; box-shadow:0 10px 24px rgba(36,52,71,.16); margin-bottom:20px; }
-.cover .eyebrow { font-size:11px; opacity:.82; letter-spacing:.06em; }
-h1 { margin:6px 0 4px; font-size:24px; line-height:1.2; }
-.cover p { margin:0; color:rgba(255,255,255,.9); font-size:13px; }
-h2 { margin:20px 0 10px; padding:8px 12px; border-left:5px solid var(--accent); border-radius:9px; background:#fffbeb; font-size:16px; }
-.report-list { display:grid; gap:10px; }
-.report-card { border:1px solid var(--line); border-radius:12px; padding:14px 16px; background:#fff; transition:box-shadow .15s; }
-.report-card:hover { box-shadow:0 4px 12px rgba(0,0,0,.08); }
-.report-card a { text-decoration:none; color:inherit; display:block; }
-.report-card .code { font-size:12px; color:var(--muted); }
-.report-card .name { font-size:17px; font-weight:700; color:#111827; margin:2px 0 4px; }
-.report-card .summary { font-size:13px; color:var(--muted); line-height:1.5; }
-.report-card .meta { font-size:11px; color:var(--muted); margin-top:6px; display:flex; gap:12px; }
-.tag { display:inline-block; padding:1px 8px; border-radius:4px; font-size:11px; font-weight:700; }
-.tag-red { background:#fee2e2; color:#991b1b; }
-.tag-green { background:#dcfce7; color:#166534; }
-.tag-yellow { background:#fef3c7; color:#92400e; }
-.footer { margin-top:24px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; text-align:center; }
-</style>
-</head>
+:root{--paper:#fefcf5;--ink:#1f2937;--muted:#64748b;--line:#f5ede0;--accent:#a16207;--accent2:#713f12;--red:#b91c1c;--green:#047857}
+*{box-sizing:border-box}html{margin:0;background:#ece7dd}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;color:var(--ink);font-size:15px;line-height:1.68}
+.page{width:min(100%,580px);margin:0 auto;padding:20px 14px 40px;background:var(--paper);min-height:100vh}
+.cover{padding:24px 20px;border-radius:16px;background:linear-gradient(135deg,#713f12 0%,#a16207 52%,#d97706 100%);color:#fff;box-shadow:0 10px 24px rgba(36,52,71,.16);margin-bottom:20px}
+.cover .eyebrow{font-size:11px;opacity:.82;letter-spacing:.06em}
+h1{margin:6px 0 4px;font-size:24px;line-height:1.2}
+.cover p{margin:0;color:rgba(255,255,255,.9);font-size:13px}
+h2{margin:20px 0 10px;padding:8px 12px;border-left:5px solid var(--accent);border-radius:9px;background:#fffbeb;font-size:16px}
+.report-list{display:grid;gap:10px}
+.report-card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fff;transition:box-shadow .15s}
+.report-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.report-card a{text-decoration:none;color:inherit;display:block}
+.report-card .code{font-size:12px;color:var(--muted)}
+.report-card .name{font-size:17px;font-weight:700;color:#111827;margin:2px 0 4px}
+.report-card .summary{font-size:13px;color:var(--muted);line-height:1.5}
+.report-card .meta{font-size:11px;color:var(--muted);margin-top:6px;display:flex;gap:12px}
+.tag{display:inline-block;padding:1px 8px;border-radius:4px;font-size:11px;font-weight:700}
+.tag-red{background:#fee2e2;color:#991b1b}
+.tag-green{background:#dcfce7;color:#166534}
+.tag-yellow{background:#fef3c7;color:#92400e}
+.tag-blue{background:#dbeafe;color:#1e40af}
+.footer{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;text-align:center}
+</style></head>
 <body>
 <main class="page">
-
-<section class="cover">
-  <div class="eyebrow">MIO RESEARCH</div>
-  <h1>个股深度分析报告</h1>
-  <p>沪深板块 | ROE筛选 | 技术面+基本面综合评估</p>
-</section>
+<section class="cover"><div class="eyebrow">MIO RESEARCH</div><h1>个股深度分析报告</h1><p>沪深板块 | ROE筛选 | 技术面+基本面综合评估</p></section>
 
 <h2>📈 最新报告</h2>
-
 <div class="report-list">
 
 <div class="report-card">
-  <a href="亨通光电深度分析.html">
-    <div class="code">600487 · 上海主板</div>
-    <div class="name">亨通光电 <span class="tag tag-yellow">PE 76x</span></div>
-    <div class="summary">AI光互联+海缆双驱动，1年涨391%创历史新高。但2025年净利-3.2%、ROE仅7.7%，PE 76x严重透支。</div>
-    <div class="meta"><span>📅 2026-06-04</span><span>🏷️ 光通信 · AI硬件</span></div>
-  </a>
-</div>
+<a href="紫光股份深度分析.html"><div class="code">000938 · 深圳主板</div><div class="name">紫光股份 <span class="tag tag-yellow">PE 48x</span></div><div class="summary">ICT基础设施龙头，交换机/路由器/服务器。AI算力网络建设受益标的。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ v8模型持仓</span></div></a></div>
 
 <div class="report-card">
-  <a href="中钨高新深度分析.html">
-    <div class="code">000657 · 深圳主板</div>
-    <div class="name">中钨高新 <span class="tag tag-red">PE 115x</span></div>
-    <div class="summary">战略金属钨暴涨驱动股价1年涨612%，但ROE仅12.1%、PE飙至115倍，基本面改善远不及股价涨幅。</div>
-    <div class="meta"><span>📅 2026-06-04</span><span>🏷️ 稀有金属 · 战略资源</span></div>
-  </a>
-</div>
+<a href="云铝股份深度分析.html"><div class="code">000807 · 深圳主板</div><div class="name">云铝股份 <span class="tag tag-green">PE 17x</span></div><div class="summary">云南水电铝龙头，绿色铝概念。PE合理但铝价波动大需关注。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ v8模型持仓</span></div></a></div>
 
 <div class="report-card">
-  <a href="工业富联深度分析.html">
-    <div class="code">601138 · 上海主板</div>
-    <div class="name">工业富联 <span class="tag tag-yellow">PE 45x</span></div>
-    <div class="summary">全球最大AI服务器制造商，营收9029亿(+48%)、净利353亿(+52%)。但代工净利率3.9%是硬天花板。</div>
-    <div class="meta"><span>📅 2026-06-04</span><span>🏷️ AI算力 · 服务器代工</span></div>
-  </a>
-</div>
+<a href="浙富控股深度分析.html"><div class="code">002266 · 深圳主板</div><div class="name">浙富控股 <span class="tag tag-blue">PE 23x</span></div><div class="summary">水电设备+环保双主营业务。PE合理ROE偏低，等待业绩释放。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ v8模型持仓</span></div></a></div>
+
+<div class="report-card">
+<a href="盐湖股份深度分析.html"><div class="code">000792 · 深圳主板</div><div class="name">盐湖股份 <span class="tag tag-green">PE 19x</span></div><div class="summary">中国最大盐湖提锂+钾肥龙头，资源垄断属性强。ROE 17.7%稳步提升。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ v8模型持仓</span></div></a></div>
+
+<div class="report-card">
+<a href="潍柴动力深度分析.html"><div class="code">000338 · 深圳主板</div><div class="name">潍柴动力 <span class="tag tag-blue">PE 25x</span></div><div class="summary">重卡发动机+液压系统巨头，周期底部布局逻辑。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ v8模型持仓</span></div></a></div>
+
+<div class="report-card">
+<a href="睿创微纳深度分析.html"><div class="code">688002 · 科创板</div><div class="name">睿创微纳 <span class="tag tag-yellow">PE 50x</span></div><div class="summary">非制冷红外探测器龙头，军工+民用双轮驱动。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ v8模型持仓</span></div></a></div>
+
+<div class="report-card">
+<a href="湖南裕能深度分析.html"><div class="code">301358 · 创业板</div><div class="name">湖南裕能 <span class="tag tag-yellow">PE 50x</span></div><div class="summary">磷酸铁锂正极材料龙头，受益于新能源车和储能需求爆发。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ v8模型持仓</span></div></a></div>
+
+<div class="report-card">
+<a href="佰维存储深度分析.html"><div class="code">688525 · 科创板</div><div class="name">佰维存储 <span class="tag tag-red">PE 162x</span></div><div class="summary">存储芯片封测+模组企业，AI算力+HBM存储概念驱动。估值极高注意风险。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ v8模型持仓</span></div></a></div>
+
+<div class="report-card">
+<a href="大族激光深度分析.html"><div class="code">002008 · 深圳主板</div><div class="name">大族激光 <span class="tag tag-yellow">PE 110x</span></div><div class="summary">激光设备龙头，PCB/光伏/锂电多领域布局。PE极高需关注业绩兑现。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ v8模型持仓</span></div></a></div>
+
+<div class="report-card">
+<a href="渤海租赁深度分析.html"><div class="code">000415 · 深圳主板</div><div class="name">渤海租赁 <span class="tag tag-red">亏损</span></div><div class="summary">全球飞机租赁龙头，2025年微亏。航空业复苏逻辑下关注扭亏进展。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ v8模型持仓</span></div></a></div>
+
+<div class="report-card">
+<a href="中国海油深度分析.html"><div class="code">600938 · 上海主板</div><div class="name">中国海油 <span class="tag tag-green">PE 14x</span></div><div class="summary">A股最低估央企蓝筹，PE 13.7x+股息3.6%。但ROE下滑+营收净利双降。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ 石油 · 能源</span></div></a></div>
+
+<div class="report-card">
+<a href="中国船舶深度分析.html"><div class="code">600150 · 上海主板</div><div class="name">中国船舶 <span class="tag tag-yellow">PE 29x</span></div><div class="summary">全球造船周期核心标的，2025营收+93%净利翻倍。但ROE仅5.2%。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ 船舶制造 · 军工</span></div></a></div>
+
+<div class="report-card">
+<a href="申能股份深度分析.html"><div class="code">600642 · 上海主板</div><div class="name">申能股份 <span class="tag tag-green">PE 13x</span></div><div class="summary">上海国资综合能源，ROE 8%稳定但偏低，PE 13x为电力板块最低一档。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ 电力 · 公用事业</span></div></a></div>
+
+<div class="report-card">
+<a href="亨通光电深度分析.html"><div class="code">600487 · 上海主板</div><div class="name">亨通光电 <span class="tag tag-yellow">PE 76x</span></div><div class="summary">AI光互联+海缆双驱动，1年涨391%创历史新高。但2025年净利-3.2%。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ 光通信 · AI硬件</span></div></a></div>
+
+<div class="report-card">
+<a href="中钨高新深度分析.html"><div class="code">000657 · 深圳主板</div><div class="name">中钨高新 <span class="tag tag-red">PE 115x</span></div><div class="summary">战略金属钨暴涨驱动股价1年涨612%，但ROE仅12.1%、PE飙至115倍。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ 稀有金属 · 战略资源</span></div></a></div>
+
+<div class="report-card">
+<a href="工业富联深度分析.html"><div class="code">601138 · 上海主板</div><div class="name">工业富联 <span class="tag tag-yellow">PE 45x</span></div><div class="summary">全球最大AI服务器制造商，营收9029亿(+48%)、净利353亿(+52%)。</div><div class="meta"><span>📅 2026-06-04</span><span>🏷️ AI算力 · 服务器代工</span></div></a></div>
 
 </div>
-
-<div class="footer">
-  <p>数据来源：TDX gpcw财务数据 / TDX日线行情 / 新浪财经公司资料</p>
-  <p>MIO RESEARCH · 仅供研究参考，不构成投资建议</p>
-</div>
-
-</main>
-</body>
-</html>
+<div class="footer"><p>数据来源：TDX gpcw财务数据 / TDX日线行情 / 新浪财经公司资料</p><p>MIO RESEARCH · 仅供研究参考，不构成投资建议</p></div>
+</main></body></html>
