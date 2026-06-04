@@ -4,8 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>渤海租赁（000415）深度分析</title>
-<style>
-:root {
+<style>:root {
   --paper:#fefcf5; --ink:#1f2937; --muted:#64748b; --line:#f5ede0;
   --soft:#fffbeb; --accent:#a16207; --accent2:#713f12;
   --red:#b91c1c; --green:#047857; --blue:#1d4ed8;
@@ -17,40 +16,40 @@ body {
   font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;
   color:var(--ink); font-size:15px; line-height:1.68;
 }
-.page { width:min(100%, 470px); margin:0 auto; padding:12px 10px 28px; background:var(--paper); min-height:100vh; }
-.cover { padding:20px 18px 18px; border-radius:16px; background:linear-gradient(135deg,#713f12 0%,#a16207 52%,#34d399 100%); color:#fff; box-shadow:0 10px 24px rgba(36,52,71,.16); }
+.page { width:min(100%,470px); margin:0 auto; padding:12px 10px 28px; background:var(--paper); min-height:100vh; }
+.cover { padding:20px 18px 18px; border-radius:16px; background:linear-gradient(135deg,#713f12 0%,#a16207 52%,#34d399 100%); color:#fff; } 
 .cover .eyebrow { font-size:11px; opacity:.82; letter-spacing:.06em; }
-h1 { margin:7px 0 8px; font-size:26px; line-height:1.2; letter-spacing:0; }
+h1 { margin:7px 0 8px; font-size:26px; line-height:1.2; }
 .cover p { margin:0; color:rgba(255,255,255,.9); font-size:14px; }
 .summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 6px; }
 .summary-card { min-height:108px; border:1px solid var(--line); border-radius:12px; padding:10px 11px; background:#fff; }
 .summary-card span { display:block; color:var(--accent); font-weight:800; font-size:12px; margin-bottom:5px; }
 .summary-card b { display:block; color:#111827; font-size:15px; line-height:1.3; margin-bottom:5px; }
 .summary-card em { display:block; color:var(--muted); font-style:normal; font-size:12px; line-height:1.42; }
-h2 { margin:22px 0 10px; padding:9px 11px; border-left:5px solid var(--accent); border-radius:9px; background:#fffbeb; color:#111827; font-size:18px; line-height:1.34; break-after:avoid; }
-h3 { margin:18px 0 9px; padding:0 0 6px; border-bottom:1px solid var(--line); color:#253041; font-size:16px; break-after:avoid; }
+h2 { margin:22px 0 10px; padding:9px 11px; border-left:5px solid var(--accent); border-radius:9px; background:#fffbeb; color:#111827; font-size:18px; }
+h3 { margin:18px 0 9px; padding:0 0 6px; border-bottom:1px solid var(--line); color:#253041; font-size:16px; }
 p { margin:8px 2px 10px; }
 ul { margin:8px 0 13px; padding:0; list-style:none; display:grid; gap:7px; }
 li { position:relative; padding:9px 10px 9px 17px; border:1px solid #eee6d8; border-radius:10px; background:#fefcf5; }
 li::before { content:""; position:absolute; left:8px; top:18px; width:5px; height:5px; border-radius:50%; background:var(--accent); }
 strong { color:#111827; }
 .table-wrap { margin:10px 0 14px; }
-table { width:100%; border-collapse:separate; border-spacing:0 8px; font-size:13px; line-height:1.45; }
+table { width:100%; border-collapse:separate; border-spacing:0 8px; font-size:13px; }
 thead { display:none; }
-tr { display:block; border:1px solid var(--line); border-radius:12px; background:#fff; overflow:hidden; }
-td { display:grid; grid-template-columns:86px minmax(0,1fr); gap:8px; padding:7px 9px; border-bottom:1px solid #f0e7d8; vertical-align:top; }
+tr { display:block; border:1px solid var(--line); border-radius:12px; background:#fff; }
+td { display:grid; grid-template-columns:86px minmax(0,1fr); gap:8px; padding:7px 9px; border-bottom:1px solid #f0e7d8; }
 td:last-child { border-bottom:0; }
 td::before { content:attr(data-label); color:var(--accent2); font-weight:800; font-size:12px; }
-.pct-up, .money-in { color:var(--red); font-weight:800; }
-.pct-down, .money-out { color:var(--green); font-weight:800; }
+.pct-up,.money-in { color:var(--red); font-weight:800; }
+.pct-down,.money-out { color:var(--green); font-weight:800; }
 .tag-bull { display:inline-block; background:#dcfce7; color:#166534; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
 .tag-bear { display:inline-block; background:#fee2e2; color:#991b1b; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
 .tag-neutral { display:inline-block; background:#fef3c7; color:#92400e; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
 .footer { margin-top:22px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; text-align:center; }
 @media (min-width:760px) {
-  body { font-size:15px; }
-  .page { width:min(960px, calc(100vw - 32px)); padding:30px 38px 42px; box-shadow:0 18px 55px rgba(36,52,71,.10); }
-  .cover { padding:26px 30px 24px; }
+  body { background:#e8e3d9; }
+  .page { width:min(960px,calc(100vw-32px)); padding:30px 38px 42px; margin:24px auto; border-radius:20px; box-shadow:0 18px 55px rgba(36,52,71,.10); }
+  .cover { padding:26px 30px 24px; border-radius:20px; }
   h1 { font-size:34px; }
   .cover p { font-size:15px; }
   .summary-grid { grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0 8px; }
@@ -61,348 +60,153 @@ td::before { content:attr(data-label); color:var(--accent2); font-weight:800; fo
   .table-wrap { border:1px solid var(--line); border-radius:12px; overflow:auto; background:#fff; }
   thead { display:table-header-group; }
   tr { display:table-row; border:0; border-radius:0; background:transparent; }
-  th, td { display:table-cell; padding:8px 9px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+  th,td { display:table-cell; padding:8px 9px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
   th { background:#f5ede0; color:#111827; text-align:left; white-space:nowrap; font-weight:800; }
   td::before { content:none; }
-  th:last-child, td:last-child { border-right:none; }
+  th:last-child,td:last-child { border-right:none; }
   tr:last-child td { border-bottom:none; }
   tbody tr:nth-child(even) td { background:#fefcf5; }
-}
-</style>
+}</style>
 </head>
 <body>
 <main class="page">
-
 <section class="cover">
-  <div class="eyebrow">MIO RESEARCH · DEEP DIVE · 2026-06-04</div>
-  <h1>渤海租赁（000415）深度分析</h1>
-  <p>渤海租赁作为全球飞机租赁行业的参与者企业，当前营收面临压力、ROE一般，市场给予约37.2x PE（估值偏高）。核心关注：能否重回增长。</p>
+<div class="eyebrow">MIO RESEARCH · DEEP DIVE · 2026-06-04</div>
+<h1>渤海租赁（000415）深度分析</h1>
+<p>渤海租赁2025年EPS -0.0656元（亏损），无法计算PE，2025年营收529.24亿，归母净利-4.06亿，ROE -0.9%，技术面RSI 38（偏弱），MACD空头。中期趋势偏谨慎。</p>
 </section>
-
 <section class="summary-grid">
-  <div class="summary-card"><span>公司</span><b>渤海租赁</b><em>主营详见主营业务说明</em></div>
-  <div class="summary-card"><span>核心数据</span><b>【最新年报/季报】</b><em>营收171.2亿(增速-55.5%)，净利6.7亿(增速-25.9%)，ROE1.4%, EPS0.108元，PE约37.2x</em></div>
-  <div class="summary-card"><span>股价</span><b>4.02元</b><em>年内涨幅-0.7%，52周区间3.10~5.39，当前位置40%</em></div>
-  <div class="summary-card"><span>风险</span><b>风险边界</b><em>- 见下方详细风险分析</em></div>
+<div class="summary-card"><span>股价</span><b>4.02元</b><em>PE 0x | PB 0.0x</em></div>
+<div class="summary-card"><span>基本面</span><b>EPS -0.0656元</b><em>营收529.24亿 | 归母净利-4.06亿</em></div>
+<div class="summary-card"><span>盈利</span><b>ROE -0.9%</b><em>净利率 -0.8% | 负债率 81.3%</em></div>
+<div class="summary-card"><span>技术面</span><b>RSI 38（偏弱）</b><em>52周 3.10~5.39 | 当前位置40%</em></div>
 </section>
 
 <h2>1. 一句话总收口</h2>
-<p>【综合分析结论：公司核心逻辑、当前处境、关键变量】</p>
+<p>渤海租赁2025年EPS -0.0656元（亏损），无法计算PE，2025年营收529.24亿，归母净利-4.06亿，ROE -0.9%，技术面RSI 38（偏弱），MACD空头。中期趋势偏谨慎。</p>
 
 <h2>2. 公司画像 / 商业模式</h2>
 <ul>
-  <li><strong>公司全称</strong>：渤海租赁，—，—。</li>
-  <li><strong>主营业务</strong>：【主要业务构成，收入占比】。</li>
-  <li><strong>商业模式</strong>：【商业模式描述，如何赚钱】。</li>
-  <li><strong>核心竞争壁垒</strong>：（1）【壁垒1】；（2）【壁垒2】；（3）【壁垒3】。</li>
+<li><strong>主营业务</strong>：全球领先的飞机租赁商（Avolon+Global），机队规模超1000架，同时涉足集装箱租赁、船舶租赁、基础设施租赁。</li>
+<li><strong>核心竞争壁垒</strong>：全球最大窄体机租赁平台之一+与空客/波音深度直采渠道+美元资产天然对冲汇率风险+飞机残值管理专业能力。</li>
 </ul>
 
 <h2>3. 基本面分析</h2>
-
 <h3>§3.1 营收与利润趋势</h3>
 <div class="table-wrap">
 <table>
-<thead><tr><th>年份</th><th>营收(亿)</th><th>增速</th><th>归母净利(亿)</th><th>增速</th><th>EPS</th><th>净利率</th></tr></thead>
+<thead><tr><th>年份</th><th>营收(亿)</th><th>营收增速</th><th>归母净利(亿)</th><th>净利增速</th><th>EPS</th><th>净利率</th></tr></thead>
 <tbody>
-<tr>
-<td data-label="2020">2020</td>
-<td data-label="营收">274.2</td>
-<td data-label="增速">基准</td>
-<td data-label="归母净利">N/A</td>
-<td data-label="增速">基准</td>
-<td data-label="EPS">N/A</td>
-<td data-label="净利率">N/A</td>
-</tr>
-<tr>
-<td data-label="2021">2021</td>
-<td data-label="营收">267.9</td>
-<td data-label="增速" class="pct-down">-2.3%</td>
-<td data-label="归母净利">N/A</td>
-<td data-label="增速">N/A</td>
-<td data-label="EPS">N/A</td>
-<td data-label="净利率">N/A</td>
-</tr>
-<tr>
-<td data-label="2022">2022</td>
-<td data-label="营收">319.2</td>
-<td data-label="增速" class="pct-up">+19.2%</td>
-<td data-label="归母净利">N/A</td>
-<td data-label="增速">N/A</td>
-<td data-label="EPS">N/A</td>
-<td data-label="净利率">N/A</td>
-</tr>
-<tr>
-<td data-label="2023">2023</td>
-<td data-label="营收">336.7</td>
-<td data-label="增速" class="pct-up">+5.5%</td>
-<td data-label="归母净利">12.8</td>
-<td data-label="增速">N/A</td>
-<td data-label="EPS">0.2072</td>
-<td data-label="净利率">3.8%</td>
-</tr>
-<tr>
-<td data-label="2024">2024</td>
-<td data-label="营收">384.3</td>
-<td data-label="增速" class="pct-up">+14.1%</td>
-<td data-label="归母净利">9.0</td>
-<td data-label="增速" class="pct-down">-29.5%</td>
-<td data-label="EPS">0.1462</td>
-<td data-label="净利率">2.4%</td>
-</tr>
-<tr>
-<td data-label="2025Q1">2025Q1</td>
-<td data-label="营收">171.2</td>
-<td data-label="增速" class="pct-down">-55.5%</td>
-<td data-label="归母净利">6.7</td>
-<td data-label="增速" class="pct-down">-25.9%</td>
-<td data-label="EPS">0.1082</td>
-<td data-label="净利率">3.9%</td>
-</tr>
+<tr><td data-label="年份">2020</td><td data-label="营收(亿)">274.18</td><td data-label="增速"><span class="pct-up">基准</span></td><td data-label="归母净利(亿)">-77.04</td><td data-label="增速"><span class="pct-up">基准</span></td><td data-label="EPS">-1.2492</td><td data-label="净利率">-28.1%</td></tr>
+<tr><td data-label="年份">2021</td><td data-label="营收(亿)">267.91</td><td data-label="增速"><span class="pct-down">-2.3%</span></td><td data-label="归母净利(亿)">-12.32</td><td data-label="增速"><span class="pct-up">基准</span></td><td data-label="EPS">-0.1998</td><td data-label="净利率">-4.6%</td></tr>
+<tr><td data-label="年份">2022</td><td data-label="营收(亿)">319.22</td><td data-label="增速"><span class="pct-up">+19.2%</span></td><td data-label="归母净利(亿)">-19.86</td><td data-label="增速"><span class="pct-up">基准</span></td><td data-label="EPS">-0.3219</td><td data-label="净利率">-6.2%</td></tr>
+<tr><td data-label="年份">2023</td><td data-label="营收(亿)">336.75</td><td data-label="增速"><span class="pct-up">+5.5%</span></td><td data-label="归母净利(亿)">12.81</td><td data-label="增速"><span class="pct-up">基准</span></td><td data-label="EPS">0.2072</td><td data-label="净利率">3.8%</td></tr>
+<tr><td data-label="年份">2024</td><td data-label="营收(亿)">384.31</td><td data-label="增速"><span class="pct-up">+14.1%</span></td><td data-label="归母净利(亿)">9.04</td><td data-label="增速"><span class="pct-down">-29.5%</span></td><td data-label="EPS">0.1462</td><td data-label="净利率">2.4%</td></tr>
+<tr><td data-label="年份">2025</td><td data-label="营收(亿)">529.24</td><td data-label="增速"><span class="pct-up">+37.7%</span></td><td data-label="归母净利(亿)">-4.06</td><td data-label="增速"><span class="pct-down">-144.9%</span></td><td data-label="EPS">-0.0656</td><td data-label="净利率">-0.8%</td></tr>
+
 </tbody>
 </table>
 </div>
-<p>【关键发现和分析结论】</p>
-
 <h3>§3.2 ROE与资本结构</h3>
 <div class="table-wrap">
 <table>
 <thead><tr><th>年份</th><th>ROE</th><th>资产负债率</th><th>货币资金(亿)</th><th>总资产(亿)</th></tr></thead>
 <tbody>
-<tr>
-<td data-label="2020">2020</td>
-<td data-label="ROE">N/A</td>
-<td data-label="负债率">83.4%</td>
-<td data-label="货币资金">180.7</td>
-<td data-label="总资产">2502.1</td>
-</tr>
-<tr>
-<td data-label="2021">2021</td>
-<td data-label="ROE">N/A</td>
-<td data-label="负债率">83.9%</td>
-<td data-label="货币资金">73.2</td>
-<td data-label="总资产">2482.3</td>
-</tr>
-<tr>
-<td data-label="2022">2022</td>
-<td data-label="ROE">N/A</td>
-<td data-label="负债率">83.6%</td>
-<td data-label="货币资金">70.6</td>
-<td data-label="总资产">2636.4</td>
-</tr>
-<tr>
-<td data-label="2023">2023</td>
-<td data-label="ROE">2.8%</td>
-<td data-label="负债率">82.6%</td>
-<td data-label="货币资金">73.4</td>
-<td data-label="总资产">2615.4</td>
-</tr>
-<tr>
-<td data-label="2024">2024</td>
-<td data-label="ROE">1.9%</td>
-<td data-label="负债率">83.0%</td>
-<td data-label="货币资金">265.5</td>
-<td data-label="总资产">2864.0</td>
-</tr>
-<tr>
-<td data-label="2025Q1">2025Q1</td>
-<td data-label="ROE">1.4%</td>
-<td data-label="负债率">83.5%</td>
-<td data-label="货币资金">121.0</td>
-<td data-label="总资产">2951.3</td>
-</tr>
+<tr><td data-label="年份">2020</td><td data-label="ROE">-18.5%</td><td data-label="负债率">83.4%</td><td data-label="货币资金(亿)">180.71</td><td data-label="总资产(亿)">2502.12</td></tr>
+<tr><td data-label="年份">2021</td><td data-label="ROE">-3.1%</td><td data-label="负债率">83.9%</td><td data-label="货币资金(亿)">73.19</td><td data-label="总资产(亿)">2482.31</td></tr>
+<tr><td data-label="年份">2022</td><td data-label="ROE">-4.6%</td><td data-label="负债率">83.6%</td><td data-label="货币资金(亿)">70.64</td><td data-label="总资产(亿)">2636.44</td></tr>
+<tr><td data-label="年份">2023</td><td data-label="ROE">2.8%</td><td data-label="负债率">82.6%</td><td data-label="货币资金(亿)">73.41</td><td data-label="总资产(亿)">2615.45</td></tr>
+<tr><td data-label="年份">2024</td><td data-label="ROE">1.9%</td><td data-label="负债率">83.0%</td><td data-label="货币资金(亿)">265.45</td><td data-label="总资产(亿)">2863.99</td></tr>
+<tr><td data-label="年份">2025</td><td data-label="ROE">-0.9%</td><td data-label="负债率">81.3%</td><td data-label="货币资金(亿)">96.95</td><td data-label="总资产(亿)">2498.65</td></tr>
+
 </tbody>
 </table>
 </div>
-<p>【ROE驱动因素分析】</p>
-
 <h3>§3.3 现金流与资产负债</h3>
 <ul>
-  <li><strong>货币资金</strong>：121.0亿。现金储备充裕，主要来源【XXX】。</li>
-  <li><strong>总资产</strong>：2951.3亿。。</li>
-  <li><strong>总负债</strong>：2464.1亿，负债率83.5%。。</li>
+<li><strong>货币资金</strong>：96.95亿。财务弹性偏紧。</li>
+<li><strong>总资产</strong>：2498.65亿，总负债：2030.36亿。</li>
+<li><strong>资产负债率</strong>：81.3%。杠杆偏高，需关注偿债压力。</li>
 </ul>
 
 <h2>4. 技术面分析</h2>
-
 <h3>§4.1 整体趋势</h3>
 <ul>
-  <li><strong>最新价</strong>：4.02元（2026-06-02）</li>
-  <li><strong>均线排列</strong>：空头排列（MA5<MA10<MA20<MA60）——弱势下跌趋势。</li>
-  <li><strong>RSI(14)</strong>：34.8——偏弱。</li>
-  <li><strong>MACD</strong>：Hist -0.030，空头，空头（动能增强）。</li>
-  <li><strong>价格位置</strong>：52周区间3.10~5.39，当前位置40%——52周中位区域。</li>
-  <li><strong>N年涨幅</strong>：【+X%】。</li>
+<li><strong>最新价</strong>：4.02元（2026-06-02）</li>
+<li><strong>均线排列</strong>：MA20=4.35，MA60=4.46，MA20<MA60 → 空头趋势。</li>
+<li><strong>RSI(14)</strong>：38——偏弱。</li>
+<li><strong>MACD</strong>：Hist -0.06——空头。</li>
+<li><strong>价格位置</strong>：52周区间3.10~5.39，当前位置40%。</li>
 </ul>
-
 <h3>§4.2 月度走势</h3>
 <div class="table-wrap">
 <table>
-<thead><tr><th>月份</th><th>开盘</th><th>最高</th><th>最低</th><th>收盘</th><th>月涨跌</th><th>成交量(万手)</th></tr></thead>
+<thead><tr><th>月份</th><th>收盘价</th><th>月涨跌</th></tr></thead>
 <tbody>
-<tr>
-<td data-label="2025-07">2025-07</td>
-<td data-label="开盘">3.34</td>
-<td data-label="最高">3.77</td>
-<td data-label="最低">3.30</td>
-<td data-label="收盘">3.48</td>
-<td data-label="月涨跌" class="pct-up">+4.5%</td>
-<td data-label="成交量">2531301539</td>
-</tr>
-<tr>
-<td data-label="2025-08">2025-08</td>
-<td data-label="开盘">3.48</td>
-<td data-label="最高">3.75</td>
-<td data-label="最低">3.41</td>
-<td data-label="收盘">3.53</td>
-<td data-label="月涨跌" class="pct-up">+1.4%</td>
-<td data-label="成交量">1823881032</td>
-</tr>
-<tr>
-<td data-label="2025-09">2025-09</td>
-<td data-label="开盘">3.52</td>
-<td data-label="最高">3.88</td>
-<td data-label="最低">3.33</td>
-<td data-label="收盘">3.51</td>
-<td data-label="月涨跌" class="pct-down">-0.6%</td>
-<td data-label="成交量">1818032429</td>
-</tr>
-<tr>
-<td data-label="2025-10">2025-10</td>
-<td data-label="开盘">3.53</td>
-<td data-label="最高">3.76</td>
-<td data-label="最低">3.37</td>
-<td data-label="收盘">3.57</td>
-<td data-label="月涨跌" class="pct-up">+1.7%</td>
-<td data-label="成交量">1385469357</td>
-</tr>
-<tr>
-<td data-label="2025-11">2025-11</td>
-<td data-label="开盘">3.56</td>
-<td data-label="最高">3.85</td>
-<td data-label="最低">3.42</td>
-<td data-label="收盘">3.56</td>
-<td data-label="月涨跌" class="pct-down">-0.3%</td>
-<td data-label="成交量">1373576606</td>
-</tr>
-<tr>
-<td data-label="2025-12">2025-12</td>
-<td data-label="开盘">3.57</td>
-<td data-label="最高">4.18</td>
-<td data-label="最低">3.52</td>
-<td data-label="收盘">4.05</td>
-<td data-label="月涨跌" class="pct-up">+13.8%</td>
-<td data-label="成交量">2144932535</td>
-</tr>
-<tr>
-<td data-label="2026-01">2026-01</td>
-<td data-label="开盘">4.05</td>
-<td data-label="最高">4.66</td>
-<td data-label="最低">3.98</td>
-<td data-label="收盘">4.45</td>
-<td data-label="月涨跌" class="pct-up">+9.9%</td>
-<td data-label="成交量">2165067984</td>
-</tr>
-<tr>
-<td data-label="2026-02">2026-02</td>
-<td data-label="开盘">4.42</td>
-<td data-label="最高">5.60</td>
-<td data-label="最低">4.31</td>
-<td data-label="收盘">5.26</td>
-<td data-label="月涨跌" class="pct-up">+18.2%</td>
-<td data-label="成交量">1760976601</td>
-</tr>
-<tr>
-<td data-label="2026-03">2026-03</td>
-<td data-label="开盘">5.15</td>
-<td data-label="最高">5.44</td>
-<td data-label="最低">3.87</td>
-<td data-label="收盘">4.31</td>
-<td data-label="月涨跌" class="pct-down">-18.1%</td>
-<td data-label="成交量">2087938122</td>
-</tr>
-<tr>
-<td data-label="2026-04">2026-04</td>
-<td data-label="开盘">4.42</td>
-<td data-label="最高">4.90</td>
-<td data-label="最低">4.25</td>
-<td data-label="收盘">4.68</td>
-<td data-label="月涨跌" class="pct-up">+8.6%</td>
-<td data-label="成交量">1539133184</td>
-</tr>
-<tr>
-<td data-label="2026-05">2026-05</td>
-<td data-label="开盘">4.70</td>
-<td data-label="最高">4.91</td>
-<td data-label="最低">4.05</td>
-<td data-label="收盘">4.12</td>
-<td data-label="月涨跌" class="pct-down">-12.0%</td>
-<td data-label="成交量">1476128460</td>
-</tr>
-<tr>
-<td data-label="2026-06">2026-06</td>
-<td data-label="开盘">4.08</td>
-<td data-label="最高">4.12</td>
-<td data-label="最低">3.98</td>
-<td data-label="收盘">4.02</td>
-<td data-label="月涨跌" class="pct-down">-2.4%</td>
-<td data-label="成交量">118428805</td>
-</tr>
+<tr><td data-label="月份">2025-07</td><td data-label="收盘">3.33</td><td data-label="涨跌"><span class="pct-up">基准</span></td></tr>
+<tr><td data-label="月份">2025-07</td><td data-label="收盘">3.48</td><td data-label="涨跌"><span class="pct-up">+4.5%</span></td></tr>
+<tr><td data-label="月份">2025-08</td><td data-label="收盘">3.60</td><td data-label="涨跌"><span class="pct-up">+3.4%</span></td></tr>
+<tr><td data-label="月份">2025-09</td><td data-label="收盘">3.53</td><td data-label="涨跌"><span class="pct-down">-1.9%</span></td></tr>
+<tr><td data-label="月份">2025-10</td><td data-label="收盘">3.57</td><td data-label="涨跌"><span class="pct-up">+1.1%</span></td></tr>
+<tr><td data-label="月份">2025-11</td><td data-label="收盘">3.56</td><td data-label="涨跌"><span class="pct-down">-0.3%</span></td></tr>
+<tr><td data-label="月份">2025-12</td><td data-label="收盘">4.09</td><td data-label="涨跌"><span class="pct-up">+14.9%</span></td></tr>
+<tr><td data-label="月份">2026-01</td><td data-label="收盘">4.51</td><td data-label="涨跌"><span class="pct-up">+10.3%</span></td></tr>
+<tr><td data-label="月份">2026-03</td><td data-label="收盘">5.06</td><td data-label="涨跌"><span class="pct-up">+12.2%</span></td></tr>
+<tr><td data-label="月份">2026-04</td><td data-label="收盘">4.45</td><td data-label="涨跌"><span class="pct-down">-12.1%</span></td></tr>
+<tr><td data-label="月份">2026-04</td><td data-label="收盘">4.68</td><td data-label="涨跌"><span class="pct-up">+5.2%</span></td></tr>
+<tr><td data-label="月份">2026-06</td><td data-label="收盘">4.02</td><td data-label="涨跌"><span class="pct-down">-14.1%</span></td></tr>
+
 </tbody>
 </table>
 </div>
 
-<h3>§4.3 走势阶段划分</h3>
-<ul>
-  <li><strong>第一阶段（1996-07-16 ~ 2005-08-11）：调整期</strong>。区间涨幅+46.2%。</li>
-  <li><strong>第二阶段（2005-08-12 ~ 2016-12-26）：震荡期</strong>。区间涨幅+800.2%。</li>
-  <li><strong>第三阶段（2016-12-27 ~ 2026-06-04）：近期走势</strong>。区间涨幅-38.8%。</li>
-</ul>
-
 <h2>5. 估值分析</h2>
 <ul>
-  <li><strong>PE(TTM)</strong>：37.2x —— 基于EPS 0.1082元。当前处于偏高区间。</li>
-  <li><strong>Forward PE</strong>：假设增速-25.9%，对应EPS约0.1082元，forward PE约37.2x。</li>
-  <li><strong>PB</strong>：市净率约56.06倍（净资产约487.2亿）。</li>
-  <li><strong>PEG</strong>：1.43（PE约37.2x / 利润增速25.9%）。</li>
+<li><strong>PE(TTM)</strong>：0x —— 基于2025年EPS -0.0656元。当前处于亏损区间。</li>
+<li><strong>PB</strong>：0.0x —— 基于BVPS -0.2284元。</li>
+<li><strong>PEG参考</strong>：PE 0x / ROE -0.9%。-。</li>
 </ul>
+
 <h2>6. 同业对比</h2>
-<p>同业对比数据涉及多只个股的详细财务指标，建议在每日组合分析中同步生成。当前为独立个股报告，暂未包含完整同业对比表。</p>
+<p>同业对比涉及多只个股的详细财务指标，建议在组合分析中统一生成。本报告聚焦单只个股深度分析。</p>
+
 <h2>7. 核心优势</h2>
 <ul>
-  <li><span class="tag-bull">优势</span> <strong>全球飞机租赁龙头</strong> —— 渤海租赁通过子公司Avolon跻身全球飞机租赁前列，机队规模超千架，客户覆盖全球主要航司。</li>
-  <li><span class="tag-bull">优势</span> <strong>规模与成本优势</strong> —— 大规模机队带来采购折扣和残值管理优势，融资能力强劲，融资成本行业领先。</li>
-  <li><span class="tag-bull">优势</span> <strong>航空复苏受益</strong> —— 全球航空业恢复增长，飞机租赁需求回升，租金水平和机队利用率持续改善。</li>
+  <li><span class="tag-bull">壁垒</span> <strong>全球最大窄体机租赁平台之一</strong></li>
+  <li><span class="tag-bull">壁垒</span> <strong>与空客/波音深度直采渠道</strong></li>
+  <li><span class="tag-bull">壁垒</span> <strong>美元资产天然对冲汇率风险</strong></li>
+  <li><span class="tag-bull">壁垒</span> <strong>飞机残值管理专业能力。</strong></li>
 </ul>
+
 <h2>8. 主要风险</h2>
 <ul>
-  <li><span class="tag-bear">风险</span> <strong>高负债率风险</strong> —— 公司资产负债率较高，利息支出对利润侵蚀明显，流动性需关注。</li>
-  <li><span class="tag-bear">风险</span> <strong>航空业系统性风险</strong> —— 航空运输需求受宏观经济、油价、地缘冲突等多重因素影响。</li>
-  <li><span class="tag-bear">风险</span> <strong>资产减值风险</strong> —— 机队资产价值可能因市场变化需要减值。</li>
+  <li><span class="tag-bear">风险</span> <strong>利率上行导致融资成本上升，飞机租赁杠杆率偏高</strong></li>
+  <li><span class="tag-bear">风险</span> <strong>航空公司客户信用风险（尤其新兴市场）</strong></li>
+  <li><span class="tag-bear">风险</span> <strong>飞机残值贬值风险（尤其是老旧机型）</strong></li>
 </ul>
+
 <h2>9. 综合判断</h2>
 <ul>
-  <li><strong>长期逻辑（3年以上）</strong>：公司当前处于调整期，长期价值需关注业务转型效果和行业拐点。</li>
-  <li><strong>中期走势（6~12个月）</strong>：技术面偏弱，RSI处于偏弱区间。中期需等待基本面催化剂或行业利好刺激才能扭转趋势。</li>
-  <li><strong>短期风险</strong>：需关注季报业绩披露、行业政策变化等短期催化剂或风险因素。</li>
+<li><strong>长期逻辑（3年+）</strong>：当前亏损，估值支撑较强。核心变量：营收能否持续增长。</li>
+<li><strong>中期走势（6~12个月）</strong>：RSI 38，MACD空头，MA20/MA60空头。</li>
+<li><strong>短期关注</strong>：季报业绩、行业政策变化、产能/订单进展等催化剂。</li>
 </ul>
+
 <h2>10. 操作边界参考</h2>
 <div class="table-wrap">
 <table>
 <thead><tr><th>场景</th><th>参考价位</th><th>对应PE</th><th>说明</th></tr></thead>
 <tbody>
-<tr><td data-label="场景">乐观</td><td data-label="价位">2.16~2.70元</td><td data-label="PE">20~25x</td><td data-label="说明">基本面持续向好，市场给予估值溢价</td></tr>
-<tr><td data-label="场景">中性</td><td data-label="价位">1.51~1.95元</td><td data-label="PE">14~18x</td><td data-label="说明">当前合理估值区间（当前PE 亏损）</td></tr>
-<tr><td data-label="场景">谨慎</td><td data-label="价位">1.30~1.62元</td><td data-label="PE">12~15x</td><td data-label="说明">基本面低于预期或市场情绪恶化</td></tr>
-<tr><td data-label="场景">悲观</td><td data-label="价位">0.87~1.08元</td><td data-label="PE">8~10x</td><td data-label="说明">重大利空下的极限调整区间</td></tr>
+<tr><td data-label="场景">亏损</td><td data-label="价位">-</td><td data-label="PE">N/A</td><td data-label="说明">当前EPS为负，以PB为锚</td></tr>
 </tbody>
 </table>
 </div>
-<div class="footer">
-  <p>数据来源：TDX gpcw财务数据 / TDX日线行情 / 新浪财经公司资料</p>
-  <p>报告生成时间：2026-06-04 | 仅供研究参考，不构成投资建议</p>
-  <p>MIO RESEARCH · DEEP DIVE · 000415.SZ</p>
-</div>
 
+<div class="footer">
+<p>数据来源：TDX gpcw财务数据 / TDX日线行情</p>
+<p>报告生成时间：2026-06-04 | 仅供研究参考，不构成投资建议</p>
+<p>MIO RESEARCH · DEEP DIVE · 000415.SZ</p>
+</div>
 </main>
 </body>
 </html>
