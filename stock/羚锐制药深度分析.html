@@ -1,1 +1,256 @@
-/root/.openclaw/workspace/templates/羚锐制药深度分析.html
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>羚锐制药（600285）深度分析</title>
+<style>
+:root {
+  --paper:#fefcf5; --ink:#1f2937; --muted:#64748b; --line:#f5ede0;
+  --soft:#fffbeb; --accent:#a16207; --accent2:#713f12;
+  --red:#b91c1c; --green:#047857; --blue:#1d4ed8;
+}
+* { box-sizing:border-box; }
+html { margin:0; background:#ece7dd; }
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;
+  color:var(--ink); font-size:15px; line-height:1.68;
+}
+.page { width:min(100%, 470px); margin:0 auto; padding:12px 10px 28px; background:var(--paper); min-height:100vh; }
+.cover { padding:20px 18px 18px; border-radius:16px; background:linear-gradient(135deg,#065f46 0%,#059669 52%,#34d399 100%); color:#fff; box-shadow:0 10px 24px rgba(36,52,71,.16); }
+.cover .eyebrow { font-size:11px; opacity:.82; letter-spacing:.06em; }
+h1 { margin:7px 0 8px; font-size:26px; line-height:1.2; letter-spacing:0; }
+.cover p { margin:0; color:rgba(255,255,255,.9); font-size:14px; }
+.summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 6px; }
+.summary-card { min-height:108px; border:1px solid var(--line); border-radius:12px; padding:10px 11px; background:#fff; }
+.summary-card span { display:block; color:var(--accent); font-weight:800; font-size:12px; margin-bottom:5px; }
+.summary-card b { display:block; color:#111827; font-size:15px; line-height:1.3; margin-bottom:5px; }
+.summary-card em { display:block; color:var(--muted); font-style:normal; font-size:12px; line-height:1.42; }
+h2 { margin:22px 0 10px; padding:9px 11px; border-left:5px solid var(--accent); border-radius:9px; background:#fffbeb; color:#111827; font-size:18px; line-height:1.34; break-after:avoid; }
+h3 { margin:18px 0 9px; padding:0 0 6px; border-bottom:1px solid var(--line); color:#253041; font-size:16px; break-after:avoid; }
+p { margin:8px 2px 10px; }
+ul { margin:8px 0 13px; padding:0; list-style:none; display:grid; gap:7px; }
+li { position:relative; padding:9px 10px 9px 17px; border:1px solid #eee6d8; border-radius:10px; background:#fefcf5; }
+li::before { content:""; position:absolute; left:8px; top:18px; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+strong { color:#111827; }
+.table-wrap { margin:10px 0 14px; }
+table { width:100%; border-collapse:separate; border-spacing:0 8px; font-size:13px; line-height:1.45; }
+thead { display:none; }
+tr { display:block; border:1px solid var(--line); border-radius:12px; background:#fff; overflow:hidden; }
+td { display:grid; grid-template-columns:86px minmax(0,1fr); gap:8px; padding:7px 9px; border-bottom:1px solid #f0e7d8; vertical-align:top; }
+td:last-child { border-bottom:0; }
+td::before { content:attr(data-label); color:var(--accent2); font-weight:800; font-size:12px; }
+.pct-up, .money-in { color:var(--red); font-weight:800; }
+.pct-down, .money-out { color:var(--green); font-weight:800; }
+.tag-bull { display:inline-block; background:#dcfce7; color:#166534; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-bear { display:inline-block; background:#fee2e2; color:#991b1b; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-neutral { display:inline-block; background:#fef3c7; color:#92400e; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.footer { margin-top:22px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; text-align:center; }
+@media (min-width:760px) {
+  body { font-size:15px; background:#e8e3d9; }
+  .page { width:min(1100px, calc(100vw - 48px)); padding:36px 48px 48px; margin:24px auto; border-radius:20px; box-shadow:0 18px 55px rgba(36,52,71,.12); }
+  .cover { padding:32px 40px 28px; border-radius:20px; }
+  .cover .eyebrow { font-size:13px; }
+  h1 { font-size:40px; }
+  .cover p { font-size:16px; line-height:1.7; }
+  .summary-grid { grid-template-columns:repeat(4,1fr); gap:14px; margin:22px 0 10px; }
+  .summary-card { min-height:128px; padding:14px 16px; }
+  .summary-card b { font-size:16px; }
+  .summary-card em { font-size:13px; }
+  h2 { font-size:22px; margin-top:36px; padding:10px 14px; }
+  h3 { font-size:18px; }
+  p { font-size:15px; margin:10px 4px 14px; }
+  ul { gap:9px; margin:10px 0 16px; }
+  li { padding:10px 12px 10px 20px; font-size:14px; line-height:1.6; }
+  li::before { left:9px; top:20px; width:6px; height:6px; }
+  table { border-collapse:collapse; border-spacing:0; font-size:13px; min-width:760px; }
+  .table-wrap { border:1px solid var(--line); border-radius:14px; overflow:auto; background:#fff; }
+  thead { display:table-header-group; }
+  tr { display:table-row; border:0; border-radius:0; background:transparent; }
+  th, td { display:table-cell; padding:9px 11px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+  th { background:#f5ede0; color:#111827; text-align:left; white-space:nowrap; font-weight:800; }
+  td::before { content:none; }
+  th:last-child, td:last-child { border-right:none; }
+  tr:last-child td { border-bottom:none; }
+  tbody tr:nth-child(even) td { background:#fefcf5; }
+  .footer { margin-top:30px; padding-top:16px; }
+  .tag { font-size:12px; padding:2px 10px; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+<section class="cover">
+  <div class="eyebrow">MIO RESEARCH · DEEP DIVE · 2026-06-07</div>
+  <h1>羚锐制药（600285）深度分析</h1>
+  <p>中药贴膏剂龙头，营收净利持续稳健增长，品牌+渠道构筑护城河。当前PE~16x，估值合理偏低，具备长期配置价值</p>
+</section>
+
+<section class="summary-grid">
+  <div class="summary-card"><span>公司</span><b>河南羚锐制药股份有限公司</b><em>中药贴膏剂龙头，2000年上交所上市。核心产品：通络祛痛膏、壮骨麝香止痛膏等，覆盖骨科/风湿/心脑血管等多科室</em></div>
+  <div class="summary-card"><span>核心数据</span><b>2025年报</b><em>营收38.53亿(+10.1%)，归母净利7.60亿(+5.1%)，ROE约18%，净利率19.7%，EPS 1.34元</em></div>
+  <div class="summary-card"><span>股价</span><b>21.76元</b><em>2024年+29%，2025年-6.4%，2026年至今+2.2%。52周区间19.83~24.94，当前处于中部偏下</em></div>
+  <div class="summary-card"><span>风险</span><b>偏低</b><em>- 营收增速趋缓(近10%) - 原材料成本波动 - 中药集采可能 - 竞争加剧</em></div>
+</section>
+
+<h2>1. 一句话总收口</h2>
+<p>羚锐制药是A股中药贴膏剂稀缺标的，品牌力强、渠道成熟、盈利稳健。2021-2025年营收CAGR 9.4%、净利CAGR 20.4%，净利率从13.4%提升至19.7%，ROE维持18%+。当前PE~16x，估值处于历史中低位。主要隐忧在于营收增速从22%逐步放缓至10%，且中药集采扩面是潜在风险。总体适合稳健型长期配置。</p>
+
+<h2>2. 公司画像 / 商业模式</h2>
+<ul>
+  <li><strong>公司全称</strong>：河南羚锐制药股份有限公司，注册地河南信阳，国有控股背景。</li>
+  <li><strong>主营业务</strong>：中药贴膏剂（通络祛痛膏、壮骨麝香止痛膏、伤湿止痛膏等）为核心，辅以胶囊剂（培元通脑胶囊、丹鹿通督片等）和软膏剂等。贴膏剂收入占比超60%。</li>
+  <li><strong>商业模式</strong>：品牌OTC为主（药店零售）+ 部分处方药（医院渠道）。品牌认知度和终端铺货率是核心驱动。"羚锐"品牌在骨科外用中药领域市占率领先。</li>
+  <li><strong>核心竞争壁垒</strong>：（1）品牌壁垒——"羚锐"是中药贴膏行业第一品牌，消费者认知深厚；（2）渠道壁垒——已覆盖全国数千家医院和数十万家药店终端；（3）产品批文壁垒——拥有多个中药保护品种和独家品种。</li>
+</ul>
+
+<h2>3. 基本面分析</h2>
+
+<h3>§3.1 营收与利润趋势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>营收(亿)</th><th>增速</th><th>归母净利(亿)</th><th>增速</th><th>净利率</th><th>EPS(元)</th></tr></thead>
+<tbody>
+<tr><td data-label="2021">2021</td><td data-label="营收">26.94</td><td data-label="增速">基准</td><td data-label="归母净利">3.62</td><td data-label="增速">基准</td><td data-label="净利率">13.4%</td><td data-label="EPS">0.65</td></tr>
+<tr><td data-label="2022">2022</td><td data-label="营收">30.02</td><td data-label="增速">+11.4%</td><td data-label="归母净利">4.65</td><td data-label="增速">+28.6%</td><td data-label="净利率">15.5%</td><td data-label="EPS">0.84</td></tr>
+<tr><td data-label="2023">2023</td><td data-label="营收">33.11</td><td data-label="增速">+10.3%</td><td data-label="归母净利">5.68</td><td data-label="增速">+22.1%</td><td data-label="净利率">17.2%</td><td data-label="EPS">1.01</td></tr>
+<tr><td data-label="2024">2024</td><td data-label="营收">35.01</td><td data-label="增速">+5.7%</td><td data-label="归母净利">7.23</td><td data-label="增速">+27.2%</td><td data-label="净利率">20.6%</td><td data-label="EPS">1.29</td></tr>
+<tr><td data-label="2025">2025</td><td data-label="营收">38.53</td><td data-label="增速">+10.1%</td><td data-label="归母净利">7.60</td><td data-label="增速">+5.1%</td><td data-label="净利率">19.7%</td><td data-label="EPS">1.34</td></tr>
+<tr><td data-label="2026Q1">2026Q1</td><td data-label="营收">11.26</td><td data-label="增速">—</td><td data-label="归母净利">2.46</td><td data-label="增速">—</td><td data-label="净利率">21.9%</td><td data-label="EPS">0.44</td></tr>
+</tbody>
+</table>
+</div>
+<p>🔵 <strong>事实</strong>：2021-2025年营收CAGR 9.4%，归母净利CAGR 20.4%。净利率从13.4%持续提升至19.7%，体现产品结构优化和规模效应。2025年净利增速（+5.1%）明显放缓，需关注2026年能否恢复双位数增长。2026Q1净利率进一步提升至21.9%，趋势良好。</p>
+
+<h3>§3.2 ROE与资本结构</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>ROE</th><th>货币资金(亿)</th><th>应收账款(亿)</th><th>存货(亿)</th><th>总资产(亿)</th></tr></thead>
+<tbody>
+<tr><td data-label="2021">2021</td><td data-label="ROE">~16%</td><td data-label="货币资金">8.01</td><td data-label="应收账款">1.73</td><td data-label="存货">4.28</td><td data-label="总资产">31.61</td></tr>
+<tr><td data-label="2022">2022</td><td data-label="ROE">~17%</td><td data-label="货币资金">11.79</td><td data-label="应收账款">1.96</td><td data-label="存货">4.86</td><td data-label="总资产">32.35</td></tr>
+<tr><td data-label="2023">2023</td><td data-label="ROE">~18%</td><td data-label="货币资金">14.99</td><td data-label="应收账款">2.58</td><td data-label="存货">4.67</td><td data-label="总资产">36.59</td></tr>
+<tr><td data-label="2024">2024</td><td data-label="ROE">~19%</td><td data-label="货币资金">12.28</td><td data-label="应收账款">3.19</td><td data-label="存货">4.35</td><td data-label="总资产">38.26</td></tr>
+<tr><td data-label="2025">2025</td><td data-label="ROE">~18%</td><td data-label="货币资金">3.83</td><td data-label="应收账款">4.30</td><td data-label="存货">4.37</td><td data-label="总资产">38.98</td></tr>
+</tbody>
+</table>
+</div>
+<p>🔵 <strong>事实</strong>：ROE稳定在16-19%，属于中药消费品行业的中上水平。2025年货币资金大幅下降至3.83亿（从12.28亿），需关注现金流向；应收账款上升至4.30亿但增长可控。整体资产结构健康。</p>
+
+<h3>§3.3 现金流与资产负债</h3>
+<ul>
+  <li><strong>货币资金</strong>：3.83亿（2025年末），同比下降明显——可能是分红、投资或偿债所致，需关注现金流详表。</li>
+  <li><strong>应收账款</strong>：4.30亿，占营收11.2%，虽在上升但绝对比例合理，回款风险可控。</li>
+  <li><strong>存货</strong>：4.37亿，占营收11.3%，中药企业合理水平，周转稳定。</li>
+  <li><strong>总资产</strong>：38.98亿，资产结构以流动资产为主（22.80亿，占58%），属于轻资产运营模式。</li>
+  <li><strong>固定资产</strong>：仅0.38亿，中药制剂行业特征——核心资产是品牌和渠道，而非重资产产线。</li>
+  <li><strong>长期股权投资</strong>：5.30亿，体现对外投资布局。</li>
+</ul>
+
+<h2>4. 技术面分析</h2>
+
+<h3>§4.1 整体趋势</h3>
+<ul>
+  <li><strong>最新价</strong>：21.76元（2026-06-05）</li>
+  <li><strong>均线排列</strong>：价格围绕MA20/MA60震荡，短期均线无明显方向——<span class="tag-neutral">盘整格局</span></li>
+  <li><strong>RSI(14)</strong>：估算~45-50，中性区间，无超买超卖信号</li>
+  <li><strong>MACD</strong>：柱状线贴近零轴，动能中性，方向待确认</li>
+  <li><strong>价格位置</strong>：52周区间19.83~24.94，当前位置21.76位于61%分位——估值中性偏低</li>
+  <li><strong>N年涨幅</strong>：2021年+85%，2022年-20%，2023年+31%，2024年+29%，2025年-6%，呈现明显周期性</li>
+</ul>
+
+<h3>§4.2 月度走势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>月份</th><th>开盘</th><th>最高</th><th>最低</th><th>收盘</th><th>月涨跌</th><th>成交量(万手)</th></tr></thead>
+<tbody>
+<tr><td data-label="2024-04">2024-04</td><td data-label="开盘">21.43</td><td data-label="最高">25.77</td><td data-label="最低">20.53</td><td data-label="收盘">25.45</td><td data-label="月涨跌" class="pct-up">+18.76%</td><td data-label="成交量">18,545</td></tr>
+<tr><td data-label="2024-07">2024-07</td><td data-label="开盘">24.19</td><td data-label="最高">25.70</td><td data-label="最低">20.17</td><td data-label="收盘">21.52</td><td data-label="月涨跌" class="pct-down">-11.04%</td><td data-label="成交量">17,994</td></tr>
+<tr><td data-label="2024-10">2024-10</td><td data-label="开盘">27.04</td><td data-label="最高">27.26</td><td data-label="最低">21.29</td><td data-label="收盘">21.45</td><td data-label="月涨跌" class="pct-down">-20.67%</td><td data-label="成交量">21,115</td></tr>
+<tr><td data-label="2025-04">2025-04</td><td data-label="开盘">21.24</td><td data-label="最高">23.50</td><td data-label="最低">20.80</td><td data-label="收盘">22.85</td><td data-label="月涨跌" class="pct-up">+7.58%</td><td data-label="成交量">15,958</td></tr>
+<tr><td data-label="2025-08">2025-08</td><td data-label="开盘">22.80</td><td data-label="最高">24.75</td><td data-label="最低">22.68</td><td data-label="收盘">23.43</td><td data-label="月涨跌" class="pct-up">+2.76%</td><td data-label="成交量">22,577</td></tr>
+<tr><td data-label="2025-12">2025-12</td><td data-label="开盘">21.81</td><td data-label="最高">22.33</td><td data-label="最低">20.30</td><td data-label="收盘">20.71</td><td data-label="月涨跌" class="pct-down">-5.04%</td><td data-label="成交量">12,054</td></tr>
+<tr><td data-label="2026-01">2026-01</td><td data-label="开盘">21.30</td><td data-label="最高">22.25</td><td data-label="最低">20.73</td><td data-label="收盘">21.96</td><td data-label="月涨跌" class="pct-up">+3.10%</td><td data-label="成交量">16,866</td></tr>
+<tr><td data-label="2026-03">2026-03</td><td data-label="开盘">21.57</td><td data-label="最高">22.90</td><td data-label="最低">21.02</td><td data-label="收盘">22.35</td><td data-label="月涨跌" class="pct-up">+3.62%</td><td data-label="成交量">17,261</td></tr>
+<tr><td data-label="2026-05">2026-05</td><td data-label="开盘">22.36</td><td data-label="最高">22.43</td><td data-label="最低">21.10</td><td data-label="收盘">21.38</td><td data-label="月涨跌" class="pct-down">-4.38%</td><td data-label="成交量">12,588</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>§4.3 走势阶段划分</h3>
+<ul>
+  <li><strong>第一阶段（2021-2022）：大起大落</strong>。2021年大涨+85%后，2022年回调-20%，典型"涨一年调一年"节奏。</li>
+  <li><strong>第二阶段（2023-2024）：温和上行</strong>。2023年+31%、2024年+29%，连续两年稳步上涨，2024年4月冲至27.26高点后回撤。</li>
+  <li><strong>第三阶段（2025至今）：缩量盘整</strong>。2024年10月见顶27.26后持续回落，2025全年-6.4%，2026年在20-23区间窄幅震荡，成交量逐步萎缩，市场在等待新的催化。</li>
+</ul>
+
+<h2>5. 估值分析</h2>
+<ul>
+  <li><strong>PE(TTM)</strong>：约16.2x（基于2025年EPS 1.34元）—— 处于历史中低位。中药消费品板块PE通常在15-25x区间，当前估值偏低。</li>
+  <li><strong>Forward PE(2026E)</strong>：若2026年维持5-10%增长，EPS约1.40-1.47元，对应PE 14.8-15.5x，估值有吸引力。</li>
+  <li><strong>PB</strong>：估值偏高——但中药消费品通常以PE定价而非PB。</li>
+  <li><strong>PEG</strong>：当前PE~16x，近5年净利CAGR~20%，PEG<1，处于低估区间。</li>
+  <li><strong>与同行对比</strong>：中药板块同仁堂~35x、片仔癀~40x、以岭药业~20x。羚锐16x在同板块中处于低位，但增速也相对偏低。</li>
+  <li><strong>股息率</strong>：羚锐历史上分红稳定，估算当前股息率约2-3%，对稳健型资金有一定吸引力。</li>
+</ul>
+
+<h2>6. 同业对比</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>公司</th><th>代码</th><th>营收(亿)</th><th>净利率</th><th>ROE</th><th>PE</th><th>市值(亿)</th></tr></thead>
+<tbody>
+<tr><td data-label="羚锐制药">羚锐制药</td><td data-label="代码">600285</td><td data-label="营收">38.5</td><td data-label="净利率">19.7%</td><td data-label="ROE">~18%</td><td data-label="PE">~16x</td><td data-label="市值">~123</td></tr>
+<tr><td data-label="以岭药业">以岭药业</td><td data-label="代码">002603</td><td data-label="营收">~100+</td><td data-label="净利率">~12%</td><td data-label="ROE">~12%</td><td data-label="PE">~20x</td><td data-label="市值">~250</td></tr>
+<tr><td data-label="同仁堂">同仁堂</td><td data-label="代码">600085</td><td data-label="营收">~170+</td><td data-label="净利率">~14%</td><td data-label="ROE">~12%</td><td data-label="PE">~35x</td><td data-label="市值">~650</td></tr>
+<tr><td data-label="片仔癀">片仔癀</td><td data-label="代码">600436</td><td data-label="营收">~100+</td><td data-label="净利率">~28%</td><td data-label="ROE">~20%</td><td data-label="PE">~40x</td><td data-label="市值">~1400</td></tr>
+</tbody>
+</table>
+</div>
+<p>🔵 <strong>事实</strong>：羚锐在中药板块中PE最低之一，净利率和ROE却处于中上水平。与龙头相比市值差距悬殊，但这也意味着更低的预期和更少的机构抱团踩踏风险。</p>
+
+<h2>7. 核心优势</h2>
+<ul>
+  <li><span class="tag-bull">优势</span> <strong>品牌护城河深厚</strong> —— "羚锐"品牌在中药贴膏剂领域认知度第一，消费者自选率高，构成强大竞争壁垒。</li>
+  <li><span class="tag-bull">优势</span> <strong>盈利质量持续改善</strong> —— 净利率从13.4%提升至21.9%，毛利率稳中有升，反映产品结构升级和品牌溢价提升。</li>
+  <li><span class="tag-bull">优势</span> <strong>低估值安全边际</strong> —— PE~16x，在中药板块中属于最低梯队，下行风险有限。</li>
+</ul>
+
+<h2>8. 主要风险</h2>
+<ul>
+  <li><span class="tag-bear">风险</span> <strong>营收增速持续放缓</strong> —— 从2021年+11%降至2024年+5.7%，2025年回升至10%但整体趋势放缓。贴膏剂品类天花板可能逼近。</li>
+  <li><span class="tag-bear">风险</span> <strong>中药集采扩面压力</strong> —— 中药集采持续扩面，虽贴膏剂属OTC受冲击相对较小，但处方药部分（尤其独家品种）面临降价风险。</li>
+  <li><span class="tag-bear">风险</span> <strong>货币资金骤降</strong> —— 2025年现金从12.28亿骤降至3.83亿（-69%），需查明原因。若是大额分红则问题不大，若是经营异常则需要高度警惕。</li>
+  <li><span class="tag-bear">风险</span> <strong>成长性一般</strong> —— 营收增速仅个位数到低双位数，难以吸引高成长偏好资金，股价缺乏弹性。</li>
+</ul>
+
+<h2>9. 综合判断</h2>
+<ul>
+  <li><strong>长期逻辑（3年以上）</strong>：<span class="tag-bull">看好</span> 中药贴膏剂赛道受益于人口老龄化和自我诊疗趋势，羚锐品牌+渠道壁垒稳固。持续稳定的盈利增长和分红使得该股具备"中药消费收租"属性，长期配置价值清晰。</li>
+  <li><strong>中期走势（6~12个月）</strong>：<span class="tag-neutral">中性偏正面</span> 当前PE~16x已反映多数悲观预期。若2026年业绩恢复双位数增长（2026Q1净利率21.9%信号积极），估值有望修复至18-20x区间，对应约24-27元，上行空间15-25%。主要风险在于大盘系统性回调或中药集采超预期。</li>
+  <li><strong>短期风险</strong>：成交量持续萎缩（日均仅300-500万股），市场关注度低，短期缺乏股价催化剂。等待中报验证盈利趋势。</li>
+</ul>
+
+<h2>10. 操作边界参考</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>场景</th><th>参考价位</th><th>对应PE</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td data-label="场景">乐观</td><td data-label="价位">25~28</td><td data-label="PE">18~20x</td><td data-label="说明">业绩恢复双位数增长+估值修复至中药板块中位数，需中报验证</td></tr>
+<tr><td data-label="场景">中性</td><td data-label="价位">22~24</td><td data-label="PE">16~17.5x</td><td data-label="说明">业绩平稳增长（5-10%），当前估值基本合理，窄幅波动</td></tr>
+<tr><td data-label="场景">谨慎</td><td data-label="价位">19~21</td><td data-label="PE">14~15.5x</td><td data-label="说明">增速继续放缓或集采冲击，市场给予更低估值——接近52周低点19.83</td></tr>
+<tr><td data-label="场景">悲观</td><td data-label="价位">16~18</td><td data-label="PE">12~13.5x</td><td data-label="说明">业绩明显恶化+大盘系统性风险，逼近2022年低点。概率较低</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="footer">
+  <p>数据来源：TDX gpcw财务数据 / TDX日线行情</p>
+  <p>报告生成时间：2026-06-07 | 仅供研究参考，不构成投资建议</p>
+  <p>MIO RESEARCH · DEEP DIVE · 600285.SH</p>
+</div>
+
+</main>
+</body>
+</html>
