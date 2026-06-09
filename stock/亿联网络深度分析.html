@@ -1,1 +1,260 @@
-/root/.openclaw/workspace/data/reports/亿联网络300628_深度分析.html
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>亿联网络（300628）深度分析</title>
+<style>
+:root {
+  --paper:#fefcf5; --ink:#1f2937; --muted:#64748b; --line:#f5ede0;
+  --soft:#fffbeb; --accent:#a16207; --accent2:#713f12;
+  --red:#b91c1c; --green:#047857; --blue:#1d4ed8;
+}
+* { box-sizing:border-box; }
+html { margin:0; background:#ece7dd; }
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;
+  color:var(--ink); font-size:15px; line-height:1.68;
+}
+.page { width:min(100%, 470px); margin:0 auto; padding:12px 10px 28px; background:var(--paper); min-height:100vh; }
+.cover { padding:20px 18px 18px; border-radius:16px; background:linear-gradient(135deg,#713f12 0%,#a16207 52%,#34d399 100%); color:#fff; box-shadow:0 10px 24px rgba(36,52,71,.16); }
+.cover .eyebrow { font-size:11px; opacity:.82; letter-spacing:.06em; }
+h1 { margin:7px 0 8px; font-size:26px; line-height:1.2; letter-spacing:0; }
+.cover p { margin:0; color:rgba(255,255,255,.9); font-size:14px; }
+.summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 6px; }
+.summary-card { min-height:108px; border:1px solid var(--line); border-radius:12px; padding:10px 11px; background:#fff; }
+.summary-card span { display:block; color:var(--accent); font-weight:800; font-size:12px; margin-bottom:5px; }
+.summary-card b { display:block; color:#111827; font-size:15px; line-height:1.3; margin-bottom:5px; }
+.summary-card em { display:block; color:var(--muted); font-style:normal; font-size:12px; line-height:1.42; }
+h2 { margin:22px 0 10px; padding:9px 11px; border-left:5px solid var(--accent); border-radius:9px; background:#fffbeb; color:#111827; font-size:18px; line-height:1.34; break-after:avoid; }
+h3 { margin:18px 0 9px; padding:0 0 6px; border-bottom:1px solid var(--line); color:#253041; font-size:16px; break-after:avoid; }
+p { margin:8px 2px 10px; }
+ul { margin:8px 0 13px; padding:0; list-style:none; display:grid; gap:7px; }
+li { position:relative; padding:9px 10px 9px 17px; border:1px solid #eee6d8; border-radius:10px; background:#fefcf5; }
+li::before { content:""; position:absolute; left:8px; top:18px; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+strong { color:#111827; }
+.table-wrap { margin:10px 0 14px; }
+table { width:100%; border-collapse:separate; border-spacing:0 8px; font-size:13px; line-height:1.45; }
+thead { display:none; }
+tr { display:block; border:1px solid var(--line); border-radius:12px; background:#fff; overflow:hidden; }
+td { display:grid; grid-template-columns:86px minmax(0,1fr); gap:8px; padding:7px 9px; border-bottom:1px solid #f0e7d8; vertical-align:top; }
+td:last-child { border-bottom:0; }
+td::before { content:attr(data-label); color:var(--accent2); font-weight:800; font-size:12px; }
+.pct-up, .money-in { color:var(--red); font-weight:800; }
+.pct-down, .money-out { color:var(--green); font-weight:800; }
+.tag-bull { display:inline-block; background:#dcfce7; color:#166534; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-bear { display:inline-block; background:#fee2e2; color:#991b1b; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.tag-neutral { display:inline-block; background:#fef3c7; color:#92400e; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+.footer { margin-top:22px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; text-align:center; }
+.tag { display:inline-block; padding:0 7px; border-radius:5px; font-size:12px; font-weight:700; }
+@media (min-width:760px) {
+  body { font-size:15px; background:#e8e3d9; }
+  .page { width:min(1100px, calc(100vw - 48px)); padding:36px 48px 48px; margin:24px auto; border-radius:20px; box-shadow:0 18px 55px rgba(36,52,71,.12); }
+  .cover { padding:32px 40px 28px; border-radius:20px; }
+  .cover .eyebrow { font-size:13px; }
+  h1 { font-size:40px; }
+  .cover p { font-size:16px; line-height:1.7; }
+  .summary-grid { grid-template-columns:repeat(4,1fr); gap:14px; margin:22px 0 10px; }
+  .summary-card { min-height:128px; padding:14px 16px; }
+  .summary-card b { font-size:16px; }
+  .summary-card em { font-size:13px; }
+  h2 { font-size:22px; margin-top:36px; padding:10px 14px; }
+  h3 { font-size:18px; }
+  p { font-size:15px; margin:10px 4px 14px; }
+  ul { gap:9px; margin:10px 0 16px; }
+  li { padding:10px 12px 10px 20px; font-size:14px; line-height:1.6; }
+  li::before { left:9px; top:20px; width:6px; height:6px; }
+  table { border-collapse:collapse; border-spacing:0; font-size:13px; min-width:760px; }
+  .table-wrap { border:1px solid var(--line); border-radius:14px; overflow:auto; background:#fff; }
+  thead { display:table-header-group; }
+  tr { display:table-row; border:0; border-radius:0; background:transparent; }
+  th, td { display:table-cell; padding:9px 11px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+  th { background:#f5ede0; color:#111827; text-align:left; white-space:nowrap; font-weight:800; }
+  td::before { content:none; }
+  th:last-child, td:last-child { border-right:none; }
+  tr:last-child td { border-bottom:none; }
+  tbody tr:nth-child(even) td { background:#fefcf5; }
+  .footer { margin-top:30px; padding-top:16px; }
+  .tag { font-size:12px; padding:2px 10px; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+<section class="cover">
+  <div class="eyebrow">MIO RESEARCH · DEEP DIVE · 2026-06-08</div>
+  <h1>亿联网络（300628）深度分析</h1>
+  <p>全球SIP话机龙头，极端轻资产+超高利润率，A股稀缺的「现金奶牛」型标的。成长确定性较强但海外收入占比高、贸易政策存变数。</p>
+</section>
+
+<section class="summary-grid">
+  <div class="summary-card"><span>公司</span><b>亿联网络</b><em>全球SIP桌面话机市占率第一，厦门民企，2017年创业板上市，总市值约<b>498亿</b>。员工仅约2,000人（含销售研发），人均创收约300万+。</em></div>
+  <div class="summary-card"><span>核心数据</span><b>2025年报/2026一季报</b><em>营收60.33亿(+7.3%)，净利26.01亿(-1.8%)，ROE ~107%，EPS 2.06元，净利率43.1%。2026Q1营收14.32亿，净利6.56亿。</em></div>
+  <div class="summary-card"><span>股价</span><b>39.40元</b><em>1年涨幅约-8%，52周区间31.41~41.28元，当前位置81%分位。2026YTD +9.3%，近6月从31.41低点反弹超25%。</em></div>
+  <div class="summary-card"><span>风险</span><b>风险边界</b><em>·海外收入占比>80%关税/制裁风险 ·SIP话机市场饱和增速放缓 ·微软Teams等软件方案替代硬件 ·股权集中(陈智松+吴仲毅持股>50%+)</em></div>
+</section>
+
+<h2>1. 一句话总收口</h2>
+<p>亿联网络是A股极其罕见的**极高利润率+极端轻资产+强大现金流**组合：固定资产业仅~5,000万却创造26亿年利润，ROE常年在100%+。公司是全球SIP话机第一名（市场份额约40%），竞争壁垒深、客户粘性强。但海外收入占比超80%意味着关税政策是最大不确定性；且SIP桌面话机市场本身增长趋缓（存量替换为主），公司正在向云视频会议和智能协作终端转型。当前PE ~19x，对于这种利润质量和护城河而言不算贵，但亦不便宜——定价了「优质但低增长」的预期。</li></p>
+
+<h2>2. 公司画像 / 商业模式</h2>
+<ul>
+  <li><strong>公司全称</strong>：厦门亿联网络技术股份有限公司，控股股东/实际控制人为创始人陈智松（约35%）、吴仲毅（约22%）。</li>
+  <li><strong>主营业务</strong>：统一通信终端（UC终端）——SIP桌面话机（占比约75%+）、视频会议系统（约15%）、耳机/配件等。产品销售海外占比约80-85%（欧美为主），国内约15-20%。</li>
+  <li><strong>商业模式</strong>：自主研发+委外生产的轻资产模式。公司聚焦产品定义、软件研发、品牌渠道和全球售后，生产全部外包（ODM/OEM，主要在珠三角）。收入路径：企业级客户/运营商渠道采购订单 → 委托生产 → 全球仓储+物流分发。定价权强（品牌力+渠道壁垒）。</li>
+  <li><strong>核心竞争壁垒</strong>：（1）全球SIP话机市场No.1（约40%份额），品牌+渠道双强，认证门槛高（Microsoft Teams/Zoom等兼容认证）；（2）极端轻资产——固定资产仅4,787万，厂房/设备几乎为零，ROIC >100%，自由现金流卓越；（3）高质客户网络——与全球TOP运营商/经销商建立长期合作，渠道切换成本高。</li>
+</ul>
+
+<h2>3. 基本面分析</h2>
+
+<h3>§3.1 营收与利润趋势</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>营收(亿)</th><th>增速</th><th>归母净利(亿)</th><th>增速</th><th>EPS(元)</th><th>净利率</th></tr></thead>
+<tbody>
+<tr><td data-label="2020">2020</td><td data-label="营收">27.54</td><td data-label="增速">基准</td><td data-label="归母净利">12.79</td><td data-label="增速">基准</td><td data-label="EPS">1.43</td><td data-label="净利率">46.4%</td></tr>
+<tr><td data-label="2021">2021</td><td data-label="营收">36.84</td><td data-label="增速" class="pct-up">+33.8%</td><td data-label="归母净利">16.16</td><td data-label="增速" class="pct-up">+26.4%</td><td data-label="EPS">1.80</td><td data-label="净利率">43.9%</td></tr>
+<tr><td data-label="2022">2022</td><td data-label="营收">48.11</td><td data-label="增速" class="pct-up">+30.6%</td><td data-label="归母净利">21.78</td><td data-label="增速" class="pct-up">+34.8%</td><td data-label="EPS">2.42</td><td data-label="净利率">45.3%</td></tr>
+<tr><td data-label="2023">2023</td><td data-label="营收">43.48</td><td data-label="增速" class="pct-down">-9.6%</td><td data-label="归母净利">20.10</td><td data-label="增速" class="pct-down">-7.7%</td><td data-label="EPS">1.59</td><td data-label="净利率">46.2%</td></tr>
+<tr><td data-label="2024">2024</td><td data-label="营收">56.21</td><td data-label="增速" class="pct-up">+29.3%</td><td data-label="归母净利">26.48</td><td data-label="增速" class="pct-up">+31.7%</td><td data-label="EPS">2.10</td><td data-label="净利率">47.1%</td></tr>
+<tr><td data-label="2025">2025</td><td data-label="营收">60.33</td><td data-label="增速" class="pct-up">+7.3%</td><td data-label="归母净利">26.01</td><td data-label="增速" class="pct-down">-1.8%</td><td data-label="EPS">2.06</td><td data-label="净利率">43.1%</td></tr>
+<tr><td data-label="2026Q1">2026Q1</td><td data-label="营收">14.32</td><td data-label="增速">—</td><td data-label="归母净利">6.56</td><td data-label="增速">—</td><td data-label="EPS">0.52</td><td data-label="净利率">45.8%</td></tr>
+</tbody>
+</table>
+</div>
+<p>🔵 <strong>事实</strong>：2020-2025年营收CAGR=17.0%，归母净利CAGR=15.3%。净利率长期稳定在43-47%区间，在全部A股中属最高一档。2023年受海外去库存影响营收下滑9.6%，2024年恢复增长29.3%创历史新高。2025年增速放缓至7.3%，且净利微降1.8%。<br>
+🔵 总股本约12.65亿股，2023年实施过10转4的资本公积转增（股本从~9亿增至~12.6亿）。流通股本约7.26亿股（占57.4%）。</p>
+
+<h3>§3.2 ROE与资本结构</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>年份</th><th>ROE</th><th>每股净资产</th><th>货币资金(亿)</th><th>净现金(亿)</th></tr></thead>
+<tbody>
+<tr><td data-label="2020">2020</td><td data-label="ROE">114.7%</td><td data-label="BVPS">1.24</td><td data-label="货币资金">3.20</td><td data-label="净现金">42.8</td></tr>
+<tr><td data-label="2021">2021</td><td data-label="ROE">113.2%</td><td data-label="BVPS">1.59</td><td data-label="货币资金">1.72</td><td data-label="净现金">46.4</td></tr>
+<tr><td data-label="2022">2022</td><td data-label="ROE">106.0%</td><td data-label="BVPS">2.28</td><td data-label="货币资金">4.31</td><td data-label="净现金">55.4</td></tr>
+<tr><td data-label="2023">2023</td><td data-label="ROE">112.4%</td><td data-label="BVPS">1.42</td><td data-label="货币资金">4.03</td><td data-label="净现金">54.7</td></tr>
+<tr><td data-label="2024">2024</td><td data-label="ROE">108.8%</td><td data-label="BVPS">1.93</td><td data-label="货币资金">5.01</td><td data-label="净现金">62.1</td></tr>
+<tr><td data-label="2025">2025</td><td data-label="ROE">107.2%</td><td data-label="BVPS">1.92</td><td data-label="货币资金">8.87</td><td data-label="净现金">58.2</td></tr>
+</tbody>
+</table>
+</div>
+<p>🔵 <strong>事实</strong>：ROE连续5年超过100%，全A股Top 1%水平。极端轻资产模式是根本原因：固定资产仅~4,800万（占总资产<1%），几乎没有折旧负担；资本开支极低，利润几乎全部转化为自由现金流。净资产长期被高额分红+回购消耗，导致股东权益相对利润规模很小。</p>
+<p>🔵 净现金（货币资金+交易性金融资产）高达58亿以上，占总资产比重极高。公司实质是一个「现金堆+品牌+专利+渠道」的组合，几乎不需要固定资产来运营。</p>
+
+<h3>§3.3 现金流与资产负债</h3>
+<ul>
+  <li><strong>货币资金</strong>：8.87亿，交易性金融资产（理财/结构性存款）49.29亿，合计现金类资产约58.2亿。公司几乎零有息负债。</li>
+  <li><strong>经营性现金流</strong>：2025年经营现金流约9.73亿（每股0.77元），与净利润的转化比率约37%，偏低——主要因应收账款和存货占用资金增加。但历史经营现金流/净利润比率通常在60%+。</li>
+  <li><strong>应收账款</strong>：15.47亿（约年营收25%），周转天数约93天——对于To B业务属合理水平。</li>
+  <li><strong>存货</strong>：14.63亿（含备货），年周转约4-5次。</li>
+  <li><strong>总资产</strong>：约55亿，资产负债率约56%（主要系应付账款+合同负债等经营负债，无有息负债）。</li>
+</ul>
+
+<h2>4. 技术面分析</h2>
+
+<h3>§4.1 整体趋势</h3>
+<ul>
+  <li><strong>最新价</strong>：39.40元（2026-06-05）</li>
+  <li><strong>均线排列</strong>：MA20=38.40 < MA60=36.04 < MA120=36.21 < MA250=35.78 ——价格站稳所有均线之上，且MA60与MA120已形成金叉后间距扩大，呈多头排列。</li>
+  <li><strong>RSI(14)</strong>：58.1 ——中性偏强，从47.8反弹至58.1，动能持续增强中。</li>
+  <li><strong>MACD</strong>：DIF 0.57, DEA 0.54, Hist 0.066 ——MACD刚在零轴上方形成金叉（前值Hist -0.015），多头信号初现。</li>
+  <li><strong>价格位置</strong>：52周区间31.41~41.28，当前39.40位于81%分位——靠近区间上沿，阻力位关注41.28.</li>
+  <li><strong>N年涨幅</strong>：2017年上市（约7.5元复权价）至今9.2年CAGR约19.7%。</li>
+</ul>
+
+<h3>§4.2 月度走势（近6月）</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>月份</th><th>开盘</th><th>最高</th><th>最低</th><th>收盘</th><th>月涨跌</th><th>成交量(万手)</th></tr></thead>
+<tbody>
+<tr><td data-label="2026-01">2026-01</td><td data-label="开盘">35.83</td><td data-label="最高">39.34</td><td data-label="最低">35.45</td><td data-label="收盘">38.37</td><td data-label="月涨跌" class="pct-up">+7.09%</td><td data-label="成交量">237</td></tr>
+<tr><td data-label="2026-02">2026-02</td><td data-label="开盘">38.45</td><td data-label="最高">39.46</td><td data-label="最低">36.10</td><td data-label="收盘">37.58</td><td data-label="月涨跌" class="pct-down">-2.26%</td><td data-label="成交量">148</td></tr>
+<tr><td data-label="2026-03">2026-03</td><td data-label="开盘">36.98</td><td data-label="最高">37.20</td><td data-label="最低">31.41</td><td data-label="收盘">32.74</td><td data-label="月涨跌" class="pct-down">-11.47%</td><td data-label="成交量">194</td></tr>
+<tr><td data-label="2026-04">2026-04</td><td data-label="开盘">33.15</td><td data-label="最高">37.95</td><td data-label="最低">32.54</td><td data-label="收盘">36.53</td><td data-label="月涨跌" class="pct-up">+10.20%</td><td data-label="成交量">177</td></tr>
+<tr><td data-label="2026-05">2026-05</td><td data-label="开盘">36.69</td><td data-label="最高">39.83</td><td data-label="最低">35.90</td><td data-label="收盘">36.15</td><td data-label="月涨跌" class="pct-down">-1.47%</td><td data-label="成交量">179</td></tr>
+<tr><td data-label="2026-06">2026-06</td><td data-label="开盘">36.30</td><td data-label="最高">40.88</td><td data-label="最低">36.15</td><td data-label="收盘">39.40</td><td data-label="月涨跌" class="pct-up">+8.54%</td><td data-label="成交量">89(半月)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>§4.3 走势阶段划分</h3>
+<ul>
+  <li><strong>第一阶段（2022~2023年）：长期下行通道</strong>。从2021年高点68元区域持续回落至2023年低点28元附近，跌幅约60%。主因海外去库存+市场风格切换（回避高估值成长股）。</li>
+  <li><strong>第二阶段（2024~2026年初）：震荡筑底+反弹</strong>。2024年随AI主题+业绩恢复从22.45低点反弹至50.71高点，后再回落至31.41。2026年3月触及31.41后V型反弹至39.40，反弹幅度约25%。</li>
+  <li><strong>第三阶段（2026年4月至今）：反弹延续，正在挑战前高</strong>。价格从31.41低点反弹超25%，已站上MA250年线，MACD刚刚金叉。下一个关键阻力在41.28（52周高点），突破则确认中期反转。</li>
+</ul>
+
+<h2>5. 估值分析</h2>
+<ul>
+  <li><strong>PE(TTM)</strong>：约19.1x（基于2025全年净利26.01亿，市值~498亿）。当前PE处于历史中低位。</li>
+  <li><strong>Forward PE</strong>：若2026年净利持平于26亿，Forward PE约19.1x；若实现5-10%增长，对应Forward PE约17-18x。</li>
+  <li><strong>PB</strong>：约20.5x（净资产约24.2亿）。极高的PB反映了一切——极端轻资产，账面价值几乎全是品牌+商誉+知识产权等无形资产。</li>
+  <li><strong>PEG</strong>：19.1x / 15.3% = 1.26。略高于1，属于「合理偏贵但不算泡沫」的区间。</li>
+  <li><strong>与同行对比</strong>：A股真正可比公司极少（全球话机市场独一份）。广义通信终端公司中：<br>
+    <span class="tag tag-neutral">参考</span> <strong>星网锐捷(002396)</strong>：净利率仅~2%，营收192亿利润仅4亿，完全不同的商业模式。<br>
+    <span class="tag tag-neutral">参考</span> <strong>中兴通讯(000063)</strong>：净利率约4%，营收1,339亿利润56亿，资本密集+巨额研发投入。<br>
+    亿联网络以60亿营收创造26亿利润，利润质量（净利率43%）在通信板块中独一无二。</li>
+</ul>
+
+<h2>6. 同业对比</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>公司</th><th>代码</th><th>营收(亿)</th><th>净利(亿)</th><th>净利率</th><th>PE</th><th>市值(亿)</th></tr></thead>
+<tbody>
+<tr><td data-label="标的">亿联网络</td><td data-label="代码">300628</td><td data-label="营收">60.3</td><td data-label="净利">26.0</td><td data-label="净利率" class="pct-up">43.1%</td><td data-label="PE">19.1x</td><td data-label="市值">~498</td></tr>
+<tr><td data-label="标的">星网锐捷</td><td data-label="代码">002396</td><td data-label="营收">191.6</td><td data-label="净利">4.1</td><td data-label="净利率" class="pct-down">2.1%</td><td data-label="PE">—</td><td data-label="市值">—</td></tr>
+<tr><td data-label="标的">中兴通讯</td><td data-label="代码">000063</td><td data-label="营收">1,339.0</td><td data-label="净利">56.2</td><td data-label="净利率" class="pct-down">4.2%</td><td data-label="PE">—</td><td data-label="市值">~1,700</td></tr>
+</tbody>
+</table>
+</div>
+<p>🔵 <strong>事实</strong>：亿联的净利率是同行10倍+——这本质上是因为它不控股制造工厂，所有生产外包。与星网锐捷/中兴不可「苹果对苹果」比较。<br>
+🟡 <strong>推断</strong>：更合适的对标应是全球同类SIP话机/通讯终端公司（如已退市的Polycom/被HP收购，或欧洲的Snom），但在A股无纯正对标。</p>
+
+<h2>7. 核心优势</h2>
+<ul>
+  <li><span class="tag-bull">优势</span> <strong>全球市占率第一的品牌壁垒</strong> —— SIP桌面话机全球约40%份额，品牌认知度高。通过Microsoft Teams、Zoom、Cisco等认证是巨大的技术准入门槛，新进入者难以跨越。</li>
+  <li><span class="tag-bull">优势</span> <strong>极端轻资产的利润机器</strong> —— 4,787万固定资产产生26亿年利润，ROE>100%，全市场凤毛麟角。几乎没有折旧拖累，利润质量极高，分红潜力巨大。</li>
+  <li><span class="tag-bull">优势</span> <strong>强大的现金流+零债务</strong> —— 58亿+现金类资产，占比超100%的净现金。没有银行借款，在这种高利率环境下无任何利息压力，反坐收理财收益。</li>
+</ul>
+
+<h2>8. 主要风险</h2>
+<ul>
+  <li><span class="tag-bear">风险</span> <strong>海外关税/地缘政策风险</strong> —— 海外收入占比80%+（欧美为主），中美贸易摩擦若进一步升级（加征关税、供应链限制），对收入冲击直接且显著。这是最大的单一不确定性。</li>
+  <li><span class="tag-bear">风险</span> <strong>SIP话机市场增速放缓/被替代</strong> —— 桌面话机是成熟市场，增长主要靠存量替换+新兴市场渗透。微软Teams、Zoom等纯软件方案对传统硬话机形成长期替代压力。公司战略转型为云视频会议+协作终端，但新业务体量仍小（~15%）。</li>
+  <li><span class="tag-bear">风险</span> <strong>营收增速放缓趋势</strong> —— 2023年-9.6%（去库存），2024年+29.3%（补库存），2025年+7.3%（回归常态）。如果新业务不能放量，长期增速可能下降到个位数，当前19x PE就不便宜了。</li>
+  <li><span class="tag-bear">风险</span> <strong>股权高度集中+流动性有限</strong> —— 陈智松+吴仲毅合计持股约57%，实际流通盘仅~7.26亿股/约286亿市值（50%+），大资金进出受限。股价易受情绪冲击。</li>
+</ul>
+
+<h2>9. 综合判断</h2>
+<ul>
+  <li><strong>长期逻辑（3年以上）</strong>：🔵 公司是全球SIP话机的王者，壁垒扎实（品牌+渠道+认证）。但SIP话机本身市场的长期增长天花板有限。关键变量在于：视频会议+智能协作终端的渗透率能否从当前的~15%提升到30-40%，打开第二增长曲线。如果能，当前价格有较大上行空间；如果不能，公司会变成一只高分红低增长的"公用事业"类标的。长期年化回报主要看当前19x PE + 5-10%利润增长 + 分红，预期回报约8-12%/年。</li>
+  <li><strong>中期走势（6~12个月）</strong>：🟡 技术上经历了一波从31.41的反弹（+25%+），站上所有均线且MACD刚刚金叉，趋势偏多。阻力位在41.28（52周高点），若突破看到45-48区域（前高50.71有压力）。下方支撑MA120/MA250在36-36.2区域。业绩层面上2026年若中美贸易局势不出现极端恶化，维持26-28亿利润问题不大——则当前价格有基本支撑。</li>
+  <li><strong>短期风险</strong>：🟣 关税/贸易政策变化是短期最大不确定因素。海外收入占比决定了股价对外部政策极度敏感。另外价格已在52周81%分位+6月初快速上涨8.5%，短期技术上有超买回调可能。</li>
+</ul>
+
+<h2>10. 操作边界参考</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>场景</th><th>参考价位</th><th>对应PE</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td data-label="场景" class="pct-up">乐观</td><td data-label="价位">45~50</td><td data-label="PE">22~24x</td><td data-label="说明">新业务(视频会议/协作终端)超预期放量，海外无重大利空，市场重新给予成长溢价</td></tr>
+<tr><td data-label="场景">中性</td><td data-label="价位">36~42</td><td data-label="PE">17~20x</td><td data-label="说明">业绩平稳（净利26-28亿），无超预期催化剂亦无重大利空。当前39.4位于该区间中位偏上</td></tr>
+<tr><td data-label="场景" class="pct-down">谨慎</td><td data-label="价位">31~35</td><td data-label="PE">15~17x</td><td data-label="说明">增速进一步放缓（净利<25亿）/关税冲击盈利预期，估值压缩。MA250年线~35.8为关键防御位</td></tr>
+<tr><td data-label="场景" class="pct-down">悲观</td><td data-label="价位">25~30</td><td data-label="PE">12~14x</td><td data-label="说明">重大外部冲击（关税+地缘）+业绩双杀。31.41是2026年低点，破则看30以下</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="footer">
+  <p>数据来源：TDX gpcw财务数据(2020-2026Q1) / TDX日线行情(2017-2026-06-05) / 新浪财经</p>
+  <p>证据等级：🔵事实 — 可验证数据  🟡推断 — 合理推导  🟣猜测 — 未验证推理</p>
+  <p>报告生成时间：2026-06-08  |  仅供研究参考，不构成投资建议</p>
+  <p>MIO RESEARCH · DEEP DIVE · 300628.SZ</p>
+</div>
+
+</main>
+</body>
+</html>
