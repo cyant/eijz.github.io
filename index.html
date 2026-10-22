@@ -27,7 +27,7 @@
   .glow{
     position:fixed;left:50%;top:44%;width:70vmax;height:70vmax;
     transform:translate(-50%,-50%);pointer-events:none;
-    background:radial-gradient(circle,rgba(232,192,122,.19) 0%,rgba(232,192,122,.06) 36%,transparent 64%);
+    background:radial-gradient(circle,rgba(232,192,122,.17) 0%,rgba(232,192,122,.05) 36%,transparent 64%);
     filter:blur(10px);
   }
   .vignette{
@@ -98,20 +98,20 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(38, innerWidth/innerHeight, 0.1, 100);
+const camera = new THREE.PerspectiveCamera(33, innerWidth/innerHeight, 0.1, 100);
 function frameCamera(){
   camera.aspect = innerWidth/innerHeight;
   const portrait = camera.aspect < 0.85;
-  camera.position.set(0, portrait ? 0.95 : 0.82, portrait ? 5.35 : 3.98);
-  camera.lookAt(0, 0.02, 0);
+  camera.position.set(0, portrait ? 0.9 : 0.78, portrait ? 7.5 : 6.0);
+  camera.lookAt(0, -0.05, 0);
   camera.updateProjectionMatrix();
 }
 frameCamera();
 
 /* 灯光 */
-scene.add(new THREE.HemisphereLight(0xfff6e8, 0x14131a, 1.18));
+scene.add(new THREE.HemisphereLight(0xfff6e8, 0x14131a, 0.92));
 
-const key = new THREE.DirectionalLight(0xfff3df, 3.25);
+const key = new THREE.DirectionalLight(0xfff3df, 2.85);
 key.position.set(3.4, 6.2, 4.6);
 key.castShadow = true;
 key.shadow.mapSize.set(1024, 1024);
@@ -121,19 +121,19 @@ key.shadow.camera.left = -3.2;
 key.shadow.camera.right = 3.2;
 key.shadow.camera.top = 3.2;
 key.shadow.camera.bottom = -3.2;
-key.shadow.radius = 5;
+key.shadow.radius = 12;
 key.shadow.bias = -0.0006;
 scene.add(key);
 
-const rim = new THREE.PointLight(0x7f9dff, 14, 14, 2);
+const rim = new THREE.PointLight(0x7f9dff, 20, 15, 2);
 rim.position.set(-3.8, 2.6, -3.2);
 scene.add(rim);
 
-const fill = new THREE.PointLight(0xffb26b, 9, 12, 2);
+const fill = new THREE.PointLight(0xffb26b, 7.5, 12, 2);
 fill.position.set(3.2, 1.0, 2.2);
 scene.add(fill);
 
-const under = new THREE.PointLight(0xffd9a8, 4.5, 7, 2);
+const under = new THREE.PointLight(0xffd9a8, 3.0, 7, 2);
 under.position.set(0.4, -1.4, 2.4);
 scene.add(under);
 
@@ -162,21 +162,23 @@ function roundedBoxGeometry(size = 1, radius = 0.115, seg = 6){
 const dice = new THREE.Group();
 scene.add(dice);
 
-const bodyMat = new THREE.MeshPhysicalMaterial({
-  color: 0xf0e9db, roughness: 0.52, metalness: 0.0,
-  clearcoat: 0.42, clearcoatRoughness: 0.45,
-  sheen: 0.35, sheenRoughness: 0.7, sheenColor: new THREE.Color(0xfff4e2),
-  envMapIntensity: 0.55
-});
-const body = new THREE.Mesh(roundedBoxGeometry(1, 0.115, 6), bodyMat);
-body.castShadow = true;
-body.receiveShadow = true;
-dice.add(body);
+function grainTexture(){
+  const c = document.createElement('canvas');
+  c.width = c.height = 256;
+  const g = c.getContext('2d');
+  const img = g.createImageData(256, 256);
+  for (let i = 0; i < img.data.length; i += 4){
+    const v = 200 + Math.random() * 55;
+    img.data[i] = img.data[i+1] = img.data[i+2] = v;
+    img.data[i+3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.repeat.set(3, 3);
+  return t;
+}
 
-const pipMat = new THREE.MeshStandardMaterial({ color: 0x1b1a1f, roughness: 0.30, metalness: 0.12 });
-const pipGeo = new THREE.SphereGeometry(0.072, 18, 14);
-
-const FACE = 0.5;
 const PIPS = {
   1: [[0,0]],
   2: [[-0.215,-0.215],[0.215,0.215]],
@@ -185,29 +187,67 @@ const PIPS = {
   5: [[-0.225,-0.225],[-0.225,0.225],[0.225,-0.225],[0.225,0.225],[0,0]],
   6: [[-0.225,-0.26],[-0.225,0],[-0.225,0.26],[0.225,-0.26],[0.225,0],[0.225,0.26]]
 };
-function facePoint(face, u, v){
-  const inset = FACE - 0.040;
-  if (face === 'pz') return [ u, v,  inset];
-  if (face === 'nz') return [-u, v, -inset];
-  if (face === 'px') return [ inset, v, -u];
-  if (face === 'nx') return [-inset, v,  u];
-  if (face === 'py') return [ u,  inset, -v];
-  return [ u, -inset, v];
-}
 const FACE_VALUE = { pz:6, nz:1, px:2, nx:5, py:3, ny:4 };
-for (const [face, value] of Object.entries(FACE_VALUE)){
+const FACE_ORDER = ['px', 'nx', 'py', 'ny', 'pz', 'nz'];
+
+/* 用贴图画出凹点：外沿暗边 + 内部渐变 + 下沿高光 */
+function faceTexture(value){
+  const S = 512;
+  const c = document.createElement('canvas');
+  c.width = c.height = S;
+  const g = c.getContext('2d');
+  g.fillStyle = '#efe9df';
+  g.fillRect(0, 0, S, S);
+
   for (const [u, v] of PIPS[value]){
-    const [x, y, z] = facePoint(face, u, v);
-    const pip = new THREE.Mesh(pipGeo, pipMat);
-    pip.position.set(x, y, z);
-    dice.add(pip);
+    const x = S * (0.5 + u);
+    const y = S * (0.5 - v);
+    const r = 0.061 * S;
+
+    let grd = g.createRadialGradient(x, y, r * 0.86, x, y, r * 1.22);
+    grd.addColorStop(0.00, 'rgba(22,20,17,0)');
+    grd.addColorStop(0.62, 'rgba(22,20,17,0.26)');
+    grd.addColorStop(1.00, 'rgba(22,20,17,0)');
+    g.fillStyle = grd;
+    g.beginPath(); g.arc(x, y, r * 1.22, 0, Math.PI * 2); g.fill();
+
+    grd = g.createRadialGradient(x - r * 0.16, y - r * 0.20, r * 0.05, x, y, r);
+    grd.addColorStop(0.00, '#191715');
+    grd.addColorStop(0.55, '#242120');
+    grd.addColorStop(0.88, '#3a3530');
+    grd.addColorStop(1.00, '#4c463f');
+    g.fillStyle = grd;
+    g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill();
+
+    g.strokeStyle = 'rgba(255,250,240,0.18)';
+    g.lineWidth = 1.4;
+    g.beginPath(); g.arc(x, y, r * 0.93, Math.PI * 0.12, Math.PI * 0.88); g.stroke();
   }
+
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.anisotropy = 8;
+  return t;
 }
+
+const grain = grainTexture();
+const faceMats = FACE_ORDER.map(f => new THREE.MeshPhysicalMaterial({
+  map: faceTexture(FACE_VALUE[f]),
+  color: 0xffffff,
+  roughness: 0.72, roughnessMap: grain, metalness: 0.0,
+  clearcoat: 0.18, clearcoatRoughness: 0.55,
+  sheen: 0.35, sheenRoughness: 0.7, sheenColor: new THREE.Color(0xfff4e2),
+  envMapIntensity: 0.55
+}));
+const body = new THREE.Mesh(roundedBoxGeometry(1, 0.088, 10), faceMats);
+body.castShadow = true;
+body.receiveShadow = true;
+dice.add(body);
 
 /* 阴影地面 */
 const floor = new THREE.Mesh(
   new THREE.PlaneGeometry(24, 24),
-  new THREE.ShadowMaterial({ color: 0x000000, opacity: 0.22 })
+  new THREE.ShadowMaterial({ color: 0x000000, opacity: 0.14 })
 );
 floor.rotation.x = -Math.PI / 2;
 floor.position.y = -0.52;
@@ -231,7 +271,7 @@ function contactTexture(){
   return t;
 }
 const contact = new THREE.Mesh(
-  new THREE.PlaneGeometry(2.7, 2.7),
+  new THREE.PlaneGeometry(3.4, 3.4),
   new THREE.MeshBasicMaterial({ map: contactTexture(), transparent: true, opacity: 0.8, depthWrite: false })
 );
 contact.rotation.x = -Math.PI / 2;
@@ -245,9 +285,9 @@ function groundTexture(){
   c.width = c.height = 512;
   const g = c.getContext('2d');
   const grd = g.createRadialGradient(256, 256, 16, 256, 256, 252);
-  grd.addColorStop(0.00, 'rgba(46,45,53,1)');
-  grd.addColorStop(0.30, 'rgba(30,29,35,0.88)');
-  grd.addColorStop(0.62, 'rgba(16,16,20,0.42)');
+  grd.addColorStop(0.00, 'rgba(38,37,44,1)');
+  grd.addColorStop(0.26, 'rgba(24,23,29,0.82)');
+  grd.addColorStop(0.58, 'rgba(13,13,17,0.34)');
   grd.addColorStop(1.00, 'rgba(8,8,10,0)');
   g.fillStyle = grd;
   g.fillRect(0, 0, 512, 512);
@@ -339,7 +379,7 @@ function tick(){
   mouseTarget.y += ((pointer.y * 0.10) - mouseTarget.y) * 0.05;
   camera.position.x = mouseTarget.x;
   camera.position.y = (camera.aspect < 0.85 ? 0.95 : 0.82) + mouseTarget.y;
-  camera.lookAt(0, 0.02, 0);
+  camera.lookAt(0, -0.05, 0);
 
   if (state === 'idle' || state === 'settled'){
     dice.quaternion.setFromEuler(new THREE.Euler(
@@ -347,7 +387,7 @@ function tick(){
       idleT * 0.16,
       0.03 * Math.cos(idleT * 0.55)
     ));
-    dice.position.y = 0.045 * Math.sin(idleT * 1.15) + 0.02;
+    dice.position.y = 0.028 * Math.sin(idleT * 1.05) + 0.02;
   } else if (state === 'rolling'){
     const t = Math.min((now - rollStart) / rollDur, 1);
     const bounce = Math.abs(Math.sin(t * Math.PI * 3.1)) * 0.78 * Math.pow(1 - t, 0.85);
@@ -385,7 +425,7 @@ function tick(){
   const lift = Math.max(0, dice.position.y);
   const cs = 1 + lift * 0.30;
   contact.scale.set(cs, cs, 1);
-  contact.material.opacity = 0.78 * Math.max(0.28, 1 - lift * 0.55);
+  contact.material.opacity = 0.70 * Math.max(0.25, 1 - lift * 0.55);
 
   renderer.render(scene, camera);
 }
