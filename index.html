@@ -107,7 +107,7 @@ const scene = new THREE.Scene();
     envScene.add(m);
   };
   panel(0xfff1d8, 4, 6, 3, 5, 3.5);
-  panel(0x7f9dff, -5, 3, -4, 3.5, 2.5);
+  panel(0x8e9ab4, -5, 3, -4, 2.4, 1.8);
   panel(0xffa860, 2, 1.5, 5, 2.5, 2.0);
   const envRT = pmrem.fromScene(envScene, 0.04);
   scene.environment = envRT.texture;
@@ -116,19 +116,37 @@ const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(34, innerWidth/innerHeight, 0.1, 100);
 
+/* 轨道相机：拖动改变方位角/俯仰角 */
+let camTheta = 0;          // 水平角
+let camPhi = 0.38;         // 与竖直方向的夹角（0 = 正上方）
+let camR = 11.2;           // 距离
+let dragging = false;
+let dragMoved = 0;
+let lastX = 0, lastY = 0;
+let vTheta = 0, vPhi = 0;
+
+function updateCamera(){
+  const r = camR;
+  camera.position.set(
+    r * Math.sin(camPhi) * Math.sin(camTheta),
+    r * Math.cos(camPhi),
+    r * Math.sin(camPhi) * Math.cos(camTheta)
+  );
+  camera.lookAt(0, 0.58, 0);
+}
+
 function frameCamera(){
   camera.aspect = innerWidth / innerHeight;
-  const portrait = camera.aspect < 0.85;
-  camera.position.set(0, portrait ? 12.2 : 10.2, portrait ? 4.6 : 4.1);
-  camera.lookAt(0, 0.58, 0);
+  camR = camera.aspect < 0.85 ? 12.8 : 11.2;
+  updateCamera();
   camera.updateProjectionMatrix();
 }
 frameCamera();
 
 /* ---------- 灯光 ---------- */
-scene.add(new THREE.HemisphereLight(0xfff4e6, 0x0a0a0d, 1.45));
+scene.add(new THREE.HemisphereLight(0xfff4e6, 0x0a0a0d, 1.7));
 
-const key = new THREE.DirectionalLight(0xfff1da, 2.6);
+const key = new THREE.DirectionalLight(0xfff1da, 2.0);
 key.position.set(4.5, 7.5, 5.5);
 key.castShadow = true;
 key.shadow.mapSize.set(2048, 2048);
@@ -138,7 +156,7 @@ key.shadow.camera.left = -4;
 key.shadow.camera.right = 4;
 key.shadow.camera.top = 4;
 key.shadow.camera.bottom = -4;
-key.shadow.radius = 12;
+key.shadow.radius = 22;
 key.shadow.bias = -0.0005;
 scene.add(key);
 
@@ -208,8 +226,8 @@ scene.add(dice);
 const geo = new THREE.IcosahedronGeometry(1, 0);
 const metalMat = new THREE.MeshStandardMaterial({
   color: 0x9aa0a8,
-  metalness: 0.86,
-  roughness: 0.30,
+  metalness: 0.82,
+  roughness: 0.38,
   flatShading: true,
   envMapIntensity: 0.6
 });
@@ -350,11 +368,16 @@ function tick(){
   last = now;
   idleT += dt;
 
-  mouseTarget.x += ((pointer.x * 0.10) - mouseTarget.x) * 0.05;
-  mouseTarget.y += ((pointer.y * 0.07) - mouseTarget.y) * 0.05;
-  camera.position.x = mouseTarget.x;
-  camera.position.z = (camera.aspect < 0.85 ? 4.6 : 4.1) + mouseTarget.y;
-  camera.lookAt(0, 0.58, 0);
+  // 拖拽惯性
+  if (!dragging){
+    if (Math.abs(vTheta) > 1e-4 || Math.abs(vPhi) > 1e-4){
+      camTheta += vTheta;
+      camPhi = THREE.MathUtils.clamp(camPhi + vPhi, 0.12, 1.10);
+      vTheta *= 0.93;
+      vPhi *= 0.93;
+    }
+  }
+  updateCamera();
 
   if (state === 'idle' || state === 'settled'){
     dice.quaternion.setFromEuler(new THREE.Euler(
@@ -411,15 +434,46 @@ function hitDice(clientX, clientY){
   return ray.intersectObject(core, false).length > 0;
 }
 
-canvas.addEventListener('pointermove', e => {
-  pointer.x = (e.clientX / innerWidth) * 2 - 1;
-  pointer.y = (e.clientY / innerHeight) * 2 - 1;
-  canvas.classList.toggle('pointer', hitDice(e.clientX, e.clientY));
+canvas.addEventListener('pointerdown', e => {
+  dragging = true;
+  dragMoved = 0;
+  lastX = e.clientX;
+  lastY = e.clientY;
+  vTheta = 0;
+  vPhi = 0;
+  try{ canvas.setPointerCapture(e.pointerId); }catch(_){}
 });
 
-canvas.addEventListener('pointerdown', e => {
-  if (hitDice(e.clientX, e.clientY)) roll();
+canvas.addEventListener('pointermove', e => {
+  if (!dragging){
+    pointer.x = (e.clientX / innerWidth) * 2 - 1;
+    pointer.y = (e.clientY / innerHeight) * 2 - 1;
+    canvas.classList.toggle('pointer', hitDice(e.clientX, e.clientY));
+    return;
+  }
+  const dx = e.clientX - lastX;
+  const dy = e.clientY - lastY;
+  lastX = e.clientX;
+  lastY = e.clientY;
+  dragMoved += Math.abs(dx) + Math.abs(dy);
+  camTheta -= dx * 0.0055;
+  camPhi = THREE.MathUtils.clamp(camPhi + dy * 0.0045, 0.12, 1.10);
+  vTheta = -dx * 0.0055;
+  vPhi = dy * 0.0045;
 });
+
+canvas.addEventListener('pointerup', e => {
+  if (!dragging) return;
+  dragging = false;
+  if (dragMoved < 6 && hitDice(e.clientX, e.clientY)) roll();
+});
+
+canvas.addEventListener('pointercancel', () => { dragging = false; });
+
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  camR = THREE.MathUtils.clamp(camR + e.deltaY * 0.008, 7.2, 17);
+}, { passive: false });
 
 addEventListener('keydown', e => {
   if (e.code === 'Space' || e.code === 'Enter'){ e.preventDefault(); roll(); }
