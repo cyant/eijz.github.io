@@ -77,6 +77,7 @@
 
 <script type="module">
 import * as THREE from './vendor/three/three.module.min.js';
+import { createDie, planThrow, simulateThrow } from './dice-physics.js';
 
 const canvas = document.getElementById('c');
 const flash = document.getElementById('flash');
@@ -220,50 +221,41 @@ table.receiveShadow = true;
 scene.add(table);
 
 /* ---------- D20 ---------- */
+/* 顶点 / 面 / 点数都由 dice-physics.js 生成，渲染和物理共用同一份数据 */
+const dieData = createDie();
+const REST_Y = dieData.inradius;      // 面朝下贴桌时的球心高度
+
 const dice = new THREE.Group();
 scene.add(dice);
 
-const geo = new THREE.IcosahedronGeometry(1, 0);
-const metalMat = new THREE.MeshStandardMaterial({
-  color: 0x9aa0a8,
-  metalness: 0.82,
-  roughness: 0.38,
-  flatShading: true,
-  envMapIntensity: 0.6
-});
-const core = new THREE.Mesh(geo, metalMat);
-core.castShadow = true;
-core.receiveShadow = true;
-dice.add(core);
-
-/* 提取 20 个面 */
-const pa = geo.attributes.position;
-const faces = [];
-for (let i = 0; i < pa.count; i += 3){
-  const a = new THREE.Vector3().fromBufferAttribute(pa, i);
-  const b = new THREE.Vector3().fromBufferAttribute(pa, i+1);
-  const c = new THREE.Vector3().fromBufferAttribute(pa, i+2);
-  const center = a.clone().add(b).add(c).divideScalar(3);
-  const nrm = b.clone().sub(a).cross(c.clone().sub(a)).normalize();
-  if (nrm.dot(center) < 0) nrm.negate();
-  faces.push({ a, b, c, center, normal: nrm, value: 0 });
-}
-
-/* 对面配对：和为 21，与真实 D20 一致 */
 {
-  const used = new Set();
-  let next = 1;
-  for (let i = 0; i < faces.length; i++){
-    if (used.has(i)) continue;
-    let pair = -1;
-    for (let k = 0; k < faces.length; k++){
-      if (k !== i && !used.has(k) && faces[k].normal.dot(faces[i].normal) < -0.99){ pair = k; break; }
+  const N = dieData.faces.length;
+  const pos = new Float32Array(N * 9);
+  const nrm = new Float32Array(N * 9);
+  dieData.faces.forEach((f, i) => {
+    const tri = [f.a, f.b, f.c];
+    for (let k = 0; k < 3; k++){
+      const o = i * 9 + k * 3;
+      pos[o] = tri[k][0]; pos[o + 1] = tri[k][1]; pos[o + 2] = tri[k][2];
+      nrm[o] = f.normal[0]; nrm[o + 1] = f.normal[1]; nrm[o + 2] = f.normal[2];
     }
-    faces[i].value = next;
-    used.add(i);
-    if (pair >= 0){ faces[pair].value = 21 - next; used.add(pair); }
-    next++;
-  }
+  });
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute('normal', new THREE.BufferAttribute(nrm, 3));
+
+  const metalMat = new THREE.MeshStandardMaterial({
+    color: 0x9aa0a8,
+    metalness: 0.82,
+    roughness: 0.38,
+    flatShading: true,
+    envMapIntensity: 0.6
+  });
+  const core = new THREE.Mesh(geo, metalMat);
+  core.castShadow = true;
+  core.receiveShadow = true;
+  dice.add(core);
+  dice.userData.core = core;
 }
 
 /* 数字贴片 */
@@ -292,106 +284,50 @@ function numberTexture(n){
 }
 
 const discGeo = new THREE.CircleGeometry(0.268, 36);
-for (const f of faces){
+for (const f of dieData.faces){
   const mat = new THREE.MeshBasicMaterial({
     map: numberTexture(f.value),
     transparent: true,
     depthWrite: false
   });
   const disc = new THREE.Mesh(discGeo, mat);
-  disc.position.copy(f.center).add(f.normal.clone().multiplyScalar(0.006));
-  disc.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), f.normal);
+  disc.position.set(
+    f.center[0] + f.normal[0] * 0.006,
+    f.center[1] + f.normal[1] * 0.006,
+    f.center[2] + f.normal[2] * 0.006
+  );
+  disc.quaternion.setFromUnitVectors(
+    new THREE.Vector3(0, 0, 1),
+    new THREE.Vector3(f.normal[0], f.normal[1], f.normal[2])
+  );
   disc.renderOrder = 1;
   dice.add(disc);
 }
 
-dice.position.y = 1.02;
-
 /* ---------- 状态 ---------- */
 const UP = new THREE.Vector3(0, 1, 0);
-const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
-const easeOutQuint = t => 1 - Math.pow(1 - t, 5);
-const easeInOutCubic = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2;
+const _qa = new THREE.Quaternion();
+const _qb = new THREE.Quaternion();
+const _v = new THREE.Vector3();
 
-/* ---------- 面邻接：逐面翻滚 ---------- */
-function vkey(v){ return v.x.toFixed(3) + ',' + v.y.toFixed(3) + ',' + v.z.toFixed(3); }
-const faceAdj = faces.map(() => []);
-{
-  const edgeMap = new Map();
-  faces.forEach((f, fi) => {
-    const vs = [f.a, f.b, f.c];
-    for (let i = 0; i < 3; i++){
-      const k = [vkey(vs[i]), vkey(vs[(i + 1) % 3])].sort().join('|');
-      if (!edgeMap.has(k)) edgeMap.set(k, []);
-      edgeMap.get(k).push(fi);
-    }
-  });
-  for (const list of edgeMap.values()){
-    if (list.length === 2){
-      faceAdj[list[0]].push(list[1]);
-      faceAdj[list[1]].push(list[0]);
-    }
-  }
-}
-
-function facePath(from, to){
-  const prev = new Array(faces.length).fill(-1);
-  const queue = [from];
-  prev[from] = from;
-  while (queue.length){
-    const cur = queue.shift();
-    if (cur === to) break;
-    for (const nb of faceAdj[cur]){
-      if (prev[nb] === -1){ prev[nb] = cur; queue.push(nb); }
-    }
-  }
-  const path = [];
-  let cur = to;
-  while (cur !== from){ path.unshift(cur); cur = prev[cur]; }
-  return path;
-}
-
-function sharedEdgeAxis(fi, ti){
-  const A = [faces[fi].a, faces[fi].b, faces[fi].c];
-  const B = [faces[ti].a, faces[ti].b, faces[ti].c];
-  const common = A.filter(a => B.some(b => a.distanceTo(b) < 1e-5));
-  if (common.length < 2) return new THREE.Vector3(1, 0, 0);
-  return common[0].clone().sub(common[1]).normalize();
-}
-
-function topFaceIndex(q){
-  let best = 0, bestY = -2;
-  for (let i = 0; i < faces.length; i++){
-    const y = faces[i].normal.clone().applyQuaternion(q).y;
-    if (y > bestY){ bestY = y; best = i; }
-  }
-  return best;
-}
-
-let state = 'idle';
-let idleT = 0;
-let startQuat = new THREE.Quaternion();
-let targetQuat = new THREE.Quaternion();
-let resultFace = faces[0];
-
-/* 翻滚状态 */
-let rollPhase = 'align';
-let alignFrom = new THREE.Quaternion();
-let alignTo = new THREE.Quaternion();
-let alignStart = 0;
-let alignDur = 0.22;
-let stepStart = 0;
-let stepDur = 0.30;
-let rollSteps = [];
-let pointer = new THREE.Vector2(0, 0);
-let mouseTarget = new THREE.Vector2(0, 0);
+let phase = 'idle';        // idle | intro | roll | settle | win
+let sim = null;            // 当前这次投掷的模拟结果
+let playT = 0;             // 回放时钟
+let impactIdx = 0;         // 音效游标
+let paused = false;        // 调试：定格回放
 let last = performance.now() / 1000;
 
 /* 轻量音效 */
 let actx = null;
-function knock(freq = 170, vol = 0.06){
+function primeAudio(){
   try{
     if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
+    if (actx.state === 'suspended') actx.resume();
+  }catch(e){}
+}
+function knock(freq = 170, vol = 0.06){
+  try{
+    if (!actx) return;
     const o = actx.createOscillator(), g = actx.createGain();
     o.type = 'triangle';
     o.frequency.value = freq;
@@ -404,63 +340,130 @@ function knock(freq = 170, vol = 0.06){
   }catch(e){}
 }
 
-function roll(){
-  if (state === 'rolling' || state === 'winning') return;
-  state = 'rolling';
-  rollPhase = 'align';
-  alignStart = performance.now() / 1000;
-  alignFrom.copy(dice.quaternion);
-  startQuat.copy(dice.quaternion);
-
-  const top = topFaceIndex(dice.quaternion);
-
-  // 把当前朝上的面先摆正（投掷起手）
-  const fix = new THREE.Quaternion().setFromUnitVectors(
-    faces[top].normal.clone().applyQuaternion(dice.quaternion), UP
-  );
-  alignTo.copy(dice.quaternion).premultiply(fix);
-
-  // 随机目标面；路径太短就重选，保证至少翻两步
-  let targetIdx = 0, path = [];
-  for (let attempt = 0; attempt < 16; attempt++){
-    targetIdx = Math.floor(Math.random() * faces.length);
-    path = facePath(top, targetIdx);
-    if (path.length >= 2) break;
+/* ---------- 视口 → 安全半径 / 力度 ---------- */
+/* 把 NDC 四角投到桌面（y=0）上，量出画面里能放下骰子的半径 */
+function viewHalfWidth(){
+  camera.updateMatrixWorld();
+  let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
+  for (const [sx, sy] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]){
+    _v.set(sx, sy, 0.5).unproject(camera).sub(camera.position).normalize();
+    if (_v.y > -1e-4) continue;
+    const t = -camera.position.y / _v.y;
+    const x = camera.position.x + _v.x * t;
+    const z = camera.position.z + _v.z * t;
+    minX = Math.min(minX, x); maxX = Math.max(maxX, x);
+    minZ = Math.min(minZ, z); maxZ = Math.max(maxZ, z);
   }
-  resultFace = faces[targetIdx];
-
-  // 预计算每一步：绕共享边翻转，最后一步自然停在目标面
-  rollSteps = [];
-  let qCur = alignTo.clone();
-  let cur = top;
-  for (const to of path){
-    const axisLocal = sharedEdgeAxis(cur, to);
-    const angle = faces[cur].normal.angleTo(faces[to].normal);
-    const axisWorld = axisLocal.clone().applyQuaternion(qCur).normalize();
-    let qNext = qCur.clone().premultiply(
-      new THREE.Quaternion().setFromAxisAngle(axisWorld, angle)
-    );
-    if (faces[to].normal.clone().applyQuaternion(qNext).dot(UP) < 0.5){
-      qNext = qCur.clone().premultiply(
-        new THREE.Quaternion().setFromAxisAngle(axisWorld, -angle)
-      );
-    }
-    rollSteps.push({ q0: qCur.clone(), q1: qNext.clone() });
-    qCur = qNext;
-    cur = to;
-  }
-  targetQuat.copy(qCur);
-  window.__lastRoll = resultFace.value;
-  window.__finalDot = resultFace.normal.clone().applyQuaternion(qCur).y;
-  knock(150, 0.05);
+  if (!isFinite(minX)) return 3.2;
+  return Math.max(0.8, Math.min((maxX - minX) / 2, (maxZ - minZ) / 2));
 }
 
+/* ---------- 投掷 ---------- */
+/* 安全半径：骰子停稳后必须在这个圈里。桌面宽时放宽到 1.45（这样一掷能横跨桌面），
+   手机竖屏时视口窄，会自动收窄到 ~1.1，避免骰子甩出画面。 */
+function safeRadius(){
+  return THREE.MathUtils.clamp(viewHalfWidth() * 0.52, 0.34, 1.45);
+}
+function throwPower(){
+  return THREE.MathUtils.clamp(viewHalfWidth() / 3.2, 0.60, 1.0);
+}
+
+/* 生成一次投掷：定点投掷（先选落点、反推初速、预演校准），落点保证在画面内 */
+function prepareThrow(power){
+  return planThrow(dieData, {
+    pos: dice.position.toArray(),
+    quat: dice.quaternion.toArray()
+  }, {
+    power,
+    safeRadius: safeRadius()
+  });
+}
+
+function startTrack(s, nextPhase){
+  sim = s;
+  phase = nextPhase;
+  playT = 0;
+  impactIdx = 0;
+  window.__lastRoll = s.value;
+  window.__finalDot = s.topDot;
+}
+
+/* 页面载入：把骰子「放」到桌上，自然落停（不是浮在空中转） */
+function dropIn(){
+  const face = Math.floor(Math.random() * dieData.faces.length);
+  const n = dieData.faces[face].normal;
+  const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(n[0], n[1], n[2]), UP);
+  q.premultiply(new THREE.Quaternion().setFromAxisAngle(UP, Math.random() * Math.PI * 2));
+
+  const s = simulateThrow(dieData, {
+    pos: [0.06, REST_Y + 0.30, -0.04],
+    quat: q.toArray(),
+    vel: [0.05, -1.1, -0.05],
+    omega: [(Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4]
+  });
+  startTrack(s, 'intro');
+}
+
+function throwDice(){
+  if (phase !== 'idle' && phase !== 'settle') return;
+  primeAudio();
+  startTrack(prepareThrow(throwPower()), 'roll');
+}
+
+/* 回放一帧轨迹（线性插值位置 + 球面插值姿态） */
+function sampleTrack(t){
+  const tr = sim.tracks;
+  const f = t / tr.dt;
+  let i = Math.floor(f);
+  if (i < 0) i = 0;
+  if (i > tr.n - 2) i = tr.n - 2;
+  const a = Math.min(1, Math.max(0, f - i));
+  const P = tr.pos, Q = tr.quat;
+  const j = i + 1;
+  dice.position.set(
+    P[i * 3]     + (P[j * 3]     - P[i * 3])     * a,
+    P[i * 3 + 1] + (P[j * 3 + 1] - P[i * 3 + 1]) * a,
+    P[i * 3 + 2] + (P[j * 3 + 2] - P[i * 3 + 2]) * a
+  );
+  _qa.fromArray(Q, i * 4);
+  _qb.fromArray(Q, j * 4);
+  dice.quaternion.copy(_qa).slerp(_qb, a);
+}
+
+function finishTrack(){
+  const s = sim;
+  // 收尾对齐到模拟的最终状态，下一次投掷从这里起手
+  dice.position.fromArray(s.pos);
+  dice.quaternion.fromArray(s.quat);
+
+  if (phase === 'intro'){
+    phase = 'idle';
+    return;
+  }
+
+  if (s.value === 20){
+    phase = 'win';
+    flash.classList.add('on');
+    knock(520, 0.08);
+    setTimeout(() => knock(780, 0.05), 120);
+    setTimeout(() => {
+      try{ sessionStorage.setItem('dice_pass', '1'); }catch(e){}
+      location.href = './home.html';
+    }, 3000);
+  } else {
+    phase = 'settle';
+    knock(205, 0.035);
+  }
+}
+
+/* ---------- 主循环 ---------- */
 function tick(){
   requestAnimationFrame(tick);
   const now = performance.now() / 1000;
-  const dt = Math.min(now - last, 0.05);
+  const raw = now - last;
   last = now;
-  idleT += dt;
+  const dt = Math.min(raw, 0.05);        // 相机惯性用（防止切标签页后跳变）
+  const rollDt = Math.min(raw, 0.25);    // 回放走真实时间，慢机器上也不会变慢动作
 
   // 拖拽惯性
   if (!dragging){
@@ -473,53 +476,26 @@ function tick(){
   }
   updateCamera();
 
-  if (state === 'idle'){
-    dice.quaternion.setFromEuler(new THREE.Euler(
-      0.045 * Math.sin(idleT * 0.7),
-      idleT * 0.10,
-      0.03 * Math.cos(idleT * 0.5)
-    ));
-    dice.position.y = 1.02 + 0.018 * Math.sin(idleT * 1.1);
-  } else if (state === 'settled'){
-    // 停在掷出的那一面，不回正，等下一次点击
-    dice.quaternion.copy(targetQuat);
-    dice.position.y = 1.02;
-  } else if (state === 'rolling'){
-    if (rollPhase === 'align'){
-      const t = Math.min((now - alignStart) / alignDur, 1);
-      dice.quaternion.copy(alignFrom).slerp(alignTo, easeInOutCubic(t));
-      dice.position.y = 1.02;
-      dice.position.x = -0.85 * (1 - easeOutCubic(t));
-      if (t >= 1){ rollPhase = 'steps'; stepStart = now; }
-    } else if (rollPhase === 'steps'){
-      const total = rollSteps.length * stepDur;
-      const elapsed = now - stepStart;
-      const idx = Math.floor(elapsed / stepDur);
-      if (idx >= rollSteps.length){
-        dice.quaternion.copy(targetQuat);
-        dice.position.y = 1.02;
-        dice.position.x = 0;
-        if (resultFace.value === 20){
-          state = 'winning';
-          flash.classList.add('on');
-          knock(520, 0.08);
-          setTimeout(() => knock(780, 0.05), 120);
-          setTimeout(() => {
-            try{ sessionStorage.setItem('dice_pass', '1'); }catch(e){}
-            location.href = './home.html';
-          }, 3000);
-        } else {
-          state = 'settled';
-          knock(205, 0.035);
-        }
+  if (phase === 'intro' || phase === 'roll'){
+    if (!paused){
+      playT += rollDt;
+      if (playT >= sim.duration){
+        finishTrack();
       } else {
-        const t = (elapsed - idx * stepDur) / stepDur;
-        const s = rollSteps[idx];
-        dice.quaternion.copy(s.q0).slerp(s.q1, easeInOutCubic(t));
-        dice.position.y = 1.02;
-        dice.position.x = -0.85 * (1 - Math.min(elapsed / (total * 0.85), 1));
-        if (t < 0.10) knock(112 + idx * 10, 0.028);
+        sampleTrack(playT);
+        // 落地音效：按模拟里记录的撞击时刻，配当时的撞击力度
+        const imps = sim.impacts;
+        while (impactIdx < imps.length && imps[impactIdx].t <= playT){
+          const imp = imps[impactIdx++];
+          if (imp.t < 0.07) continue;                 // 起手那一下贴桌的刮擦不算
+          knock(
+            THREE.MathUtils.clamp(330 - imp.v * 24, 105, 310),
+            THREE.MathUtils.clamp(0.010 + imp.v * 0.011, 0.016, 0.085)
+          );
+        }
       }
+    } else {
+      sampleTrack(playT);
     }
   }
 
@@ -534,7 +510,7 @@ function hitDice(clientX, clientY){
   ndc.x = (clientX / innerWidth) * 2 - 1;
   ndc.y = -(clientY / innerHeight) * 2 + 1;
   ray.setFromCamera(ndc, camera);
-  return ray.intersectObject(core, false).length > 0;
+  return ray.intersectObject(dice.userData.core, false).length > 0;
 }
 
 canvas.addEventListener('pointerdown', e => {
@@ -549,8 +525,6 @@ canvas.addEventListener('pointerdown', e => {
 
 canvas.addEventListener('pointermove', e => {
   if (!dragging){
-    pointer.x = (e.clientX / innerWidth) * 2 - 1;
-    pointer.y = (e.clientY / innerHeight) * 2 - 1;
     canvas.classList.toggle('pointer', hitDice(e.clientX, e.clientY));
     return;
   }
@@ -568,7 +542,7 @@ canvas.addEventListener('pointermove', e => {
 canvas.addEventListener('pointerup', e => {
   if (!dragging) return;
   dragging = false;
-  if (dragMoved < 6 && hitDice(e.clientX, e.clientY)) roll();
+  if (dragMoved < 6 && hitDice(e.clientX, e.clientY)) throwDice();
 });
 
 canvas.addEventListener('pointercancel', () => { dragging = false; });
@@ -579,7 +553,7 @@ canvas.addEventListener('wheel', e => {
 }, { passive: false });
 
 addEventListener('keydown', e => {
-  if (e.code === 'Space' || e.code === 'Enter'){ e.preventDefault(); roll(); }
+  if (e.code === 'Space' || e.code === 'Enter'){ e.preventDefault(); throwDice(); }
 });
 
 addEventListener('resize', () => {
@@ -587,10 +561,23 @@ addEventListener('resize', () => {
   frameCamera();
 });
 
+/* 调试钩子：控制台里 __dice.throw() 可以投一次，__dice.pose 读当前姿态 */
+window.__dice = {
+  get phase(){ return phase; },
+  get playT(){ return playT; },
+  set playT(v){ playT = v; },
+  get paused(){ return paused; },
+  set paused(v){ paused = !!v; },
+  get pose(){ return { p: dice.position.toArray(), q: dice.quaternion.toArray() }; },
+  get sim(){ return sim; },
+  throw: throwDice
+};
+
 try{
   if (sessionStorage.getItem('dice_pass') === '1') location.replace('./home.html');
 }catch(e){}
 
+dropIn();
 tick();
 </script>
 </body>
