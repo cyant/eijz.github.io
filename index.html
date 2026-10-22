@@ -310,6 +310,7 @@ dice.position.y = 1.02;
 /* ---------- 状态 ---------- */
 const UP = new THREE.Vector3(0, 1, 0);
 const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+const easeOutQuint = t => 1 - Math.pow(1 - t, 5);
 const easeInOutCubic = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2;
 
 function targetFor(face){
@@ -352,12 +353,23 @@ function roll(){
   if (state === 'rolling' || state === 'winning') return;
   state = 'rolling';
   rollStart = performance.now() / 1000;
-  rollDur = 2.2;
+  rollDur = 2.4;
   startQuat.copy(dice.quaternion);
   resultFace = faces[Math.floor(Math.random() * faces.length)];
   targetQuat = targetFor(resultFace);
-  spinAxis.set(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1).normalize();
-  spinTotal = Math.PI * (4 + Math.random() * 2.5);
+
+  // 从当前姿态到目标姿态的最短旋转轴，再多转 2~3.5 圈；
+  // 全程同一方向，最后自然减速到目标面，不做二次对齐
+  const delta = targetQuat.clone().multiply(startQuat.clone().invert());
+  let angle = 2 * Math.acos(THREE.MathUtils.clamp(delta.w, -1, 1));
+  spinAxis.set(delta.x, delta.y, delta.z);
+  if (spinAxis.lengthSq() < 1e-8) spinAxis.set(1, 0, 0);
+  spinAxis.normalize();
+  if (angle > Math.PI){
+    angle = Math.PI * 2 - angle;
+    spinAxis.negate();
+  }
+  spinTotal = angle + Math.PI * 2 * (2 + Math.random() * 1.5);
   knock(150, 0.05);
 }
 
@@ -397,21 +409,11 @@ function tick(){
     dice.position.y = 1.02;
     dice.position.x = -0.85 * (1 - easeOutCubic(Math.min(t / 0.85, 1)));
 
-    // 旋转：快速翻滚 70% → 减速对齐 22% → 最后 8% 完全静止
-    if (t < 0.70){
-      const k = easeOutCubic(t / 0.70);
-      dice.quaternion.copy(startQuat).multiply(
-        new THREE.Quaternion().setFromAxisAngle(spinAxis, spinTotal * k)
-      );
-    } else if (t < 0.92){
-      const q70 = startQuat.clone().multiply(
-        new THREE.Quaternion().setFromAxisAngle(spinAxis, spinTotal)
-      );
-      const k = easeInOutCubic((t - 0.70) / 0.22);
-      dice.quaternion.copy(q70).slerp(targetQuat, k);
-    } else {
-      dice.quaternion.copy(targetQuat);
-    }
+    // 单段旋转：同一方向一路减速，t=1 时自然落在目标面
+    const k = easeOutQuint(t);
+    dice.quaternion.copy(startQuat).multiply(
+      new THREE.Quaternion().setFromAxisAngle(spinAxis, spinTotal * k)
+    );
 
     if (t > 0.30 && t < 0.305) knock(118, 0.035);
 
