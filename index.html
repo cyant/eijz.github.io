@@ -4,11 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>SSJ · 掷骰入场</title>
-<meta name="description" content="掷出 6 点，进入 SSJ 的小站。">
+<meta name="description" content="掷出大成功，进入 SSJ 的小站。">
 <style>
   :root{
     --ink:#ece6d9;
-    --dim:#8f897c;
     --gold:#e8c07a;
     --serif:"Iowan Old Style","Palatino Linotype","Songti SC","Noto Serif CJK SC",serif;
     --sans:"Raleway",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
@@ -17,7 +16,7 @@
   html,body{height:100%}
   body{
     margin:0;overflow:hidden;
-    background:radial-gradient(ellipse 90% 70% at 50% 38%, #1b1a20 0%, #0d0d11 44%, #070709 100%);
+    background:radial-gradient(ellipse 90% 80% at 50% 40%, #1b1a20 0%, #0d0d11 46%, #070709 100%);
     color:var(--ink);font-family:var(--sans);
     -webkit-tap-highlight-color:transparent;
   }
@@ -25,17 +24,17 @@
   #c.pointer{cursor:pointer}
 
   .glow{
-    position:fixed;left:50%;top:44%;width:70vmax;height:70vmax;
+    position:fixed;left:50%;top:46%;width:78vmax;height:78vmax;
     transform:translate(-50%,-50%);pointer-events:none;
-    background:radial-gradient(circle,rgba(232,192,122,.17) 0%,rgba(232,192,122,.05) 36%,transparent 64%);
-    filter:blur(10px);
+    background:radial-gradient(circle,rgba(232,192,122,.14) 0%,rgba(232,192,122,.04) 36%,transparent 64%);
+    filter:blur(12px);
   }
   .vignette{
     position:fixed;inset:0;pointer-events:none;
-    background:radial-gradient(ellipse at 50% 42%,transparent 32%,rgba(0,0,0,.62) 100%);
+    background:radial-gradient(ellipse at 50% 44%,transparent 30%,rgba(0,0,0,.66) 100%);
   }
   .grain{
-    position:fixed;inset:0;pointer-events:none;opacity:.045;mix-blend-mode:soft-light;
+    position:fixed;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:soft-light;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   .hud{
@@ -50,22 +49,16 @@
   .brand b{font-weight:600;letter-spacing:.42em}
   .brand span{opacity:.35;margin:0 .7em}
   .foot{display:flex;flex-direction:column;align-items:center;gap:14px;padding-bottom:max(3vh,14px)}
-  .hint{
-    font-size:clamp(11px,1.05vw,13px);letter-spacing:.24em;
-    color:rgba(236,230,217,.72);text-align:center;
-    transition:opacity .45s ease,color .45s ease;min-height:1.4em;
-  }
-  .hint.win{color:var(--gold)}
   .sub{
     font-family:var(--serif);font-style:italic;font-size:clamp(10px,.9vw,12px);
     letter-spacing:.12em;color:rgba(160,153,138,.78);
   }
   .flash{
     position:fixed;inset:0;pointer-events:none;opacity:0;transition:opacity .4s ease;
-    background:radial-gradient(circle at 50% 44%,rgba(232,192,122,.5) 0%,rgba(232,192,122,.14) 34%,transparent 62%);
+    background:radial-gradient(circle at 50% 44%,rgba(232,192,122,.52) 0%,rgba(232,192,122,.15) 34%,transparent 62%);
   }
   .flash.on{opacity:1}
-  @media (prefers-reduced-motion:reduce){ .hint,.flash{transition:none} }
+  @media (prefers-reduced-motion:reduce){ .flash{transition:none} }
 </style>
 </head>
 <body>
@@ -93,249 +86,229 @@ renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.setSize(innerWidth, innerHeight, false);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.02;
+renderer.toneMappingExposure = 1.08;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(33, innerWidth/innerHeight, 0.1, 100);
+
+/* 简易环境反射：给金属骰子一点真实的高光来源 */
+{
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const envScene = new THREE.Scene();
+  envScene.background = new THREE.Color(0x2a2930);
+  const panel = (color, x, y, z, w, h) => {
+    const m = new THREE.Mesh(
+      new THREE.PlaneGeometry(w, h),
+      new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide })
+    );
+    m.position.set(x, y, z);
+    m.lookAt(0, 0, 0);
+    envScene.add(m);
+  };
+  panel(0xfff1d8, 4, 6, 3, 5, 3.5);
+  panel(0x7f9dff, -5, 3, -4, 3.5, 2.5);
+  panel(0xffa860, 2, 1.5, 5, 2.5, 2.0);
+  const envRT = pmrem.fromScene(envScene, 0.04);
+  scene.environment = envRT.texture;
+  pmrem.dispose();
+}
+
+const camera = new THREE.PerspectiveCamera(34, innerWidth/innerHeight, 0.1, 100);
+
 function frameCamera(){
-  camera.aspect = innerWidth/innerHeight;
+  camera.aspect = innerWidth / innerHeight;
   const portrait = camera.aspect < 0.85;
-  camera.position.set(0, portrait ? 0.9 : 0.78, portrait ? 7.5 : 6.0);
-  camera.lookAt(0, -0.05, 0);
+  camera.position.set(0, portrait ? 12.2 : 10.2, portrait ? 4.6 : 4.1);
+  camera.lookAt(0, 0.58, 0);
   camera.updateProjectionMatrix();
 }
 frameCamera();
 
-/* 灯光 */
-scene.add(new THREE.HemisphereLight(0xfff6e8, 0x14131a, 0.92));
+/* ---------- 灯光 ---------- */
+scene.add(new THREE.HemisphereLight(0xfff4e6, 0x0a0a0d, 1.45));
 
-const key = new THREE.DirectionalLight(0xfff3df, 2.85);
-key.position.set(3.4, 6.2, 4.6);
+const key = new THREE.DirectionalLight(0xfff1da, 2.6);
+key.position.set(4.5, 7.5, 5.5);
 key.castShadow = true;
-key.shadow.mapSize.set(1024, 1024);
+key.shadow.mapSize.set(2048, 2048);
 key.shadow.camera.near = 1;
-key.shadow.camera.far = 18;
-key.shadow.camera.left = -3.2;
-key.shadow.camera.right = 3.2;
-key.shadow.camera.top = 3.2;
-key.shadow.camera.bottom = -3.2;
+key.shadow.camera.far = 26;
+key.shadow.camera.left = -4;
+key.shadow.camera.right = 4;
+key.shadow.camera.top = 4;
+key.shadow.camera.bottom = -4;
 key.shadow.radius = 12;
-key.shadow.bias = -0.0006;
+key.shadow.bias = -0.0005;
 scene.add(key);
 
-const rim = new THREE.PointLight(0x7f9dff, 20, 15, 2);
-rim.position.set(-3.8, 2.6, -3.2);
+const rim = new THREE.PointLight(0x6f8cff, 34, 20, 2);
+rim.position.set(-5.5, 5.0, -4.5);
 scene.add(rim);
 
-const fill = new THREE.PointLight(0xffb26b, 7.5, 12, 2);
-fill.position.set(3.2, 1.0, 2.2);
+const fill = new THREE.PointLight(0xffab5e, 12, 16, 2);
+fill.position.set(4.5, 3.2, 3.6);
 scene.add(fill);
 
-const under = new THREE.PointLight(0xffd9a8, 3.0, 7, 2);
-under.position.set(0.4, -1.4, 2.4);
-scene.add(under);
+const top = new THREE.PointLight(0xffffff, 1.0, 12, 2);
+top.position.set(0.5, 6.5, 0.5);
+scene.add(top);
 
-/* 圆角骰子 */
-function roundedBoxGeometry(size = 1, radius = 0.115, seg = 6){
-  const geo = new THREE.BoxGeometry(size, size, size, seg, seg, seg);
-  const pos = geo.attributes.position;
-  const inner = size / 2 - radius;
-  const v = new THREE.Vector3();
-  for (let i = 0; i < pos.count; i++){
-    v.fromBufferAttribute(pos, i);
-    const cx = THREE.MathUtils.clamp(v.x, -inner, inner);
-    const cy = THREE.MathUtils.clamp(v.y, -inner, inner);
-    const cz = THREE.MathUtils.clamp(v.z, -inner, inner);
-    const dx = v.x - cx, dy = v.y - cy, dz = v.z - cz;
-    const len = Math.hypot(dx, dy, dz);
-    if (len > 1e-6){
-      const s = radius / len;
-      pos.setXYZ(i, cx + dx*s, cy + dy*s, cz + dz*s);
-    }
-  }
-  geo.computeVertexNormals();
-  return geo;
-}
-
-const dice = new THREE.Group();
-scene.add(dice);
-
-function grainTexture(){
-  const c = document.createElement('canvas');
-  c.width = c.height = 256;
-  const g = c.getContext('2d');
-  const img = g.createImageData(256, 256);
-  for (let i = 0; i < img.data.length; i += 4){
-    const v = 200 + Math.random() * 55;
-    img.data[i] = img.data[i+1] = img.data[i+2] = v;
-    img.data[i+3] = 255;
-  }
-  g.putImageData(img, 0, 0);
-  const t = new THREE.CanvasTexture(c);
-  t.wrapS = t.wrapT = THREE.RepeatWrapping;
-  t.repeat.set(3, 3);
-  return t;
-}
-
-const PIPS = {
-  1: [[0,0]],
-  2: [[-0.215,-0.215],[0.215,0.215]],
-  3: [[-0.235,-0.235],[0,0],[0.235,0.235]],
-  4: [[-0.215,-0.215],[-0.215,0.215],[0.215,-0.215],[0.215,0.215]],
-  5: [[-0.225,-0.225],[-0.225,0.225],[0.225,-0.225],[0.225,0.225],[0,0]],
-  6: [[-0.225,-0.26],[-0.225,0],[-0.225,0.26],[0.225,-0.26],[0.225,0],[0.225,0.26]]
-};
-const FACE_VALUE = { pz:6, nz:1, px:2, nx:5, py:3, ny:4 };
-const FACE_ORDER = ['px', 'nx', 'py', 'ny', 'pz', 'nz'];
-
-/* 用贴图画出凹点：外沿暗边 + 内部渐变 + 下沿高光 */
-function faceTexture(value){
+/* ---------- 桌面 ---------- */
+function tableTexture(){
   const S = 512;
   const c = document.createElement('canvas');
   c.width = c.height = S;
   const g = c.getContext('2d');
-  g.fillStyle = '#efe9df';
+  g.fillStyle = '#1b1a1e';
   g.fillRect(0, 0, S, S);
-
-  for (const [u, v] of PIPS[value]){
-    const x = S * (0.5 + u);
-    const y = S * (0.5 - v);
-    const r = 0.061 * S;
-
-    let grd = g.createRadialGradient(x, y, r * 0.86, x, y, r * 1.22);
-    grd.addColorStop(0.00, 'rgba(22,20,17,0)');
-    grd.addColorStop(0.62, 'rgba(22,20,17,0.26)');
-    grd.addColorStop(1.00, 'rgba(22,20,17,0)');
-    g.fillStyle = grd;
-    g.beginPath(); g.arc(x, y, r * 1.22, 0, Math.PI * 2); g.fill();
-
-    grd = g.createRadialGradient(x - r * 0.16, y - r * 0.20, r * 0.05, x, y, r);
-    grd.addColorStop(0.00, '#191715');
-    grd.addColorStop(0.55, '#242120');
-    grd.addColorStop(0.88, '#3a3530');
-    grd.addColorStop(1.00, '#4c463f');
-    g.fillStyle = grd;
-    g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill();
-
-    g.strokeStyle = 'rgba(255,250,240,0.18)';
-    g.lineWidth = 1.4;
-    g.beginPath(); g.arc(x, y, r * 0.93, Math.PI * 0.12, Math.PI * 0.88); g.stroke();
+  const img = g.getImageData(0, 0, S, S);
+  for (let i = 0; i < img.data.length; i += 4){
+    const n = (Math.random() - 0.5) * 10;
+    img.data[i] += n;
+    img.data[i+1] += n;
+    img.data[i+2] += n;
   }
+  g.putImageData(img, 0, 0);
+  // 细微划痕
+  g.strokeStyle = 'rgba(255,255,255,0.025)';
+  g.lineWidth = 1;
+  for (let i = 0; i < 40; i++){
+    const x = Math.random() * S, y = Math.random() * S;
+    g.beginPath();
+    g.moveTo(x, y);
+    g.lineTo(x + (Math.random() - 0.5) * 120, y + (Math.random() - 0.5) * 120);
+    g.stroke();
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.repeat.set(6, 6);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.anisotropy = 8;
+  return t;
+}
 
+const table = new THREE.Mesh(
+  new THREE.PlaneGeometry(50, 50),
+  new THREE.MeshStandardMaterial({
+    map: tableTexture(),
+    color: 0xffffff,
+    roughness: 0.94,
+    metalness: 0.02
+  })
+);
+table.rotation.x = -Math.PI / 2;
+table.receiveShadow = true;
+scene.add(table);
+
+/* ---------- D20 ---------- */
+const dice = new THREE.Group();
+scene.add(dice);
+
+const geo = new THREE.IcosahedronGeometry(1, 0);
+const metalMat = new THREE.MeshStandardMaterial({
+  color: 0x9aa0a8,
+  metalness: 0.86,
+  roughness: 0.30,
+  flatShading: true,
+  envMapIntensity: 0.6
+});
+const core = new THREE.Mesh(geo, metalMat);
+core.castShadow = true;
+core.receiveShadow = true;
+dice.add(core);
+
+/* 提取 20 个面 */
+const pa = geo.attributes.position;
+const faces = [];
+for (let i = 0; i < pa.count; i += 3){
+  const a = new THREE.Vector3().fromBufferAttribute(pa, i);
+  const b = new THREE.Vector3().fromBufferAttribute(pa, i+1);
+  const c = new THREE.Vector3().fromBufferAttribute(pa, i+2);
+  const center = a.clone().add(b).add(c).divideScalar(3);
+  const nrm = b.clone().sub(a).cross(c.clone().sub(a)).normalize();
+  if (nrm.dot(center) < 0) nrm.negate();
+  faces.push({ a, b, c, center, normal: nrm, value: 0 });
+}
+
+/* 对面配对：和为 21，与真实 D20 一致 */
+{
+  const used = new Set();
+  let next = 1;
+  for (let i = 0; i < faces.length; i++){
+    if (used.has(i)) continue;
+    let pair = -1;
+    for (let k = 0; k < faces.length; k++){
+      if (k !== i && !used.has(k) && faces[k].normal.dot(faces[i].normal) < -0.99){ pair = k; break; }
+    }
+    faces[i].value = next;
+    used.add(i);
+    if (pair >= 0){ faces[pair].value = 21 - next; used.add(pair); }
+    next++;
+  }
+}
+
+/* 数字贴片 */
+function numberTexture(n){
+  const S = 256;
+  const c = document.createElement('canvas');
+  c.width = c.height = S;
+  const g = c.getContext('2d');
+  g.clearRect(0, 0, S, S);
+  const txt = String(n);
+  g.font = 'bold 138px "Helvetica Neue", Arial, sans-serif';
+  g.textAlign = 'center';
+  g.textBaseline = 'middle';
+  g.lineWidth = 10;
+  g.strokeStyle = 'rgba(28,22,12,0.55)';
+  g.strokeText(txt, S/2, S/2 + 4);
+  const grd = g.createLinearGradient(0, S*0.28, 0, S*0.74);
+  grd.addColorStop(0, '#f3d79b');
+  grd.addColorStop(1, '#c79b52');
+  g.fillStyle = grd;
+  g.fillText(txt, S/2, S/2 + 4);
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
   t.anisotropy = 8;
   return t;
 }
 
-const grain = grainTexture();
-const faceMats = FACE_ORDER.map(f => new THREE.MeshPhysicalMaterial({
-  map: faceTexture(FACE_VALUE[f]),
-  color: 0xffffff,
-  roughness: 0.72, roughnessMap: grain, metalness: 0.0,
-  clearcoat: 0.18, clearcoatRoughness: 0.55,
-  sheen: 0.35, sheenRoughness: 0.7, sheenColor: new THREE.Color(0xfff4e2),
-  envMapIntensity: 0.55
-}));
-const body = new THREE.Mesh(roundedBoxGeometry(1, 0.088, 10), faceMats);
-body.castShadow = true;
-body.receiveShadow = true;
-dice.add(body);
-
-/* 阴影地面 */
-const floor = new THREE.Mesh(
-  new THREE.PlaneGeometry(24, 24),
-  new THREE.ShadowMaterial({ color: 0x000000, opacity: 0.14 })
-);
-floor.rotation.x = -Math.PI / 2;
-floor.position.y = -0.52;
-floor.receiveShadow = true;
-scene.add(floor);
-
-/* 接触阴影：比实时阴影更稳、更有质感 */
-function contactTexture(){
-  const c = document.createElement('canvas');
-  c.width = c.height = 256;
-  const g = c.getContext('2d');
-  const grd = g.createRadialGradient(128, 128, 8, 128, 128, 126);
-  grd.addColorStop(0.00, 'rgba(0,0,0,0.62)');
-  grd.addColorStop(0.38, 'rgba(0,0,0,0.34)');
-  grd.addColorStop(0.72, 'rgba(0,0,0,0.10)');
-  grd.addColorStop(1.00, 'rgba(0,0,0,0)');
-  g.fillStyle = grd;
-  g.fillRect(0, 0, 256, 256);
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
+const discGeo = new THREE.CircleGeometry(0.268, 36);
+for (const f of faces){
+  const mat = new THREE.MeshBasicMaterial({
+    map: numberTexture(f.value),
+    transparent: true,
+    depthWrite: false
+  });
+  const disc = new THREE.Mesh(discGeo, mat);
+  disc.position.copy(f.center).add(f.normal.clone().multiplyScalar(0.006));
+  disc.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), f.normal);
+  disc.renderOrder = 1;
+  dice.add(disc);
 }
-const contact = new THREE.Mesh(
-  new THREE.PlaneGeometry(3.4, 3.4),
-  new THREE.MeshBasicMaterial({ map: contactTexture(), transparent: true, opacity: 0.8, depthWrite: false })
-);
-contact.rotation.x = -Math.PI / 2;
-contact.position.y = -0.505;
-contact.renderOrder = 2;
-scene.add(contact);
 
-/* 舞台地面：比背景略亮，阴影才有落点 */
-function groundTexture(){
-  const c = document.createElement('canvas');
-  c.width = c.height = 512;
-  const g = c.getContext('2d');
-  const grd = g.createRadialGradient(256, 256, 16, 256, 256, 252);
-  grd.addColorStop(0.00, 'rgba(38,37,44,1)');
-  grd.addColorStop(0.26, 'rgba(24,23,29,0.82)');
-  grd.addColorStop(0.58, 'rgba(13,13,17,0.34)');
-  grd.addColorStop(1.00, 'rgba(8,8,10,0)');
-  g.fillStyle = grd;
-  g.fillRect(0, 0, 512, 512);
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
-}
-const ground = new THREE.Mesh(
-  new THREE.PlaneGeometry(9.5, 9.5),
-  new THREE.MeshStandardMaterial({
-    map: groundTexture(), transparent: true,
-    roughness: 0.96, metalness: 0.0, color: 0xffffff
-  })
-);
-ground.rotation.x = -Math.PI / 2;
-ground.position.y = -0.515;
-ground.receiveShadow = true;
-scene.add(ground);
+dice.position.y = 1.02;
 
-/* 状态 */
-const FACE_NORMALS = {
-  1: new THREE.Vector3(0, 0, -1),
-  2: new THREE.Vector3(1, 0, 0),
-  3: new THREE.Vector3(0, 1, 0),
-  4: new THREE.Vector3(0, -1, 0),
-  5: new THREE.Vector3(-1, 0, 0),
-  6: new THREE.Vector3(0, 0, 1)
-};
+/* ---------- 状态 ---------- */
+const UP = new THREE.Vector3(0, 1, 0);
 const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
 const easeInOutCubic = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2;
 
-function targetQuatFor(value){
-  const q = new THREE.Quaternion().setFromUnitVectors(
-    FACE_NORMALS[value].clone(), new THREE.Vector3(0, 0, 1)
-  );
-  const k = Math.floor(Math.random() * 4);
-  return q.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), k * Math.PI/2));
+function targetFor(face){
+  const q = new THREE.Quaternion().setFromUnitVectors(face.normal.clone(), UP);
+  const spin = Math.random() * Math.PI * 2;
+  return q.multiply(new THREE.Quaternion().setFromAxisAngle(UP, spin));
 }
 
 let state = 'idle';
 let idleT = 0;
 let rollStart = 0;
-let rollDur = 2.05;
+let rollDur = 2.15;
 let startQuat = new THREE.Quaternion();
 let targetQuat = new THREE.Quaternion();
 let spinAxis = new THREE.Vector3(1, 0.4, 0.2).normalize();
 let spinTotal = Math.PI * 4;
-let result = 6;
+let resultFace = faces[19];
 let pointer = new THREE.Vector2(0, 0);
 let mouseTarget = new THREE.Vector2(0, 0);
 let last = performance.now() / 1000;
@@ -346,12 +319,14 @@ function knock(freq = 170, vol = 0.06){
   try{
     if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
     const o = actx.createOscillator(), g = actx.createGain();
-    o.type = 'triangle'; o.frequency.value = freq;
+    o.type = 'triangle';
+    o.frequency.value = freq;
     const now = actx.currentTime;
     g.gain.setValueAtTime(vol, now);
-    g.gain.exponentialRampToValueAtTime(0.0008, now + 0.075);
+    g.gain.exponentialRampToValueAtTime(0.0008, now + 0.08);
     o.connect(g).connect(actx.destination);
-    o.start(now); o.stop(now + 0.08);
+    o.start(now);
+    o.stop(now + 0.09);
   }catch(e){}
 }
 
@@ -359,10 +334,10 @@ function roll(){
   if (state === 'rolling' || state === 'winning') return;
   state = 'rolling';
   rollStart = performance.now() / 1000;
-  rollDur = 2.05;
+  rollDur = 2.15;
   startQuat.copy(dice.quaternion);
-  result = Math.floor(Math.random() * 6) + 1;
-  targetQuat = targetQuatFor(result);
+  resultFace = faces[Math.floor(Math.random() * faces.length)];
+  targetQuat = targetFor(resultFace);
   spinAxis.set(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1).normalize();
   spinTotal = Math.PI * (4 + Math.random() * 2.5);
   knock(150, 0.05);
@@ -375,38 +350,38 @@ function tick(){
   last = now;
   idleT += dt;
 
-  mouseTarget.x += ((pointer.x * 0.14) - mouseTarget.x) * 0.05;
-  mouseTarget.y += ((pointer.y * 0.10) - mouseTarget.y) * 0.05;
+  mouseTarget.x += ((pointer.x * 0.10) - mouseTarget.x) * 0.05;
+  mouseTarget.y += ((pointer.y * 0.07) - mouseTarget.y) * 0.05;
   camera.position.x = mouseTarget.x;
-  camera.position.y = (camera.aspect < 0.85 ? 0.95 : 0.82) + mouseTarget.y;
-  camera.lookAt(0, -0.05, 0);
+  camera.position.z = (camera.aspect < 0.85 ? 4.6 : 4.1) + mouseTarget.y;
+  camera.lookAt(0, 0.58, 0);
 
   if (state === 'idle' || state === 'settled'){
     dice.quaternion.setFromEuler(new THREE.Euler(
-      0.10 * Math.sin(idleT * 0.75),
-      idleT * 0.16,
-      0.03 * Math.cos(idleT * 0.55)
+      0.045 * Math.sin(idleT * 0.7),
+      idleT * 0.10,
+      0.03 * Math.cos(idleT * 0.5)
     ));
-    dice.position.y = 0.028 * Math.sin(idleT * 1.05) + 0.02;
+    dice.position.y = 1.02 + 0.018 * Math.sin(idleT * 1.1);
   } else if (state === 'rolling'){
     const t = Math.min((now - rollStart) / rollDur, 1);
-    const bounce = Math.abs(Math.sin(t * Math.PI * 3.1)) * 0.78 * Math.pow(1 - t, 0.85);
-    dice.position.y = bounce + 0.02;
+    const bounce = Math.abs(Math.sin(t * Math.PI * 3.0)) * 0.95 * Math.pow(1 - t, 0.85);
+    dice.position.y = 1.02 + bounce;
 
     const spin = spinTotal * easeOutCubic(t);
     const q = startQuat.clone().multiply(new THREE.Quaternion().setFromAxisAngle(spinAxis, spin));
-    if (t > 0.64){
-      const k = easeInOutCubic((t - 0.64) / 0.36);
+    if (t > 0.62){
+      const k = easeInOutCubic((t - 0.62) / 0.38);
       q.slerp(targetQuat, k);
     }
     dice.quaternion.copy(q);
 
-    if (t > 0.5 && t < 0.505) knock(120, 0.035);
+    if (t > 0.48 && t < 0.485) knock(118, 0.035);
 
     if (t >= 1){
       dice.quaternion.copy(targetQuat);
-      dice.position.y = 0.02;
-      if (result === 6){
+      dice.position.y = 1.02;
+      if (resultFace.value === 20){
         state = 'winning';
         flash.classList.add('on');
         knock(520, 0.08);
@@ -414,31 +389,26 @@ function tick(){
         setTimeout(() => {
           try{ sessionStorage.setItem('dice_pass', '1'); }catch(e){}
           location.href = './home.html';
-        }, 1150);
+        }, 1200);
       } else {
         state = 'settled';
-        knock(210, 0.035);
+        knock(205, 0.035);
       }
     }
   }
 
-  const lift = Math.max(0, dice.position.y);
-  const cs = 1 + lift * 0.30;
-  contact.scale.set(cs, cs, 1);
-  contact.material.opacity = 0.70 * Math.max(0.25, 1 - lift * 0.55);
-
   renderer.render(scene, camera);
 }
 
-/* 交互 */
+/* ---------- 交互 ---------- */
 const ray = new THREE.Raycaster();
-const pointerNDC = new THREE.Vector2();
+const ndc = new THREE.Vector2();
 
 function hitDice(clientX, clientY){
-  pointerNDC.x = (clientX / innerWidth) * 2 - 1;
-  pointerNDC.y = -(clientY / innerHeight) * 2 + 1;
-  ray.setFromCamera(pointerNDC, camera);
-  return ray.intersectObjects(dice.children, false).length > 0;
+  ndc.x = (clientX / innerWidth) * 2 - 1;
+  ndc.y = -(clientY / innerHeight) * 2 + 1;
+  ray.setFromCamera(ndc, camera);
+  return ray.intersectObject(core, false).length > 0;
 }
 
 canvas.addEventListener('pointermove', e => {
@@ -461,9 +431,7 @@ addEventListener('resize', () => {
 });
 
 try{
-  if (sessionStorage.getItem('dice_pass') === '1'){
-    location.replace('./home.html');
-  }
+  if (sessionStorage.getItem('dice_pass') === '1') location.replace('./home.html');
 }catch(e){}
 
 tick();
