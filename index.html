@@ -1,113 +1,443 @@
 <!DOCTYPE html>
-<html lang="en-us">
-    <head>
-         
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>SSJ</title>
-        
-        <style>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SSJ · 掷骰入场</title>
+<meta name="description" content="掷出 6 点，进入 SSJ 的小站。">
+<style>
+  :root{
+    --ink:#ece6d9;
+    --dim:#8f897c;
+    --gold:#e8c07a;
+    --serif:"Iowan Old Style","Palatino Linotype","Songti SC","Noto Serif CJK SC",serif;
+    --sans:"Raleway",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;overflow:hidden;
+    background:radial-gradient(ellipse 90% 70% at 50% 38%, #1b1a20 0%, #0d0d11 44%, #070709 100%);
+    color:var(--ink);font-family:var(--sans);
+    -webkit-tap-highlight-color:transparent;
+  }
+  #c{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:default}
+  #c.pointer{cursor:pointer}
 
-    html body {
-        font-family: 'Raleway', sans-serif;
-        background-color: white;
-    }
-
-    :root {
-        --accent: lightseagreen;
-        --border-width:  5px ;
-    }
-
+  .glow{
+    position:fixed;left:50%;top:44%;width:70vmax;height:70vmax;
+    transform:translate(-50%,-50%);pointer-events:none;
+    background:radial-gradient(circle,rgba(232,192,122,.19) 0%,rgba(232,192,122,.06) 36%,transparent 64%);
+    filter:blur(10px);
+  }
+  .vignette{
+    position:fixed;inset:0;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 42%,transparent 32%,rgba(0,0,0,.62) 100%);
+  }
+  .grain{
+    position:fixed;inset:0;pointer-events:none;opacity:.045;mix-blend-mode:soft-light;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .hud{
+    position:fixed;inset:0;pointer-events:none;
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:clamp(18px,3.4vw,36px);
+  }
+  .brand{
+    font-size:11px;letter-spacing:.42em;
+    color:rgba(236,230,217,.5);text-transform:uppercase;
+  }
+  .brand b{font-weight:600;letter-spacing:.42em}
+  .brand span{opacity:.35;margin:0 .7em}
+  .foot{display:flex;flex-direction:column;align-items:center;gap:14px;padding-bottom:max(3vh,14px)}
+  .hint{
+    font-size:clamp(11px,1.05vw,13px);letter-spacing:.24em;
+    color:rgba(236,230,217,.72);text-align:center;
+    transition:opacity .45s ease,color .45s ease;min-height:1.4em;
+  }
+  .hint.win{color:var(--gold)}
+  .sub{
+    font-family:var(--serif);font-style:italic;font-size:clamp(10px,.9vw,12px);
+    letter-spacing:.12em;color:rgba(160,153,138,.78);
+  }
+  .flash{
+    position:fixed;inset:0;pointer-events:none;opacity:0;transition:opacity .4s ease;
+    background:radial-gradient(circle at 50% 44%,rgba(232,192,122,.5) 0%,rgba(232,192,122,.14) 34%,transparent 62%);
+  }
+  .flash.on{opacity:1}
+  @media (prefers-reduced-motion:reduce){ .hint,.flash{transition:none} }
 </style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="glow"></div>
+<div class="vignette"></div>
+<div class="grain"></div>
+<div class="flash" id="flash"></div>
 
+<div class="hud">
+  <div class="brand"><b>SSJ</b><span>·</span>2019—2026</div>
+  <div class="foot">
+    <div class="hint" id="hint">点击骰子 · 掷出 6 点进入</div>
+    <div class="sub">one more time, one more chance</div>
+  </div>
+</div>
 
-<link rel="stylesheet" href="/css/main.css">
+<script type="module">
+import * as THREE from './vendor/three/three.module.min.js';
 
+const canvas = document.getElementById('c');
+const hint = document.getElementById('hint');
+const flash = document.getElementById('flash');
 
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight, false);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.02;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(38, innerWidth/innerHeight, 0.1, 100);
+function frameCamera(){
+  camera.aspect = innerWidth/innerHeight;
+  const portrait = camera.aspect < 0.85;
+  camera.position.set(0, portrait ? 0.95 : 0.82, portrait ? 5.35 : 3.98);
+  camera.lookAt(0, 0.02, 0);
+  camera.updateProjectionMatrix();
+}
+frameCamera();
 
+/* 灯光 */
+scene.add(new THREE.HemisphereLight(0xfff6e8, 0x14131a, 1.18));
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+const key = new THREE.DirectionalLight(0xfff3df, 3.25);
+key.position.set(3.4, 6.2, 4.6);
+key.castShadow = true;
+key.shadow.mapSize.set(1024, 1024);
+key.shadow.camera.near = 1;
+key.shadow.camera.far = 18;
+key.shadow.camera.left = -3.2;
+key.shadow.camera.right = 3.2;
+key.shadow.camera.top = 3.2;
+key.shadow.camera.bottom = -3.2;
+key.shadow.radius = 5;
+key.shadow.bias = -0.0006;
+scene.add(key);
 
+const rim = new THREE.PointLight(0x7f9dff, 14, 14, 2);
+rim.position.set(-3.8, 2.6, -3.2);
+scene.add(rim);
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css"> 
+const fill = new THREE.PointLight(0xffb26b, 9, 12, 2);
+fill.position.set(3.2, 1.0, 2.2);
+scene.add(fill);
 
+const under = new THREE.PointLight(0xffd9a8, 4.5, 7, 2);
+under.position.set(0.4, -1.4, 2.4);
+scene.add(under);
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+/* 圆角骰子 */
+function roundedBoxGeometry(size = 1, radius = 0.115, seg = 6){
+  const geo = new THREE.BoxGeometry(size, size, size, seg, seg, seg);
+  const pos = geo.attributes.position;
+  const inner = size / 2 - radius;
+  const v = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i++){
+    v.fromBufferAttribute(pos, i);
+    const cx = THREE.MathUtils.clamp(v.x, -inner, inner);
+    const cy = THREE.MathUtils.clamp(v.y, -inner, inner);
+    const cz = THREE.MathUtils.clamp(v.z, -inner, inner);
+    const dx = v.x - cx, dy = v.y - cy, dz = v.z - cz;
+    const len = Math.hypot(dx, dy, dz);
+    if (len > 1e-6){
+      const s = radius / len;
+      pos.setXYZ(i, cx + dx*s, cy + dy*s, cz + dz*s);
+    }
+  }
+  geo.computeVertexNormals();
+  return geo;
+}
 
+const dice = new THREE.Group();
+scene.add(dice);
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
- 
+const bodyMat = new THREE.MeshPhysicalMaterial({
+  color: 0xf0e9db, roughness: 0.52, metalness: 0.0,
+  clearcoat: 0.42, clearcoatRoughness: 0.45,
+  sheen: 0.35, sheenRoughness: 0.7, sheenColor: new THREE.Color(0xfff4e2),
+  envMapIntensity: 0.55
+});
+const body = new THREE.Mesh(roundedBoxGeometry(1, 0.115, 6), bodyMat);
+body.castShadow = true;
+body.receiveShadow = true;
+dice.add(body);
 
+const pipMat = new THREE.MeshStandardMaterial({ color: 0x1b1a1f, roughness: 0.30, metalness: 0.12 });
+const pipGeo = new THREE.SphereGeometry(0.072, 18, 14);
 
+const FACE = 0.5;
+const PIPS = {
+  1: [[0,0]],
+  2: [[-0.215,-0.215],[0.215,0.215]],
+  3: [[-0.235,-0.235],[0,0],[0.235,0.235]],
+  4: [[-0.215,-0.215],[-0.215,0.215],[0.215,-0.215],[0.215,0.215]],
+  5: [[-0.225,-0.225],[-0.225,0.225],[0.225,-0.225],[0.225,0.225],[0,0]],
+  6: [[-0.225,-0.26],[-0.225,0],[-0.225,0.26],[0.225,-0.26],[0.225,0],[0.225,0.26]]
+};
+function facePoint(face, u, v){
+  const inset = FACE - 0.040;
+  if (face === 'pz') return [ u, v,  inset];
+  if (face === 'nz') return [-u, v, -inset];
+  if (face === 'px') return [ inset, v, -u];
+  if (face === 'nx') return [-inset, v,  u];
+  if (face === 'py') return [ u,  inset, -v];
+  return [ u, -inset, v];
+}
+const FACE_VALUE = { pz:6, nz:1, px:2, nx:5, py:3, ny:4 };
+for (const [face, value] of Object.entries(FACE_VALUE)){
+  for (const [u, v] of PIPS[value]){
+    const [x, y, z] = facePoint(face, u, v);
+    const pip = new THREE.Mesh(pipGeo, pipMat);
+    pip.position.set(x, y, z);
+    dice.add(pip);
+  }
+}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+/* 阴影地面 */
+const floor = new THREE.Mesh(
+  new THREE.PlaneGeometry(24, 24),
+  new THREE.ShadowMaterial({ color: 0x000000, opacity: 0.22 })
+);
+floor.rotation.x = -Math.PI / 2;
+floor.position.y = -0.52;
+floor.receiveShadow = true;
+scene.add(floor);
 
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/haskell.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/swift.min.js"></script> 
+/* 接触阴影：比实时阴影更稳、更有质感 */
+function contactTexture(){
+  const c = document.createElement('canvas');
+  c.width = c.height = 256;
+  const g = c.getContext('2d');
+  const grd = g.createRadialGradient(128, 128, 8, 128, 128, 126);
+  grd.addColorStop(0.00, 'rgba(0,0,0,0.62)');
+  grd.addColorStop(0.38, 'rgba(0,0,0,0.34)');
+  grd.addColorStop(0.72, 'rgba(0,0,0,0.10)');
+  grd.addColorStop(1.00, 'rgba(0,0,0,0)');
+  g.fillStyle = grd;
+  g.fillRect(0, 0, 256, 256);
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+const contact = new THREE.Mesh(
+  new THREE.PlaneGeometry(2.7, 2.7),
+  new THREE.MeshBasicMaterial({ map: contactTexture(), transparent: true, opacity: 0.8, depthWrite: false })
+);
+contact.rotation.x = -Math.PI / 2;
+contact.position.y = -0.505;
+contact.renderOrder = 2;
+scene.add(contact);
 
-    <script>hljs.initHighlightingOnLoad();</script>
+/* 舞台地面：比背景略亮，阴影才有落点 */
+function groundTexture(){
+  const c = document.createElement('canvas');
+  c.width = c.height = 512;
+  const g = c.getContext('2d');
+  const grd = g.createRadialGradient(256, 256, 16, 256, 256, 252);
+  grd.addColorStop(0.00, 'rgba(46,45,53,1)');
+  grd.addColorStop(0.30, 'rgba(30,29,35,0.88)');
+  grd.addColorStop(0.62, 'rgba(16,16,20,0.42)');
+  grd.addColorStop(1.00, 'rgba(8,8,10,0)');
+  g.fillStyle = grd;
+  g.fillRect(0, 0, 512, 512);
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(9.5, 9.5),
+  new THREE.MeshStandardMaterial({
+    map: groundTexture(), transparent: true,
+    roughness: 0.96, metalness: 0.0, color: 0xffffff
+  })
+);
+ground.rotation.x = -Math.PI / 2;
+ground.position.y = -0.515;
+ground.receiveShadow = true;
+scene.add(ground);
 
+/* 状态 */
+const FACE_NORMALS = {
+  1: new THREE.Vector3(0, 0, -1),
+  2: new THREE.Vector3(1, 0, 0),
+  3: new THREE.Vector3(0, 1, 0),
+  4: new THREE.Vector3(0, -1, 0),
+  5: new THREE.Vector3(-1, 0, 0),
+  6: new THREE.Vector3(0, 0, 1)
+};
+const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+const easeInOutCubic = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2;
 
+function targetQuatFor(value){
+  const q = new THREE.Quaternion().setFromUnitVectors(
+    FACE_NORMALS[value].clone(), new THREE.Vector3(0, 0, 1)
+  );
+  const k = Math.floor(Math.random() * 4);
+  return q.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), k * Math.PI/2));
+}
 
+let state = 'idle';
+let idleT = 0;
+let rollStart = 0;
+let rollDur = 2.05;
+let startQuat = new THREE.Quaternion();
+let targetQuat = new THREE.Quaternion();
+let spinAxis = new THREE.Vector3(1, 0.4, 0.2).normalize();
+let spinTotal = Math.PI * 4;
+let result = 6;
+let pointer = new THREE.Vector2(0, 0);
+let mouseTarget = new THREE.Vector2(0, 0);
+let last = performance.now() / 1000;
 
+/* 轻量音效 */
+let actx = null;
+function knock(freq = 170, vol = 0.06){
+  try{
+    if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type = 'triangle'; o.frequency.value = freq;
+    const now = actx.currentTime;
+    g.gain.setValueAtTime(vol, now);
+    g.gain.exponentialRampToValueAtTime(0.0008, now + 0.075);
+    o.connect(g).connect(actx.destination);
+    o.start(now); o.stop(now + 0.08);
+  }catch(e){}
+}
 
+function roll(){
+  if (state === 'rolling' || state === 'winning') return;
+  state = 'rolling';
+  rollStart = performance.now() / 1000;
+  rollDur = 2.05;
+  startQuat.copy(dice.quaternion);
+  result = Math.floor(Math.random() * 6) + 1;
+  targetQuat = targetQuatFor(result);
+  spinAxis.set(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1).normalize();
+  spinTotal = Math.PI * (4 + Math.random() * 2.5);
+  hint.classList.remove('win');
+  hint.style.opacity = '0';
+  setTimeout(() => { hint.textContent = '…'; hint.style.opacity = '.55'; }, 120);
+  knock(150, 0.05);
+}
 
+function tick(){
+  requestAnimationFrame(tick);
+  const now = performance.now() / 1000;
+  const dt = Math.min(now - last, 0.05);
+  last = now;
+  idleT += dt;
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  mouseTarget.x += ((pointer.x * 0.14) - mouseTarget.x) * 0.05;
+  mouseTarget.y += ((pointer.y * 0.10) - mouseTarget.y) * 0.05;
+  camera.position.x = mouseTarget.x;
+  camera.position.y = (camera.aspect < 0.85 ? 0.95 : 0.82) + mouseTarget.y;
+  camera.lookAt(0, 0.02, 0);
 
+  if (state === 'idle' || state === 'settled'){
+    dice.quaternion.setFromEuler(new THREE.Euler(
+      0.10 * Math.sin(idleT * 0.75),
+      idleT * 0.16,
+      0.03 * Math.cos(idleT * 0.55)
+    ));
+    dice.position.y = 0.045 * Math.sin(idleT * 1.15) + 0.02;
+  } else if (state === 'rolling'){
+    const t = Math.min((now - rollStart) / rollDur, 1);
+    const bounce = Math.abs(Math.sin(t * Math.PI * 3.1)) * 0.78 * Math.pow(1 - t, 0.85);
+    dice.position.y = bounce + 0.02;
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    const spin = spinTotal * easeOutCubic(t);
+    const q = startQuat.clone().multiply(new THREE.Quaternion().setFromAxisAngle(spinAxis, spin));
+    if (t > 0.64){
+      const k = easeInOutCubic((t - 0.64) / 0.36);
+      q.slerp(targetQuat, k);
+    }
+    dice.quaternion.copy(q);
 
+    if (t > 0.5 && t < 0.505) knock(120, 0.035);
 
-<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
- <meta name="generator" content="Hugo 0.57.2" />
-        
-        <link href="/index.xml" rel="alternate" type="application/rss+xml" title="SSJ" />
-        <link href="/index.xml" rel="feed" type="application/rss+xml" title="SSJ" />
-        
+    if (t >= 1){
+      dice.quaternion.copy(targetQuat);
+      dice.position.y = 0.02;
+      if (result === 6){
+        state = 'winning';
+        hint.classList.add('win');
+        hint.textContent = '6 点 · 门开了';
+        hint.style.opacity = '1';
+        flash.classList.add('on');
+        knock(520, 0.08);
+        setTimeout(() => knock(780, 0.05), 120);
+        setTimeout(() => {
+          try{ sessionStorage.setItem('dice_pass', '1'); }catch(e){}
+          location.href = './home.html';
+        }, 1150);
+      } else {
+        state = 'settled';
+        hint.classList.remove('win');
+        hint.textContent = '是 ' + result + ' 点 · 再掷一次';
+        hint.style.opacity = '.8';
+        knock(210, 0.035);
+      }
+    }
+  }
 
-        
+  const lift = Math.max(0, dice.position.y);
+  const cs = 1 + lift * 0.30;
+  contact.scale.set(cs, cs, 1);
+  contact.material.opacity = 0.78 * Math.max(0.28, 1 - lift * 0.55);
 
-        
-        
-        <script type="text/javascript" async
-          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-        </script>
-        
-    </head>
+  renderer.render(scene, camera);
+}
 
-    <body>
-         
+/* 交互 */
+const ray = new THREE.Raycaster();
+const pointerNDC = new THREE.Vector2();
 
+function hitDice(clientX, clientY){
+  pointerNDC.x = (clientX / innerWidth) * 2 - 1;
+  pointerNDC.y = -(clientY / innerHeight) * 2 + 1;
+  ray.setFromCamera(pointerNDC, camera);
+  return ray.intersectObjects(dice.children, false).length > 0;
+}
 
-<main>
+canvas.addEventListener('pointermove', e => {
+  pointer.x = (e.clientX / innerWidth) * 2 - 1;
+  pointer.y = (e.clientY / innerHeight) * 2 - 1;
+  canvas.classList.toggle('pointer', hitDice(e.clientX, e.clientY));
+});
 
-    <div class="intro">
-        <h1>SSJ</h1>
-        <h2>one more time one more chance</h2>
-    </div>
+canvas.addEventListener('pointerdown', e => {
+  if (hitDice(e.clientX, e.clientY)) roll();
+});
 
-    <div class="home-post-list">
-        <ul>
-            <li class="home-post-item">
-                <a href="/post/blog-revival/">小站复活记：从 404 到焕然一新</a>
-                <span class="home-post-meta">
-                    <span class="slash">/</span>
-                    <time>2026-05-11</time>
-                </span>
-            </li>
-        </ul>
-    </div>
+addEventListener('keydown', e => {
+  if (e.code === 'Space' || e.code === 'Enter'){ e.preventDefault(); roll(); }
+});
 
-    <p class="home-copyright">© 2019-2026 SSJ</p>
+addEventListener('resize', () => {
+  renderer.setSize(innerWidth, innerHeight, false);
+  frameCamera();
+});
 
-    <div class="home-pagination" style="display: none;">
-        <a href="/page/2/" class="next-page">下一页 →</a>
-    </div>
+try{
+  if (sessionStorage.getItem('dice_pass') === '1'){
+    location.replace('./home.html');
+  }
+}catch(e){}
 
-</main>
-
-       
-    </body>
-
+tick();
+</script>
+</body>
 </html>
