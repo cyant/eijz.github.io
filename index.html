@@ -78,7 +78,6 @@
 <div class="hud">
   <div class="brand"><b>SSJ</b><span>·</span>2019—2026</div>
   <div class="foot">
-    <div class="hint" id="hint">点击骰子 · 掷出 6 点进入</div>
     <div class="sub">one more time, one more chance</div>
   </div>
 </div>
@@ -87,7 +86,6 @@
 import * as THREE from './vendor/three/three.module.min.js';
 
 const canvas = document.getElementById('c');
-const hint = document.getElementById('hint');
 const flash = document.getElementById('flash');
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
@@ -327,9 +325,6 @@ function roll(){
   targetQuat = targetQuatFor(result);
   spinAxis.set(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1).normalize();
   spinTotal = Math.PI * (4 + Math.random() * 2.5);
-  hint.classList.remove('win');
-  hint.style.opacity = '0';
-  setTimeout(() => { hint.textContent = '…'; hint.style.opacity = '.55'; }, 120);
   knock(150, 0.05);
 }
 
@@ -373,9 +368,6 @@ function tick(){
       dice.position.y = 0.02;
       if (result === 6){
         state = 'winning';
-        hint.classList.add('win');
-        hint.textContent = '6 点 · 门开了';
-        hint.style.opacity = '1';
         flash.classList.add('on');
         knock(520, 0.08);
         setTimeout(() => knock(780, 0.05), 120);
@@ -385,9 +377,6 @@ function tick(){
         }, 1150);
       } else {
         state = 'settled';
-        hint.classList.remove('win');
-        hint.textContent = '是 ' + result + ' 点 · 再掷一次';
-        hint.style.opacity = '.8';
         knock(210, 0.035);
       }
     }
