@@ -352,7 +352,7 @@ function roll(){
   if (state === 'rolling' || state === 'winning') return;
   state = 'rolling';
   rollStart = performance.now() / 1000;
-  rollDur = 2.15;
+  rollDur = 2.55;
   startQuat.copy(dice.quaternion);
   resultFace = faces[Math.floor(Math.random() * faces.length)];
   targetQuat = targetFor(resultFace);
@@ -392,18 +392,32 @@ function tick(){
     dice.position.y = 1.02;
   } else if (state === 'rolling'){
     const t = Math.min((now - rollStart) / rollDur, 1);
-    const bounce = Math.abs(Math.sin(t * Math.PI * 3.0)) * 0.95 * Math.pow(1 - t, 0.85);
-    dice.position.y = 1.02 + bounce;
 
-    const spin = spinTotal * easeOutCubic(t);
-    const q = startQuat.clone().multiply(new THREE.Quaternion().setFromAxisAngle(spinAxis, spin));
-    if (t > 0.62){
-      const k = easeInOutCubic((t - 0.62) / 0.38);
-      q.slerp(targetQuat, k);
+    // 弹跳只在前 72% 完成，之后贴地，避免最后一跳
+    const bt = Math.min(t / 0.72, 1);
+    const bounce = Math.abs(Math.sin(bt * Math.PI * 2.4)) * 0.82 * Math.pow(1 - bt, 1.6);
+    const settleBob = t > 0.72
+      ? 0.010 * Math.sin((t - 0.72) * 24) * Math.pow(1 - (t - 0.72) / 0.28, 2)
+      : 0;
+    dice.position.y = 1.02 + bounce + Math.max(0, settleBob);
+
+    // 旋转：自由翻滚 → 贴地对齐 → 最后 8% 完全静止
+    if (t < 0.66){
+      const k = easeOutCubic(t / 0.66);
+      dice.quaternion.copy(startQuat).multiply(
+        new THREE.Quaternion().setFromAxisAngle(spinAxis, spinTotal * k)
+      );
+    } else if (t < 0.92){
+      const q66 = startQuat.clone().multiply(
+        new THREE.Quaternion().setFromAxisAngle(spinAxis, spinTotal)
+      );
+      const k = easeInOutCubic((t - 0.66) / 0.26);
+      dice.quaternion.copy(q66).slerp(targetQuat, k);
+    } else {
+      dice.quaternion.copy(targetQuat);
     }
-    dice.quaternion.copy(q);
 
-    if (t > 0.48 && t < 0.485) knock(118, 0.035);
+    if (t > 0.42 && t < 0.425) knock(118, 0.035);
 
     if (t >= 1){
       dice.quaternion.copy(targetQuat);
